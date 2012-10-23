@@ -1,33 +1,74 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'form.ui'
-#
-# Created: Tue Oct 16 13:25:08 2012
-#      by: pyside-uic 0.2.13 running on PySide 1.1.0
-#
-# WARNING! All changes made in this file will be lost!
+'''
+@author: Jiri Vrany
+
+Editor and test for flow.ini file. Tab Widget.
+'''
+
 from genui.tab.ui_flow_check import Ui_Tab8
 from PySide import QtGui
+from os.path import isfile
 
 from app.parser import flow
+from app.settings import SEPARATOR
 
 class FlowCheck(QtGui.QWidget, Ui_Tab8):
-    
+    '''
+    Tab Widget with generated UI
+    '''
     def __init__(self, parent = None):
         super(FlowCheck, self).__init__(parent)
         self.setupUi(self)
-        self.test_file()
-
-
-    def test_file(self):
-        fname = 'flow_test.ini'
-        ini_file = flow.openFile(fname)
-        self.flow_ini = flow.parser(ini_file)
-        self.file_dict = flow.getDictFromFile(fname)
+    
+    def handle_file(self, ini_file):
+        '''
+        @param ini_file object class FlowIni()
+        '''
+        message = ""
+        if not self._set_labels_from_dict(ini_file.dict_files, ini_file.dir_name):
+            message += "Missing some required files, please check your flow.ini"
+        if not self._set_editor_text(ini_file.text):
+            message += "Failed to populate editor windows"
+            
+        return message    
         
-        #read file once again
-        ini_file.seek(0)
-        text = ini_file.read()
+    def _set_labels_from_dict(self, file_dict, ini_dir):
+        '''
+        set labels in editor
+        @param file_dict = dict of files from FlowIni()
+        @param ini_rid  = flow ini dir, in FlowIni()
+        ''' 
+        
+        everything_ok = True
+               
+        for key, name in file_dict.iteritems():
+            temp_name = ini_dir + SEPARATOR + name
+            test = isfile(temp_name)
+            ltext = flow.LABELS_DICT[key]
+            label = 'label_'+ltext
+            line = 'lineEdit_'+ltext
+            try:
+                current_label = getattr(self, label)
+                current_line = getattr(self, line)
+                if test:
+                    current_label.setText('OK')
+                    current_line.setText(temp_name)
+                else:
+                    current_label.setText('FAIL')
+                    current_line.setText(temp_name)
+                    everything_ok = False 
+            except AttributeError:
+                return False
+        
+        return everything_ok     
+            
+
+
+    def _set_editor_text(self, text):
+        '''
+        @param text / text to be set in flow editor window
+        '''
         self.edit_flow_ini.setPlainText(text)
-        ini_file.close()
+        return True
         

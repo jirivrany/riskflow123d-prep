@@ -16,5 +16,6 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         super(MainTabWidget, self).__init__(parent)
         self.setupUi(self)
         
-        self.addTab(FlowCheck(), TAB_LABELS['flow'])
+        self.tab_flow_ini = FlowCheck()
+        self.addTab(self.tab_flow_ini, TAB_LABELS['flow'])
 

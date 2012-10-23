@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 '''
 # copyright: Jiri Vrany <jiri.vrany@tul.cz>
-# License GPL
+# Technical University of Liberec
+# New Technology Institute
 '''
 
 import sys

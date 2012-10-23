@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//app/parser/flow.py=utf-8
+encoding//genui/form.py=utf-8
+encoding//genui/ui_menu.py=utf-8
+encoding//genui/ui_tabwidget.py=utf-8
+encoding//gui/MainMenu.py=utf-8
+encoding//gui/MainWindow.py=utf-8
+encoding//gui/TabWidget.py=utf-8
+encoding//gui/tab/FlowCheck.py=utf-8
+encoding/rf123d.py=utf-8
