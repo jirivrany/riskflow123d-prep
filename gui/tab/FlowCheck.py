@@ -11,7 +11,7 @@ from PySide import QtGui
 from os.path import isfile
 
 from app.parser import flow
-from app.settings import SEPARATOR
+from app.Settings import SEPARATOR
 
 class FlowCheck(QtGui.QWidget, Ui_Tab8):
     '''
@@ -20,6 +20,10 @@ class FlowCheck(QtGui.QWidget, Ui_Tab8):
     def __init__(self, parent = None):
         super(FlowCheck, self).__init__(parent)
         self.setupUi(self)
+        
+        #will be defined later from main window
+        self.messenger = None
+        
     
     def handle_file(self, ini_file):
         '''

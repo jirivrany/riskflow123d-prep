@@ -9,11 +9,15 @@ Class
 from genui.main_window import Ui_MainWindow
 from PySide.QtGui import QMainWindow, QFileDialog
 
+
 from app.FlowIni import FlowIni
 
-from gui.TabWidget import MainTabWidget
+from gui.MainTabWidget import MainTabWidget
 from gui.MainMenu import MainMenu
 from gui.MainStatusBar import MainStatusBar
+
+
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     '''
@@ -25,9 +29,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
         
+       
+        
         #central widget is tab
         self.centralWidget = MainTabWidget()
         self.setCentralWidget(self.centralWidget)
+        
+        #self.centralWidget.tab_settings.mesaz.speakWord.connect(saySomething)
         
         #main menu of window
         self.menuBar = MainMenu()
@@ -38,6 +46,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         #status bar
         self.statusBar = MainStatusBar()
         self.setStatusBar(self.statusBar)
+        
+        self.centralWidget.messenger.speakWord.connect(self.statusBar.set_message)
         
         self.flow_ini = None
         
