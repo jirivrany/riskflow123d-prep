@@ -6,14 +6,14 @@
 Editor and test for flow.ini file. Tab Widget.
 '''
 
-from genui.tab.ui_flow_check import Ui_Tab8
+from genui.tab.ui_flow_check import Ui_tab_8
 from PySide import QtGui
 from os.path import isfile
 
 from app.parser import flow
 from app.Settings import SEPARATOR
 
-class FlowCheck(QtGui.QWidget, Ui_Tab8):
+class FlowCheck(QtGui.QWidget, Ui_tab_8):
     '''
     Tab Widget with generated UI
     '''
@@ -45,10 +45,15 @@ class FlowCheck(QtGui.QWidget, Ui_Tab8):
         ''' 
         
         everything_ok = True
-               
-        for key, name in file_dict.iteritems():
-            temp_name = ini_dir + SEPARATOR + name
+        
+        print file_dict
+
+        for key, name in flow.EXTENSIONS_DICT['Input'].iteritems():
+            
+            temp_name = ini_dir + SEPARATOR + file_dict[key]
+            print temp_name
             test = isfile(temp_name)
+            print key, name, test
             ltext = flow.LABELS_DICT[key]
             label = 'label_'+ltext
             line = 'lineEdit_'+ltext
@@ -62,6 +67,7 @@ class FlowCheck(QtGui.QWidget, Ui_Tab8):
                     current_label.setText('FAIL')
                     current_line.setText(temp_name)
                     everything_ok = False 
+            
             except AttributeError:
                 return False
         
@@ -73,6 +79,6 @@ class FlowCheck(QtGui.QWidget, Ui_Tab8):
         '''
         @param text / text to be set in flow editor window
         '''
-        self.edit_flow_ini.setPlainText(text)
-        return True
         
+        self.edit_flow_ini.setPlainText(text)
+        return True        
