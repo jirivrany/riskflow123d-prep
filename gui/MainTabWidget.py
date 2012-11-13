@@ -5,12 +5,14 @@ from PySide import QtGui
 
 from gui.tab.FlowCheck import FlowCheck
 from gui.tab.Settings import SettingsTab
+from gui.tab.Material import MaterialTab
 
 from gui.Communicate import Communicate
 
 TAB_LABELS = {
               'flow' : u'Flow ini editor',
               'settings' : u'Settings',
+              'material' : u'Material Editor',
               }
 
 class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
@@ -24,9 +26,12 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         
         self.tab_settings = SettingsTab()
         self.addTab(self.tab_settings, TAB_LABELS['settings'])
+
+        self.tab_material = MaterialTab()
+        self.addTab(self.tab_material, TAB_LABELS['material'])
         
         self.messenger = Communicate()
         
         self.tab_flow_ini.messenger = self.messenger
         self.tab_settings.messenger = self.messenger
-        
+        self.tab_material.messenger = self.messenger

@@ -46,14 +46,10 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         
         everything_ok = True
         
-        print file_dict
-
-        for key, name in flow.EXTENSIONS_DICT['Input'].iteritems():
+        for key in flow.EXTENSIONS_DICT['Input'].iterkeys():
             
             temp_name = ini_dir + SEPARATOR + file_dict[key]
-            print temp_name
             test = isfile(temp_name)
-            print key, name, test
             ltext = flow.LABELS_DICT[key]
             label = 'label_'+ltext
             line = 'lineEdit_'+ltext

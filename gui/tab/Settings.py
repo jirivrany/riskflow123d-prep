@@ -9,8 +9,6 @@ Application Settings Tab
 from genui.tab.ui_settings import Ui_tab_settings
 from PySide.QtGui import QWidget, QFileDialog
 from ast import literal_eval
-from os.path import dirname
-
 
 from app import Settings
 
