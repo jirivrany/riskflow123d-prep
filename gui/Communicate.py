@@ -9,4 +9,5 @@ from PySide.QtCore import QObject, Signal
 class Communicate(QObject):
     # create two new signals on the fly: one will handle
     # int type, the other will handle strings
-    speakWord = Signal(str)
+    send_msg = Signal(str)
+    

@@ -35,19 +35,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.centralWidget = MainTabWidget()
         self.setCentralWidget(self.centralWidget)
         
-        #self.centralWidget.tab_settings.mesaz.speakWord.connect(saySomething)
         
         #main menu of window
         self.menuBar = MainMenu()
         self.setMenuBar(self.menuBar)
         self.menuBar.actionOpen.triggered.connect(self.on_ini_file_open)
-        self.menuBar.actionExit.triggered.connect(self.close)
+        self.menuBar.actionExit.triggered.connect(self.on_app_exit)
         
         #status bar
         self.statusBar = MainStatusBar()
         self.setStatusBar(self.statusBar)
         
-        self.centralWidget.messenger.speakWord.connect(self.statusBar.set_message)
+        self.centralWidget.messenger.send_msg.connect(self.statusBar.set_message)
         
         self.flow_ini = None
         
@@ -69,3 +68,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             message = self.centralWidget.tab_flow_ini.handle_file(self.flow_ini)
             if message:
                 self.statusBar.set_message(message)
+                
+    def on_app_exit(self):
+        '''
+        When user exit the app by button
+        Save last used ini file for quick start next time
+        '''
+        setup = self.centralWidget.tab_settings.setup
+        setup.values['Work']['Last'] = self.flow_ini.file_name
+        setup.save_settings()
+        self.close()  
