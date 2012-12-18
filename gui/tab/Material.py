@@ -6,12 +6,12 @@
 Application Settings Tab
 '''
 
-from genui.tab.ui_material import Ui_material
-from PySide.QtGui import QWidget, QFileDialog
+from genui.tab.ui_material import Ui_tab_material
+from PySide.QtGui import QWidget
 
 from app import Settings
 
-class MaterialTab(QWidget, Ui_material):
+class MaterialTab(QWidget, Ui_tab_material):
     '''
     Settings Tab Widget Matrial with generated UI
     '''

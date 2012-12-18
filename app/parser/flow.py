@@ -65,7 +65,7 @@ def parser(opened_file):
         par = INIConfig(opened_file)
         return par
     except IOError:
-        pass
+        print "failed to handle file"
 
 def parse(opened_file):
     '''search a file for values
