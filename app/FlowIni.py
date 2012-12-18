@@ -23,4 +23,5 @@ class FlowIni(object):
         self.dict_files = flow.get_dict_from_file(fname)
         self.text = flow.get_txt_from_file(fname)
         
-        
+    def get_material_file_name(self):
+        return self.dir_name + path.sep + self.dict_files['Material']

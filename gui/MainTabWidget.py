@@ -54,7 +54,7 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         self.tab_mesh_tools = MeshToolsTab(self)
         self.addTab(self.tab_mesh_tools, TAB_LABELS['mesh_tools'])
         
-        self.setCurrentIndex(3)
+        self.setCurrentIndex(2)
                    
             
     def add_sensitivity_task_tabs(self):

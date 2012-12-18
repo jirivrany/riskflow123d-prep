@@ -22,20 +22,24 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         super(FlowCheck, self).__init__(parent)
         self.setupUi(self)
         
-        
     def handle_file(self, ini_file):
         '''
         Handle given ini file. Check if neccessary files are present.
         Populate editor window with flow.ini file.
         Display warning message in case of failure.
         '''
-        message = "successfully opened the ini file"
         if not self._set_labels_from_dict(ini_file.dict_files, ini_file.dir_name):
             message = "Missing some required files, please check your flow.ini"
+            self.window().statusBar.set_message(message)
+            return False
         if not self._set_editor_text(ini_file.text):
             message = "Failed to populate editor window"
+            self.window().statusBar.set_message(message)
+            return False
         
+        message = "successfully opened the ini file"
         self.window().statusBar.set_message(message)
+        return True 
         
     def _set_labels_from_dict(self, file_dict, ini_dir):
         '''
