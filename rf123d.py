@@ -9,9 +9,13 @@
 import sys
 from PySide import QtGui
 
+
 import gui.MainWindow
 
-if __name__ == '__main__':
+def main():
+	'''
+	main application loop
+	'''
 	app = QtGui.QApplication(sys.argv)
 
 	window = gui.MainWindow.MainWindow()
@@ -19,3 +23,6 @@ if __name__ == '__main__':
 
 	sys.exit(app.exec_())
 
+
+if __name__ == '__main__':
+	main()

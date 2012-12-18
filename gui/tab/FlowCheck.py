@@ -13,6 +13,7 @@ from os.path import isfile
 from app.parser import flow
 from app.Settings import SEPARATOR
 
+
 class FlowCheck(QtGui.QWidget, Ui_tab_8):
     '''
     Tab Widget with generated UI
@@ -21,21 +22,20 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         super(FlowCheck, self).__init__(parent)
         self.setupUi(self)
         
-        #will be defined later from main window
-        self.messenger = None
         
-    
     def handle_file(self, ini_file):
         '''
-        @param ini_file object class FlowIni()
+        Handle given ini file. Check if neccessary files are present.
+        Populate editor window with flow.ini file.
+        Display warning message in case of failure.
         '''
-        message = ""
+        message = "successfully opened the ini file"
         if not self._set_labels_from_dict(ini_file.dict_files, ini_file.dir_name):
-            message += "Missing some required files, please check your flow.ini"
+            message = "Missing some required files, please check your flow.ini"
         if not self._set_editor_text(ini_file.text):
-            message += "Failed to populate editor windows"
-            
-        return message    
+            message = "Failed to populate editor window"
+        
+        self.window().statusBar.set_message(message)
         
     def _set_labels_from_dict(self, file_dict, ini_dir):
         '''

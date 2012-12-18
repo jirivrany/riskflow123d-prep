@@ -42,7 +42,7 @@ class Settings(object):
             
     def load_settings(self):
         '''
-        load data from storgae file and create setup object
+        load data from storage file and create setup object
         '''
         try:
             ftload = open(self.storage,'r')

@@ -20,9 +20,6 @@ class SettingsTab(QWidget, Ui_tab_settings):
         super(SettingsTab, self).__init__(parent)
         self.setupUi(self)
         
-        #will be defined later from main window
-        self.messenger = None
-    
         self.buttonBox.accepted.connect(self.save)
         self.buttonBox.rejected.connect(self.load)
         
@@ -49,7 +46,7 @@ class SettingsTab(QWidget, Ui_tab_settings):
         self.setup.values['Launcher']['Cluster'] = self.launcher_check_hydra.isChecked()
         self.setup.values['Launcher']['Cluster_bin'] = self.edit_cluster_launcher.text()
         self.setup.save_settings()
-        self.messenger.send_msg.emit("Your settings was saved.")
+        self.window().statusBar.set_message("Your settings was saved.")
         
     def load(self):
         '''
@@ -72,7 +69,7 @@ class SettingsTab(QWidget, Ui_tab_settings):
             self.edit_local_launcher.setText(tmp[0])
             self.launcher_check_local.setChecked(True)
         except TypeError:
-            self.messenger.send_msg.emit("pick up of executable has failed")    
+            self.window().statusBar.set_message("Pick up of executable has failed")    
         
     def _pick_up_flow_exe(self):
         '''SetUP output using Qfiledialog'''        

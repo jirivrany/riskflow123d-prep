@@ -1,0 +1,623 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"backgrou",
+				"background-image"
+			],
+			[
+				"padding",
+				"padding-left"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"re",
+				"repeat-x"
+			],
+			[
+				"backg",
+				"background-repeat"
+			],
+			[
+				"back",
+				"background-image"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"tit",
+				"title_image"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"unit",
+				"unittest	(imported, module)"
+			],
+			[
+				"file",
+				"file_dict	(local, instance)"
+			],
+			[
+				"e",
+				"encode()	string"
+			],
+			[
+				"splitC",
+				"splitCount	Default"
+			],
+			[
+				"bin",
+				"binascii	Default"
+			],
+			[
+				"Lo",
+				"LongestCommonSubstring	Default"
+			],
+			[
+				"end",
+				"endswith()	string"
+			],
+			[
+				"fi",
+				"find()	string"
+			],
+			[
+				"q",
+				"QObject	(imported, instance)"
+			],
+			[
+				"tem",
+				"template"
+			],
+			[
+				"pre",
+				"prepare_tabs	Default"
+			],
+			[
+				"char",
+				"char_index	Default"
+			],
+			[
+				"u",
+				"upper()	string"
+			],
+			[
+				"ch",
+				"ch_idx	Default"
+			],
+			[
+				"mem",
+				"memset"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"Cal",
+				"Calc"
+			],
+			[
+				"eval",
+				"evalDisplay"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"i",
+				"inline"
+			],
+			[
+				"dis",
+				"displayValue"
+			],
+			[
+				"va",
+				"validateMathExp"
+			],
+			[
+				"disp",
+				"displayIsSafe"
+			],
+			[
+				"di",
+				"displayValue"
+			],
+			[
+				"l",
+				"li"
+			],
+			[
+				"g",
+				"getElementById"
+			],
+			[
+				"item",
+				"itemForm"
+			],
+			[
+				"get",
+				"getElementById"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/JSLint/JSLint.sublime-build",
+	"command_palette":
+	{
+		"height": 210.0,
+		"selected_items":
+		[
+			[
+				"syntax ht",
+				"Set Syntax: HTML (Tcl)"
+			],
+			[
+				"htm",
+				"HTMLPrettify: Prettify"
+			],
+			[
+				"html",
+				"HTMLPrettify: Prettify"
+			],
+			[
+				"syntax htm",
+				"Set Syntax: HTML"
+			],
+			[
+				"lore",
+				"Snippet: Lorem ipsum"
+			],
+			[
+				"",
+				"Code Folding: Unfold All"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"colo",
+				"Color picker"
+			],
+			[
+				"syntax css",
+				"Set Syntax: CSS"
+			],
+			[
+				"syntax",
+				"Set Syntax: XML"
+			],
+			[
+				"syntaxx",
+				"Set Syntax: XML"
+			],
+			[
+				"syntax pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"synta",
+				"Set Syntax: Java"
+			],
+			[
+				"code",
+				"Code Folding: Unfold All"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"fe",
+				"Fetch: Package"
+			],
+			[
+				"col",
+				"Color picker"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"f",
+				"Fetch: Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"fet",
+				"Fetch: Package"
+			],
+			[
+				"packaa",
+				"Package Control: Install Package"
+			],
+			[
+				"pep",
+				"PEP8: Preview Changes"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"Snippet: ",
+				"Snippet: #!/usr/bin/env"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 394.0
+	},
+	"console":
+	{
+		"height": 148.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/www/apc/wp-content/themes/commune/index.php",
+		"/C/www/apc/wp-content/themes/commune/header.php",
+		"/C/www/apc/wp-content/themes/commune/page_map_h1.php",
+		"/C/python/Console2/cmd2.bat",
+		"/C/skola/vyuka/paa/src/prednaska8/src/cz/tul/nti/prednaska8/MainActivity.java",
+		"/C/www/handicap/mapa.html",
+		"/C/www/apc/wp-content/themes/commune/single.php",
+		"/C/www/apc/wp-content/themes/commune/style.css",
+		"/C/www/apc/wp-content/themes/commune/footer.php",
+		"/C/www/apc/wp-content/themes/commune/author.php",
+		"/C/www/handicap/tym.html",
+		"/C/skola/vyuka/paa/cviceni/calc2/index.html",
+		"/C/skola/vyuka/paa/src/prednaska5/closure/compile-advanced-debug.bat",
+		"/C/skola/vyuka/paa/cviceni/calc2/app-click.js",
+		"/C/www/apc/wp-content/themes/commune/sidebar.php",
+		"/C/www/apc/wp-content/themes/commune/languages/fr_FR.po",
+		"/C/www/apc/wp-content/themes/commune/languages/fr_FR.mo",
+		"/C/skola/vyuka/python/prednasky/TDD_karty/pokus.py",
+		"/C/skola/vyuka/python/prednasky/TDD_karty/card.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni4.txt",
+		"/C/PHP/www/assets/css/mallorca.css",
+		"/C/www/cyklotrenink.com/trenink_layout/mallorca/index.html",
+		"/C/PHP/www/assets/js/mallorca_popup.js",
+		"/C/PHP/www/assets/css/mallorca_popup.css",
+		"/C/www/cyklotrenink.com/trenink_layout/mallorca/text.html",
+		"/C/skola/vyuka/python/prednasky/TDD_karty/test_card.py",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/AutoPEP8/Default (Windows).sublime-keymap",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/SublimeRope/Default (Windows).sublime-keymap",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/User/Python.sublime-settings",
+		"/C/skola/vyuka/python/pjp-2012/cviceni6/zkratky_vstup.txt",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/ukazka_dom.py",
+		"/C/skola/vyuka/python/pjp-2012/cviceni6/zkratky.py",
+		"/C/www/mtbo2012/assets/css/screen.css",
+		"/C/www/mtbo2012/application/views/template/generic.php",
+		"/C/skola/vyuka/paa/archiv/2011/prednaska8/krok3/AndroidManifest.xml",
+		"/C/skola/vyuka/paa/archiv/2011/prednaska8/krok3/src/cz/tul/nti/stelvio/pr8/Prednaska8Activity.java",
+		"/C/skola/vyuka/paa/archiv/2011/prednaska8/krok3/src/cz/tul/nti/stelvio/pr8/myPreferences.java",
+		"/C/skola/vyuka/paa/archiv/2011/prednaska8/krok3/res/xml/preferences.xml",
+		"/C/development/android/Konvertor Penez/src/cz/nti/tul/konvertorpenez/MainActivity.java",
+		"/C/development/android/Konvertor Penez/res/xml/preferences.xml",
+		"/C/python/Python27/Lib/urlparse.py",
+		"/C/Users/albert/.pylintrc",
+		"/C/skola/vyuka/paa/archiv/2011/prednaska8/krok3/res/menu/mainmenu.xml",
+		"/C/skola/vyuka/python/pjp-2012/prednaska7/validace_decorator.py",
+		"/C/skola/vyuka/paa/materialy/android/activity-lifecycle/src/com/example/android/lifecycle/DialogActivity.java",
+		"/C/development/python/RF123D/src/riskflow.py",
+		"/C/skola/vyuka/paa/archiv/2011/src/prednaska8/src/cz/tul/nti/paa/pr8/Prednaska8Activity.java",
+		"/C/skola/vyuka/paa/archiv/2011/src/prednaska8/src/cz/tul/nti/paa/pr8/myPreferences.java",
+		"/C/skola/vyuka/paa/archiv/2011/src/prednaska8/res/values/strings.xml",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/skola/vyuka/python/pjp-2012/cviceni5/Card.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/command.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/cestina.py",
+		"/C/development/temp/test_card.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/validace.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/kgp/stderr.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/kgp/stdout.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/kgp/toolbox.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/tuni.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/balicky.py",
+		"/C/development/python/RF2/gui/MainWindow.py",
+		"/C/development/python/RF2/gui/tab/Material.py",
+		"/C/development/python/RF2/genui/tab/ui_material.py",
+		"/C/development/python/RF2/gui/MainTabWidget.py",
+		"/C/skola/vyuka/python/pjp-2012/cviceni5/test_card.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni3/cviceni3.txt",
+		"/C/skola/vyuka/python/prednasky/src/prednaska7/cesky.xml",
+		"/C/skola/vyuka/python/pjp-2012/cviceni5",
+		"/C/development/qt/rfd_refactor/settings.ui",
+		"/C/development/qt/rfd_refactor/material.ui",
+		"/C/development/python/RF2/test/test_flow.py",
+		"/C/development/python/RF2/app/FlowIni.py",
+		"/C/development/python/RF123D/src/flowIni/flow.py",
+		"/C/development/python/RF2/gui/tab/FlowCheck.py",
+		"/C/development/python/RF2/app/parser/flow.py",
+		"/C/development/python/RF2/genui/tab/ui_flow_check.py",
+		"/C/development/python/RF2/flow_test.ini",
+		"/C/development/python/RF2/rf123d.py",
+		"/C/development/python/RF2/__init__.py",
+		"/C/python/Console2/pythonpath.bat",
+		"/C/development/python/RF2/genui/tab/__init__.py",
+		"/C/development/python/RF123D/data/test_novy_material/flow_t.ini",
+		"/C/development/python/RF123D/data/test_melechov/flow_t.ini",
+		"/C/development/devgames/ukol8.py",
+		"/C/development/devgames.txt",
+		"/C/development/devgames/ukol8data.txt",
+		"/C/development/devgames/file.txt",
+		"/C/development/python/RF2/gui/Communicate.py",
+		"/C/eclipse/android-sdk/tools/android.bat",
+		"/C/development/devgames/vysledek.txt",
+		"/C/development/devgames/ukol3.py",
+		"/C/development/devgames/ukol2.py",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/PySide/Default (Windows).sublime-keymap",
+		"/C/development/android/calc/.gitignore",
+		"/C/skola/vyuka/paa/ruzne/package com.cloud101;.java",
+		"/C/www/repretrenink/application/.gitignore",
+		"/C/skola/vyuka/python/pjp-2012/prednaska6/cviceni3_reseni/timeline.txt",
+		"/C/eclipse/eclipse-4.2-android/dropins/com.github.eclipsecolortheme.themes/themes/css/juno.css",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/Nettuts-Fetch/Fetch.py",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/User/EncodingHelper.sublime-settings",
+		"/C/skola/vyuka/python/pjp-2012/prednaska6/cviceni3_reseni/caesar.py",
+		"/C/skola/vyuka/python/pjp-2012/prednaska6/cviceni3_reseni/profile_caesar.py",
+		"/C/skola/vyuka/python/pjp-2012/prednaska6/cviceni3_reseni/stats_caesar.py",
+		"/C/skola/vyuka/python/pjp-2012/prednaska6/cviceni3_reseni/test_caesar.py",
+		"/C/www/h5bp/index.html",
+		"/C/skola/vyuka/python/pjp-2012/cviceni4/datum.py",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/User/Fetch.sublime-settings",
+		"/C/Users/albert/AppData/Roaming/Sublime Text 2/Packages/User/Package Control.sublime-settings",
+		"/C/development/python/Nettuts-Fetch/Fetch.py",
+		"/C/development/python/Nettuts-Fetch/Default.sublime-commands",
+		"/C/skola/vyuka/python/testyuloh/cviceni3/caesar.py",
+		"/C/skola/vyuka/python/prednasky/src/prednaska6/aktualne.html",
+		"/C/skola/vyuka/python/prednasky/src/prednaska6/hledani_parser.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni2/test_cviceni2.py",
+		"/C/skola/vyuka/python/pjp-2012/cviceni2/reseni.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni2/cviceni2.txt",
+		"/C/Users/albert/Downloads/reseni.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni3/test_cviceni3.py",
+		"/C/www/als/web/pages/publicita.php",
+		"/C/skola/vyuka/python/pjp-2012/prednaska5/ukol2_unit_test/reseni_ref.py",
+		"/C/skola/vyuka/python/pjp-2012/prednaska5/ukol2_unit_test/reseni.py",
+		"/C/skola/vyuka/python/pjp-2012/prednaska5/ukol2_unit_test/reseni_gen.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni3/test_caesar.py",
+		"/C/skola/vyuka/python/testyuloh/cviceni3/test_caesar",
+		"/C/skola/vyuka/python/pjp-2012/.gitignore",
+		"/C/skola/vyuka/python/pjp-2012/prednaska5/ukol2_unit_test/profile_reseni.py",
+		"/C/www/als/web/index.php",
+		"/C/www/als/web/pages/menuHlavni.php"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"#menu",
+			"header",
+			"</span>",
+			"<span style=\"font-family: georgia, palatino; font-size: medium;\">",
+			"</span>",
+			"<span style=\"font-family: 'times new roman', times; font-size: medium;\">",
+			"close",
+			"#ffaabb",
+			"#2a7ebc, #174567",
+			"content",
+			"2F2727",
+			"2a7eb",
+			"1a82f7",
+			"2F2727",
+			"1a82f7",
+			"kurdna",
+			"material",
+			"dirname",
+			"(\\d+) (\\d+)$",
+			"(.*)$",
+			"cake|Cake",
+			"01100001",
+			"updateTextField()",
+			"processNumbers();",
+			"updateTextField();",
+			"register",
+			"#333",
+			"333333",
+			"a_code",
+			"caesar.",
+			"reseni",
+			"([0-9\\.]+)(.*)",
+			"\"([0-9a-z]+\\.jpg)\"",
+			"resultInput",
+			"parseInt",
+			"update_result_display",
+			"DIVIDE",
+			"MAX_CHARS_SHOWABLE_IN_RESULT_INPUT",
+			"MIN_RESULT_FONT_SIZE",
+			"precedes",
+			"data-keypress",
+			"resultInput",
+			"eval2",
+			" onmousedown=\"Calc.append(this); return false;\"",
+			"#basic",
+			"localDB"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"($1, $2),",
+			"$1),",
+			"<tr><td>$1</td><td>$2</td></tr>",
+			"\"media/images/zkusenost/$1\"",
+			"",
+			"#board"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"encoding_helper_encoding_sublime": "UTF-8",
+							"syntax": "Packages/TCL/HTML (Tcl).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 120.0
+	},
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"caesa",
+				"/C/skola/vyuka/python/testyuloh/cviceni3/caesar.py"
+			],
+			[
+				"",
+				"/C/skola/vyuka/python/testyuloh/cviceni3/test_cviceni3.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 218.0,
+	"status_bar_visible": true
+}

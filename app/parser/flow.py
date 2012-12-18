@@ -10,11 +10,23 @@ __date__  = "$23.10.2012$"
 from iniparse import INIConfig 
 
 EXTENSIONS_DICT = {
-                    'Input':{'Mesh':'msh', 'Material':'mtr', 'Boundary':'bcd', 'Neighbouring':'ngh'}, 
-                    'Transport' :{'Concentration':'ict', 'Transport_BCD':'bct', 'Transport_out':'pos'},
+                    'Input':{ 'Mesh':'msh',
+                              'Material':'mtr', 
+                              'Boundary':'bcd', 
+                              'Neighbouring':'ngh'},
+                    
+                    'Transport' :{'Concentration':'ict', 
+                                  'Transport_BCD':'bct', 
+                                  'Transport_out':'pos'},
                     }
 
-LABELS_DICT = {'Mesh':'msh', 'Material':'mtr', 'Boundary':'bcd', 'Neighbouring':'ngh', 'Concentration':'ict', 'Transport_BCD':'bct', 'Transport_out':'pos'}
+LABELS_DICT = {'Mesh':'msh', 
+               'Material':'mtr', 
+               'Boundary':'bcd', 
+               'Neighbouring':'ngh', 
+               'Concentration':'ict', 
+               'Transport_BCD':'bct', 
+               'Transport_out':'pos'}
                     
 
 def open_file(file_name):
