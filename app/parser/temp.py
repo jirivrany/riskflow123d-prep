@@ -65,4 +65,20 @@ def dictToCollections(self,workdct = 'self'):
                 outFile.write('\n')
             outFile.write('$End'+mtr_prop+'\n')
                         
-        self.restart_app_clear(outFile)   
+        self.restart_app_clear(outFile)
+        
+        
+        
+        
+            '''
+            for attribute1 in vlast:
+                atStr = False
+                if len(getattr(current_material,attribute1)) > 0:
+                    atStr = str(current_material.id)
+                    for atVal in getattr(current_material,attribute1):
+                        atStr += '\t'
+                        atStr += atVal
+                
+                if atStr:        
+                    getattr(self,'li_' + attribute1).append(atStr)         
+            '''   

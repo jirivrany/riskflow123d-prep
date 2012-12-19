@@ -11,15 +11,26 @@ TEST_KEYS = ['9617', '9207', '4300', '9612', '9200', '9107', '9100', '4100', '94
 MOCK_KEY = '9500'
 MOCK_MATERIAL = {
                  'type': '31',
-                 'type_spec': ['0.0056306766',]
+                 'type_spec': '0.0056306766'
                  }
 
-MOCK_MATERIAL['storativity'] = ['0.01',]
-MOCK_MATERIAL['sorption'] = ['0.00',]
-MOCK_MATERIAL['dualporosity'] = ['0.05',]
-MOCK_MATERIAL['sorptionfraction'] = ['0.00',]
-MOCK_MATERIAL['geometry'] = []
-MOCK_MATERIAL['reactions'] = []
+MOCK_MATERIAL['storativity'] = '0.01'
+MOCK_MATERIAL['sorption'] = '0.00'
+MOCK_MATERIAL['dualporosity'] = '0.05'
+MOCK_MATERIAL['sorptionfraction'] = '0.00'
+MOCK_MATERIAL['geometry_type'] = None
+MOCK_MATERIAL['geometry_spec'] = None
+MOCK_MATERIAL['reactions'] = None
+
+MOCK_COLLECTION = {
+                   'materials' : ['9500\t31\t0.0056306766'],
+                   'storativity' : ['0.01',],
+                   'sorption' : ['0.00',],
+                   'dualporosity' : ['0.05'],
+                   'sorptionfraction' : ['0.00',],
+                   'geometry' : [],
+                   'reactions' : [],
+               }
 
 
 inpt = '/development/python/rf2/test/data/material/mm.mtr'
@@ -34,8 +45,15 @@ def test_secific_values():
     assert TEST_MAT[MOCK_KEY] == MOCK_MATERIAL        
 
 def test_bad_load():
+    '''it should test raise exception for bad data'''
     inpt = '/development/python/rf2/test/data/material/mtr_v5_10_2.mtr'
     with pytest.raises(material.EmptyListException):
         p = material.MaterialDict(inpt)
         print p
+        
+def test_create_collections():
+    '''it should convert data to list'''
+    inpt = '/development/python/rf2/test/data/material/mock.mtr'
+    mock_mat = material.MaterialDict(inpt)
+    assert mock_mat.create_collections() == MOCK_COLLECTION
     

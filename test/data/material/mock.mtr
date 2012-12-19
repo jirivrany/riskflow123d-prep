@@ -1,0 +1,23 @@
+$MaterialFormat
+1.0  0  8
+$EndMaterialFormat
+$Materials
+1
+9500	31	0.0056306766
+$EndMaterials
+$Storativity
+9500	0.01
+$EndStorativity
+$Geometry
+$EndGeometry
+$Sorption
+9500	0.00
+$EndSorption
+$SorptionFraction
+9500	0.00
+$EndSorptionFraction
+$DualPorosity
+9500	0.05
+$EndDualPorosity
+$Reactions
+$EndReactions

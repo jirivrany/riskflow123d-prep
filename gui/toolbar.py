@@ -14,10 +14,11 @@ class MainToolBar(QToolBar):
     
     def __init__(self, parent = None):
         '''
-        Constructor
+        Constructor and basic setup
         '''
         super(MainToolBar, self).__init__(parent)
         self.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.setMovable(False)
         
 class QuickStartAction(QAction):
     '''
