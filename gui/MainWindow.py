@@ -13,6 +13,7 @@ from PySide.QtGui import QMainWindow, QFileDialog
 from gui.MainTabWidget import MainTabWidget
 from gui.MainMenu import MainMenu
 from gui.MainStatusBar import MainStatusBar
+import gui.toolbar
 
 from app.FlowIni import FlowIni
 import app.parser.material as material
@@ -43,13 +44,36 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusBar = MainStatusBar(self)
         self.setStatusBar(self.statusBar)
         
+        self.toolBar = gui.toolbar.MainToolBar(self)
+        self.addToolBar(self.toolBar)
+        self.action_exit = gui.toolbar.ExitAction()
+        self.action_solve = gui.toolbar.SolveAction()
+        self.action_quick_start = gui.toolbar.QuickStartAction()
+        
+        self.set_toolbar_actions()
+        
         #app object
         self.flow_ini = None
         self.material_dict = None
         
         #let's roll
-        self.quick_start()
+        #self.quick_start()
     
+    def hello(self):
+        print 'hello'
+        
+    def set_toolbar_actions(self):
+        '''
+        set the actions for toolbar
+        '''
+        
+        self.toolBar.addAction(self.action_quick_start)
+        self.toolBar.addAction(self.action_solve)
+        self.toolBar.addAction(self.action_exit)
+        self.action_exit.triggered.connect(self.on_app_exit)
+        self.action_solve.triggered.connect(self.hello)
+        self.action_quick_start.triggered.connect(self.quick_start)       
+            
     def set_menubar_actions(self):
         '''
         set actions for menubar

@@ -53,6 +53,9 @@ class MaterialDict(dict):
     '''
     Material file parser. Open file and creates dictionary where keys
     are id's of materials and items are Material objects.
+    
+    Values are stored as strings, they are mostly printed and need to be 
+    in case of numerical operations
     '''
     def __init__(self, file_name):
         '''open the ini file and creates dictionary with values of interest'''
@@ -106,7 +109,7 @@ class MaterialDict(dict):
                     if not(self.has_key(key)):
                         new_material = Material()
                         new_material['type'] = mtr_type
-                        new_material['type_spec'].append(float(mtr_type_spec))
+                        new_material['type_spec'].append(mtr_type_spec)
                         self[key] = new_material
                         
                 elif(self.attribute_name.count('density') == 0):
@@ -114,7 +117,7 @@ class MaterialDict(dict):
                     
                     key = data[0]
                     if self.has_key(key) and data[1:]:
-                        self[key][self.attribute_name].extend(map(float, data[1:]))
+                        self[key][self.attribute_name].extend( data[1:])
                         
         except ValueError:
             pass

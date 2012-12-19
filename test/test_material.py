@@ -11,13 +11,13 @@ TEST_KEYS = ['9617', '9207', '4300', '9612', '9200', '9107', '9100', '4100', '94
 MOCK_KEY = '9500'
 MOCK_MATERIAL = {
                  'type': '31',
-                 'type_spec': [0.0056306766,]
+                 'type_spec': ['0.0056306766',]
                  }
 
-MOCK_MATERIAL['storativity'] = [0.01,]
-MOCK_MATERIAL['sorption'] = [0.0,]
-MOCK_MATERIAL['dualporosity'] = [0.05,]
-MOCK_MATERIAL['sorptionfraction'] = [0.0,]
+MOCK_MATERIAL['storativity'] = ['0.01',]
+MOCK_MATERIAL['sorption'] = ['0.00',]
+MOCK_MATERIAL['dualporosity'] = ['0.05',]
+MOCK_MATERIAL['sorptionfraction'] = ['0.00',]
 MOCK_MATERIAL['geometry'] = []
 MOCK_MATERIAL['reactions'] = []
 
