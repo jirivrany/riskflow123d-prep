@@ -4,8 +4,8 @@ Created on 19.12.2012
 @author: Jiri Vrany
 '''
 
-from PySide.QtGui import QToolBar, QAction, QIcon
-from PySide.QtCore import Qt
+from PyQt4.QtGui import QToolBar, QAction, QIcon
+from PyQt4.QtCore import Qt
 
 class MainToolBar(QToolBar):
     '''

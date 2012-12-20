@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from genui.ui_tabwidget import Ui_TabWidget
-from PySide import QtGui
+from PyQt4 import QtGui
 
 from gui.tab.FlowCheck import FlowCheck
 from gui.tab.Settings import SettingsTab

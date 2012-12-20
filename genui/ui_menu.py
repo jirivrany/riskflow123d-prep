@@ -2,41 +2,55 @@
 
 # Form implementation generated from reading ui file 'menu.ui'
 #
-# Created: Tue Oct 16 15:58:07 2012
-#      by: pyside-uic 0.2.13 running on PySide 1.1.0
+# Created: Thu Dec 20 12:03:30 2012
+#      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
 
-from PySide import QtCore, QtGui
+from PyQt4 import QtCore, QtGui
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_menuBar(object):
     def setupUi(self, menuBar):
-        menuBar.setObjectName("menuBar")
+        menuBar.setObjectName(_fromUtf8("menuBar"))
         menuBar.resize(680, 21)
         self.menu_Ini_File = QtGui.QMenu(menuBar)
-        self.menu_Ini_File.setObjectName("menu_Ini_File")
+        self.menu_Ini_File.setObjectName(_fromUtf8("menu_Ini_File"))
         self.menuSo_lve = QtGui.QMenu(menuBar)
-        self.menuSo_lve.setObjectName("menuSo_lve")
+        self.menuSo_lve.setObjectName(_fromUtf8("menuSo_lve"))
         self.menuTools = QtGui.QMenu(menuBar)
-        self.menuTools.setObjectName("menuTools")
+        self.menuTools.setObjectName(_fromUtf8("menuTools"))
         self.actionOpen = QtGui.QAction(menuBar)
-        self.actionOpen.setObjectName("actionOpen")
+        self.actionOpen.setObjectName(_fromUtf8("actionOpen"))
         self.actionClose = QtGui.QAction(menuBar)
-        self.actionClose.setObjectName("actionClose")
+        self.actionClose.setObjectName(_fromUtf8("actionClose"))
         self.actionSave = QtGui.QAction(menuBar)
-        self.actionSave.setObjectName("actionSave")
+        self.actionSave.setObjectName(_fromUtf8("actionSave"))
         self.actionExit = QtGui.QAction(menuBar)
-        self.actionExit.setObjectName("actionExit")
+        self.actionExit.setObjectName(_fromUtf8("actionExit"))
         self.actionBasic_Problem = QtGui.QAction(menuBar)
-        self.actionBasic_Problem.setObjectName("actionBasic_Problem")
+        self.actionBasic_Problem.setObjectName(_fromUtf8("actionBasic_Problem"))
         self.actionMonte_Carlo = QtGui.QAction(menuBar)
-        self.actionMonte_Carlo.setObjectName("actionMonte_Carlo")
+        self.actionMonte_Carlo.setObjectName(_fromUtf8("actionMonte_Carlo"))
         self.actionSensitivy_task = QtGui.QAction(menuBar)
-        self.actionSensitivy_task.setObjectName("actionSensitivy_task")
+        self.actionSensitivy_task.setObjectName(_fromUtf8("actionSensitivy_task"))
         self.actionQuick_start = QtGui.QAction(menuBar)
-        self.actionQuick_start.setObjectName("actionQuick_start")
+        self.actionQuick_start.setObjectName(_fromUtf8("actionQuick_start"))
         self.actionSave_Material = QtGui.QAction(menuBar)
-        self.actionSave_Material.setObjectName("actionSave_Material")
+        self.actionSave_Material.setObjectName(_fromUtf8("actionSave_Material"))
         self.menu_Ini_File.addSeparator()
         self.menu_Ini_File.addAction(self.actionOpen)
         self.menu_Ini_File.addAction(self.actionClose)
@@ -56,16 +70,16 @@ class Ui_menuBar(object):
         QtCore.QMetaObject.connectSlotsByName(menuBar)
 
     def retranslateUi(self, menuBar):
-        self.menu_Ini_File.setTitle(QtGui.QApplication.translate("menuBar", "&Ini File", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuSo_lve.setTitle(QtGui.QApplication.translate("menuBar", "So&lve", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuTools.setTitle(QtGui.QApplication.translate("menuBar", "Tools", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionOpen.setText(QtGui.QApplication.translate("menuBar", "Open", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionClose.setText(QtGui.QApplication.translate("menuBar", "Close", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSave.setText(QtGui.QApplication.translate("menuBar", "Save", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionExit.setText(QtGui.QApplication.translate("menuBar", "Exit", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionBasic_Problem.setText(QtGui.QApplication.translate("menuBar", "Basic Problem", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionMonte_Carlo.setText(QtGui.QApplication.translate("menuBar", "Monte Carlo", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSensitivy_task.setText(QtGui.QApplication.translate("menuBar", "Sensitivy task", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionQuick_start.setText(QtGui.QApplication.translate("menuBar", "Quick start", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionSave_Material.setText(QtGui.QApplication.translate("menuBar", "Save Material", None, QtGui.QApplication.UnicodeUTF8))
+        self.menu_Ini_File.setTitle(_translate("menuBar", "&Ini File", None))
+        self.menuSo_lve.setTitle(_translate("menuBar", "So&lve", None))
+        self.menuTools.setTitle(_translate("menuBar", "Tools", None))
+        self.actionOpen.setText(_translate("menuBar", "Open", None))
+        self.actionClose.setText(_translate("menuBar", "Close", None))
+        self.actionSave.setText(_translate("menuBar", "Save", None))
+        self.actionExit.setText(_translate("menuBar", "Exit", None))
+        self.actionBasic_Problem.setText(_translate("menuBar", "Basic Problem", None))
+        self.actionMonte_Carlo.setText(_translate("menuBar", "Monte Carlo", None))
+        self.actionSensitivy_task.setText(_translate("menuBar", "Sensitivy task", None))
+        self.actionQuick_start.setText(_translate("menuBar", "Quick start", None))
+        self.actionSave_Material.setText(_translate("menuBar", "Save Material", None))
 

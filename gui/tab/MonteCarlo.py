@@ -8,7 +8,7 @@ Tab widget for Mesh Tools
 '''
 
 from genui.tab.ui_montecarlo import Ui_MonteCarlo
-from PySide.QtGui import QWidget
+from PyQt4.QtGui import QWidget
 
 from app import Settings
 

@@ -1,8 +1,12 @@
 eclipse.preferences.version=1
 encoding//app/parser/flow.py=utf-8
 encoding//app/parser/material.py=utf-8
-encoding//genui/form.py=utf-8
+encoding//genui/tab/ui_flow_check.py=utf-8
 encoding//genui/tab/ui_material.py=utf-8
+encoding//genui/tab/ui_mesh_settings.py=utf-8
+encoding//genui/tab/ui_mesh_tools.py=utf-8
+encoding//genui/tab/ui_montecarlo.py=utf-8
+encoding//genui/tab/ui_sensitivity.py=utf-8
 encoding//genui/tab/ui_settings.py=utf-8
 encoding//genui/ui_menu.py=utf-8
 encoding//genui/ui_tabwidget.py=utf-8

@@ -7,7 +7,7 @@ Application Settings Tab
 '''
 
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
-from PySide.QtGui import QWidget
+from PyQt4.QtGui import QWidget
 
 from app import Settings
 

@@ -8,7 +8,7 @@ Tab widget for Mesh Tools
 '''
 
 from genui.tab.ui_mesh_tools import Ui_MeshTools
-from PySide.QtGui import QWidget
+from PyQt4.QtGui import QWidget
 
 from app import Settings
 

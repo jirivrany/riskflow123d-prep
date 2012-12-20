@@ -7,7 +7,7 @@ Application Settings Tab
 '''
 
 from genui.tab.ui_material import Ui_tab_material
-from PySide.QtGui import QWidget, QIntValidator, QDoubleValidator
+from PyQt4.QtGui import QWidget, QIntValidator, QDoubleValidator
 
 
 class MaterialTab(QWidget, Ui_tab_material):
@@ -46,7 +46,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         try:
             material = self.window().material_dict[idx]
         except KeyError:
-            self.window().statusBar.set_message(\
+            self.window().statusBar.showMessage(\
                 'ERROR - no such material : {}'.format(idx), 8000)
         else:
             #type and type spec (conductivity)

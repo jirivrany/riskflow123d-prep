@@ -7,7 +7,7 @@ Editor and test for flow.ini file. Tab Widget.
 '''
 
 from genui.tab.ui_flow_check import Ui_tab_8
-from PySide import QtGui
+from PyQt4 import QtGui
 from os.path import isfile
 
 from app.parser import flow
@@ -30,15 +30,15 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         '''
         if not self._set_labels_from_dict(ini_file.dict_files, ini_file.dir_name):
             message = "Missing some required files, please check your flow.ini"
-            self.window().statusBar.set_message(message)
+            self.window().statusBar.showMessage(message)
             return False
         if not self._set_editor_text(ini_file.text):
             message = "Failed to populate editor window"
-            self.window().statusBar.set_message(message)
+            self.window().statusBar.showMessage(message, 5000)
             return False
         
         message = "successfully opened the ini file"
-        self.window().statusBar.set_message(message)
+        self.window().statusBar.showMessage(message, 5000)
         return True 
         
     def _set_labels_from_dict(self, file_dict, ini_dir):

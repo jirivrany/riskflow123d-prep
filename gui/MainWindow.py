@@ -6,8 +6,7 @@ MainWindow of the app.
 Class
 '''
 
-from genui.main_window import Ui_MainWindow
-from PySide.QtGui import QMainWindow, QFileDialog
+from PyQt4.QtGui import QMainWindow, QFileDialog
 
 
 from gui.MainTabWidget import MainTabWidget
@@ -20,7 +19,7 @@ import app.parser.material as material
 
 
 
-class MainWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow):
     '''
     Main Application Window
     Factory for main widgets - action bar and tool bar, central tab
@@ -29,7 +28,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        self.setupUi(self)
+        #self.setupUi(self)
         
         #central widget is tab
         self.centralWidget = MainTabWidget(self)
@@ -116,13 +115,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             self.flow_ini = FlowIni(fname)
         except TypeError:
-            self.statusBar.set_message("Nothing to do", 500) 
+            self.statusBar.showMessage("Nothing to do", 500) 
         finally:        
             if self.centralWidget.tab_flow_ini.handle_file(self.flow_ini):
                 self.load_material()
                 self.load_mesh()
             else:
-                self.statusBar.set_message('ERROR in ini file', 8000)
+                self.statusBar.showMessage('ERROR in ini file', 8000)
                 
     def load_material(self):
         '''
@@ -132,9 +131,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         try:
             self.material_dict = material.MaterialDict(self.flow_ini.get_material_file_name())
         except material.EmptyListException:
-            self.statusBar.set_message('Error loading material from file', 8000)
+            self.statusBar.showMessage('Error loading material from file', 8000)
         finally:
-            self.statusBar.set_message('Material file loaded', 8000)
+            self.statusBar.showMessage('Material file loaded', 8000)
     
     def load_mesh(self):
         '''

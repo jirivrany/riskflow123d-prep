@@ -5,7 +5,7 @@ Created on 16.10.2012
 @author: albert
 '''
 
-from PySide.QtGui import QMenuBar
+from PyQt4.QtGui import QMenuBar
 from genui.ui_menu import Ui_menuBar
 
 
