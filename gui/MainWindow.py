@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
     
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
-        #self.setupUi(self)
+        self.resize(800, 600)
         
         #central widget is tab
         self.centralWidget = MainTabWidget(self)
@@ -79,6 +79,7 @@ class MainWindow(QMainWindow):
         '''
         self.menuBar.actionOpen.triggered.connect(self.on_ini_file_open)
         self.menuBar.actionExit.triggered.connect(self.on_app_exit)
+        self.menuBar.actionSave.triggered.connect(self.on_ini_file_save)
         
         self.menuBar.actionMonte_Carlo.triggered.connect( \
                              self.centralWidget.add_monte_carlo_tabs )
@@ -122,6 +123,16 @@ class MainWindow(QMainWindow):
                 self.load_mesh()
             else:
                 self.statusBar.showMessage('ERROR in ini file', 8000)
+                
+    def on_ini_file_save(self):
+        '''
+        Action onSave handler
+        save changes from editor
+        '''
+        fname = self.flow_ini.file_name
+        if self.centralWidget.tab_flow_ini.dialog_ini_file_save(fname):
+            self.start_main_routine(fname)
+            
                 
     def load_material(self):
         '''

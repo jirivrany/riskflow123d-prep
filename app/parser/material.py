@@ -3,12 +3,9 @@
 Class representing materials in flow .mtr file
 '''
 
-__author__ = "albert"
-__date__ = "$10.8.2011 13:37:40$"
-
-
 import re
 import sys
+import os
 
 
 ORDER_OF_MTR = (
@@ -118,7 +115,7 @@ class MaterialDict(dict):
                     self[key]['geometry_type'] = geometry_type
                     self[key]['geometry_spec'] = geometry_spec
                     
-                elif(self.attribute_name.count('density') == 0):
+                else:
                     data = line.split(';')
                     
                     key = data[0]
@@ -133,6 +130,8 @@ class MaterialDict(dict):
         Converts values to several lists of attributes
         Those lists can be easily written as output in flow.mtr format
         '''
+        simple_keys = ('storativity', 'sorption', 'dualporosity', 'sorptionfraction', 'reactions')
+        
         result_data = {
                        'materials' : [],
                        'storativity' : [],
@@ -154,17 +153,43 @@ class MaterialDict(dict):
                 geometry_string = '%s\t%s\t%s' % \
                     (key, wrk_mat['geometry_type'], wrk_mat['geometry_spec'])    
                 result_data['geometry'].append(geometry_string)
-        
-            result_data['storativity'].append(wrk_mat['storativity'])
-            result_data['sorption'].append( wrk_mat['sorption'])
-            result_data['dualporosity'].append( wrk_mat['dualporosity'])
-            result_data['sorptionfraction'].append( wrk_mat['sorptionfraction'])
-            if wrk_mat['reactions']:
-                result_data['reactions'].append( wrk_mat['reactions'])
+            
+            for material_property in simple_keys:
+                if wrk_mat[material_property] is not None:
+                    temp_string = '{}\t{}'.format(key, wrk_mat[material_property])
+                    result_data[material_property].append(temp_string)
  
         return result_data
+    
+    def save_changes(self, file_name):
+        '''
+        Save values in flow.mtr format to file_name
+        '''
+        try:
+            output_file = open(file_name,'w')
+        except IOError:
+            adr = os.path.dirname(file_name)
+            try: 
+                os.mkdir(adr)
+                output_file = open(file_name,'w')
+            except IOError:    
+                print 'Error: file %s did not exists. Failed to create dir %s' % (file_name, adr)
+                return
+        
+        data_to_save = self.create_collections()
+        
+        output_file.write(FILE_HEAD)
+        
+        for material_property in ORDER_OF_MTR:
+            output_file.write('${}\n'.format(material_property))
+            key = material_property.lower()
+            if material_property == 'Materials':
+                output_file.write(str(len(data_to_save['materials'])) + '\n')
+            
+            for line in data_to_save[key]:
+                output_file.write(line)
+                output_file.write('\n')
+            output_file.write('$End{}\n'.format(material_property))
+                        
 
-if __name__ == '__main__':
-    inpt = '/development/python/rf2/test/data/material/mm.mtr'
-    tsss = MaterialDict(inpt)            
-       
+    

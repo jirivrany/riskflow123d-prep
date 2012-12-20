@@ -24,10 +24,10 @@ MOCK_MATERIAL['reactions'] = None
 
 MOCK_COLLECTION = {
                    'materials' : ['9500\t31\t0.0056306766'],
-                   'storativity' : ['0.01',],
-                   'sorption' : ['0.00',],
-                   'dualporosity' : ['0.05'],
-                   'sorptionfraction' : ['0.00',],
+                   'storativity' : ['9500\t0.01',],
+                   'sorption' : ['9500\t0.00',],
+                   'dualporosity' : ['9500\t0.05'],
+                   'sorptionfraction' : ['9500\t0.00',],
                    'geometry' : [],
                    'reactions' : [],
                }
@@ -56,4 +56,12 @@ def test_create_collections():
     inpt = '/development/python/rf2/test/data/material/mock.mtr'
     mock_mat = material.MaterialDict(inpt)
     assert mock_mat.create_collections() == MOCK_COLLECTION
+    
+def test_write_changes():
+    '''it should make a copy of original file'''
+    inpt = '/development/python/rf2/test/data/material/mm.mtr'
+    tsss = material.MaterialDict(inpt)
+    oooo = '/development/python/rf2/test/data/material/mm-output.mtr'            
+    tsss.save_changes(oooo)
+    assert open(inpt).read() == open(oooo).read()       
     

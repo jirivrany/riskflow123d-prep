@@ -11,6 +11,8 @@ from gui.tab.MeshTools import MeshToolsTab
 from gui.tab.Sensitivity import SensitivityTab
 from gui.tab.MonteCarlo import MonteCarloTab
 
+from app.helpers import output_dir
+
 TAB_LABELS = {
               'flow' : u'Flow ini editor',
               'settings' : u'Settings',
@@ -103,7 +105,9 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         it has to be created after task ini file is loaded
         '''
         self.tab_material = MaterialTab(self)
-        self.addTab(self.tab_material, TAB_LABELS['material'])        
+        self.addTab(self.tab_material, TAB_LABELS['material'])
+        
+    
         
    
         

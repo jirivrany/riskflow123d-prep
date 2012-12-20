@@ -39,7 +39,25 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         
         message = "successfully opened the ini file"
         self.window().statusBar.showMessage(message, 5000)
-        return True 
+        return True
+    
+    def dialog_ini_file_save(self, file_name):
+        '''
+        Save changes in flow.ini file
+        Rewrites original file
+        '''
+        try:
+            ini_file = open(file_name, 'w')
+            temp_text = self.edit_flow_ini.toPlainText()
+            ini_file.write(temp_text)
+            ini_file.close()
+            self.window().statusBar.showMessage('Flow.ini saved', 8000)
+            return True
+        except IOError:
+            self.window().statusBar.showMessage('ERROR - can not save flow ini', 8000)
+            return False
+        
+     
         
     def _set_labels_from_dict(self, file_dict, ini_dir):
         '''

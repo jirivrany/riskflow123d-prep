@@ -20,6 +20,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         
         self.selector_material.activated.connect(self.get_material_from_dict)
         self.button_cancel_mtr_edit.clicked.connect(self.get_material_from_dict)
+        self.button_save_mtr_mem.clicked.connect(self.set_material_to_dict)
        
         self.__set_validators()
         
@@ -41,7 +42,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         
     def get_material_from_dict(self):
         '''in selector is id of material, try to get it and fill up the form'''
-        idx = self.selector_material.currentText()
+        idx = str(self.selector_material.currentText())
         
         try:
             material = self.window().material_dict[idx]
@@ -51,19 +52,39 @@ class MaterialTab(QWidget, Ui_tab_material):
         else:
             #type and type spec (conductivity)
             self.edit_type.setText(material['type'])
-            self.edit_specific_data.setText(material['type_spec'][0])
+            self.edit_specific_data.setText(material['type_spec'])
             #geometry
             self.edit_geometry_type.setDisabled(True)
             if material['type'] == '21':
                 self.edit_geometry_coeficient.setEnabled(True)
-                self.edit_geometry_type.setText(material['geometry'][0])
-                self.edit_geometry_coeficient.setText(material['geometry'][1])
+                self.edit_geometry_type.setText(material['geometry_type'])
+                self.edit_geometry_coeficient.setText(material['geometry_spec'])
             else:
                 self.edit_geometry_coeficient.setDisabled(True)
             #storativity
-            self.edit_storativity.setText(material['storativity'][0])
+            self.edit_storativity.setText(material['storativity'])
             #dual porosity
-            self.editl_dual_porosity.setText(material['dualporosity'][0])     
+            self.editl_dual_porosity.setText(material['dualporosity'])
+            
+    def set_material_to_dict(self):
+        '''
+           in selector is index of material
+           try to get current form values and update data in memory 
+        '''
+        idx = str(self.selector_material.currentText())
+        try:
+            material_object = self.window().material_dict[idx]
+            material_object['type_spec'] = str(self.edit_specific_data.text())
+            material_object['geometry_type'] = str(self.edit_geometry_type.text())
+            material_object['geometry_spec'] = str(self.edit_geometry_coeficient.text())
+            material_object['storativity'] = str(self.edit_storativity.text())
+            material_object['dualporosity'] = str(self.editl_dual_porosity.text())
+            
+        except KeyError:
+            self.window().statusBar.showMessage('ERROR no save', 2000)
+       
+        self.window().statusBar.showMessage('MTR changes saved to Memory', 2000)
+       
         
     def __set_validators(self):
         '''
