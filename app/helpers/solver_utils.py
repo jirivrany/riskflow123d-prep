@@ -28,6 +28,8 @@ def copy_master_files(flow_ini, output_dir, separator):
         os.mkdir(output_dir)
         
     original_dir = flow_ini.dir_name
+    
+    shutil.copy2(flow_ini.file_name, output_dir)
         
     for master_file_name in flow_ini.dict_files.values():
         src = original_dir + separator + master_file_name
