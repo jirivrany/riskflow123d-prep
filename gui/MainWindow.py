@@ -210,8 +210,10 @@ class MainWindow(QMainWindow):
             'monte' : self.solve_monte_carlo,
             'sens' : self.solve_sensitivity_task,
             }
-        
-        possible_methods[self.current_problem]()
+        try:
+            possible_methods[self.current_problem]()
+        except KeyError:
+            self.statusBar.showMessage("Can't run - first open some problem to solve")
         
     def solve_basic_problem(self):
         '''

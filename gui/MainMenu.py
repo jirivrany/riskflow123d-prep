@@ -26,6 +26,7 @@ class MainMenu(QMenuBar, Ui_menuBar):
         self.actionMonte_Carlo.setDisabled(True)
         self.actionBasic_Problem.setDisabled(True)
         self.actionSensitivy_task.setDisabled(True)
+        self.actionRunSolver.setDisabled(True)
         
     def enable_solver_actions(self):
         '''
@@ -34,3 +35,4 @@ class MainMenu(QMenuBar, Ui_menuBar):
         self.actionMonte_Carlo.setEnabled(True)
         self.actionBasic_Problem.setEnabled(True)
         self.actionSensitivy_task.setEnabled(True)
+        self.actionRunSolver.setEnabled(True)

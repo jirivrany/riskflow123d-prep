@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'menu.ui'
 #
-# Created: Thu Dec 20 12:03:30 2012
+# Created: Fri Dec 21 11:44:24 2012
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -49,8 +49,10 @@ class Ui_menuBar(object):
         self.actionSensitivy_task.setObjectName(_fromUtf8("actionSensitivy_task"))
         self.actionQuick_start = QtGui.QAction(menuBar)
         self.actionQuick_start.setObjectName(_fromUtf8("actionQuick_start"))
-        self.actionSave_Material = QtGui.QAction(menuBar)
-        self.actionSave_Material.setObjectName(_fromUtf8("actionSave_Material"))
+        self.actionRunSolver = QtGui.QAction(menuBar)
+        self.actionRunSolver.setObjectName(_fromUtf8("actionRunSolver"))
+        self.actionExit_2 = QtGui.QAction(menuBar)
+        self.actionExit_2.setObjectName(_fromUtf8("actionExit_2"))
         self.menu_Ini_File.addSeparator()
         self.menu_Ini_File.addAction(self.actionOpen)
         self.menu_Ini_File.addAction(self.actionClose)
@@ -61,7 +63,7 @@ class Ui_menuBar(object):
         self.menuSo_lve.addAction(self.actionMonte_Carlo)
         self.menuSo_lve.addAction(self.actionSensitivy_task)
         self.menuTools.addAction(self.actionQuick_start)
-        self.menuTools.addAction(self.actionSave_Material)
+        self.menuTools.addAction(self.actionRunSolver)
         menuBar.addAction(self.menu_Ini_File.menuAction())
         menuBar.addAction(self.menuSo_lve.menuAction())
         menuBar.addAction(self.menuTools.menuAction())
@@ -76,10 +78,11 @@ class Ui_menuBar(object):
         self.actionOpen.setText(_translate("menuBar", "Open", None))
         self.actionClose.setText(_translate("menuBar", "Close", None))
         self.actionSave.setText(_translate("menuBar", "Save", None))
-        self.actionExit.setText(_translate("menuBar", "Exit", None))
+        self.actionExit.setText(_translate("menuBar", "Exit ", None))
         self.actionBasic_Problem.setText(_translate("menuBar", "Basic Problem", None))
         self.actionMonte_Carlo.setText(_translate("menuBar", "Monte Carlo", None))
         self.actionSensitivy_task.setText(_translate("menuBar", "Sensitivy task", None))
         self.actionQuick_start.setText(_translate("menuBar", "Quick start", None))
-        self.actionSave_Material.setText(_translate("menuBar", "Save Material", None))
+        self.actionRunSolver.setText(_translate("menuBar", "Run Solver", None))
+        self.actionExit_2.setText(_translate("menuBar", "Exit", None))
 
