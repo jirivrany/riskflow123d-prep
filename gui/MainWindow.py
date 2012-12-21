@@ -15,8 +15,14 @@ from gui.MainStatusBar import MainStatusBar
 import gui.toolbar
 
 from app.FlowIni import FlowIni
+
+from app.helpers import constants as const
+ 
+import app.helpers.output_dir
+import app.helpers.solver_utils
+
 import app.parser.material as material
-import app.helpers 
+
 
 
 
@@ -92,7 +98,7 @@ class MainWindow(QMainWindow):
         '''
         quick start last edited ini file
         '''
-        file_name = '/development/python/rf2/test/data/flow_t.ini'
+        file_name = '/development/python/RF_test_data/test_dir_create/flow_t.ini'
         #last_ini = self.setup['Work']['Last']
         self.start_main_routine(file_name)
         
@@ -176,9 +182,10 @@ class MainWindow(QMainWindow):
         
         
         output_dir = app.helpers.output_dir.set_output_dir(\
-                               self.flow_ini.dir_name, 'basic')
+                               self.flow_ini.dir_name, 'basic', const.SEPARATOR)
         result = app.helpers.output_dir.create_if_not_exists(output_dir)
         
         self.statusBar.showMessage(result, 8000)
-        app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir)
+        
+        app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir, const.SEPARATOR)
            

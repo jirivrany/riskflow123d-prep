@@ -11,7 +11,7 @@ from PyQt4 import QtGui
 from os.path import isfile
 
 from app.parser import flow
-from app.Settings import SEPARATOR
+from app.helpers.constants import SEPARATOR
 
 
 class FlowCheck(QtGui.QWidget, Ui_tab_8):

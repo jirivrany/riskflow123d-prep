@@ -10,10 +10,6 @@ from iniparse import INIConfig
 
 __inifile__ = './riskFlow123d.ini'
 
-#APP CONSTANTS
-SEPARATOR = "/"
-METHODS = ('Basic Problem', 'Monte Carlo', 'Sensitivity Task')
-PROBLEMS = ('basicProblem', 'MonteCarlo', 'Sensitivity')
 
 class Settings(object):
     

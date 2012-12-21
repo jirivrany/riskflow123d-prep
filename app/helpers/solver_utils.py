@@ -3,7 +3,6 @@ Created on 20.12.2012
 
 @author: Jiri Vrany
 '''
-from app.Settings import SEPARATOR
 import os
 import shutil
 
@@ -19,7 +18,7 @@ def identify_task(problem_type, work_dir):
         print 'oh crap'
 
 
-def copy_master_files(flow_ini, output_dir):
+def copy_master_files(flow_ini, output_dir, separator):
     '''
     create a copy of original basic problem
     @param output_dir - where to copy
@@ -30,8 +29,8 @@ def copy_master_files(flow_ini, output_dir):
         
     original_dir = flow_ini.dir_name
         
-    for master_file_name in flow_ini.file_names_dict.values():
-        src = original_dir + SEPARATOR + master_file_name
+    for master_file_name in flow_ini.dict_files.values():
+        src = original_dir + separator + master_file_name
         try:
             shutil.copy2(src, output_dir)
         except IOError:
