@@ -23,6 +23,8 @@ import app.helpers.solver_utils
 
 import app.parser.material as material
 
+import app.basic_problem
+
 
 
 
@@ -61,12 +63,11 @@ class MainWindow(QMainWindow):
         #app object
         self.flow_ini = None
         self.material_dict = None
+        self.current_problem = None
+        self.output_dir = None
         
         #let's roll
         #self.quick_start()
-    
-    def hello(self):
-        print 'hello'
         
     def set_toolbar_actions(self):
         '''
@@ -77,7 +78,7 @@ class MainWindow(QMainWindow):
         self.toolBar.addAction(self.action_solve)
         self.toolBar.addAction(self.action_exit)
         self.action_exit.triggered.connect(self.on_app_exit)
-        self.action_solve.triggered.connect(self.hello)
+        self.action_solve.triggered.connect(self.on_action_solve)
         self.action_quick_start.triggered.connect(self.quick_start)       
             
     def set_menubar_actions(self):
@@ -178,14 +179,48 @@ class MainWindow(QMainWindow):
         slot for action basic problem signal
         prepares all necesities for basic solver problem
         '''
-        self.centralWidget.add_basic_problem_tabs
-        
-        
         output_dir = app.helpers.output_dir.set_output_dir(\
                                self.flow_ini.dir_name, 'basic', const.SEPARATOR)
         result = app.helpers.output_dir.create_if_not_exists(output_dir)
         
+        self.output_dir = output_dir
+        
         self.statusBar.showMessage(result, 8000)
         
         app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir, const.SEPARATOR)
-           
+        
+        self.current_problem = 'basic'
+        self.centralWidget.add_basic_problem_tabs()
+    
+    def on_action_solve(self):
+        '''
+        slot for action solve (run solver)
+        dispatching on current problem type
+        '''
+        possible_methods = {
+            'basic' : self.solve_basic_problem,
+            'monte' : self.solve_monte_carlo,
+            'sens' : self.solve_sensitivity_task,
+            }
+        
+        possible_methods[self.current_problem]()
+        
+    def solve_basic_problem(self):
+        '''
+        calls method from basic_problem module with correct data
+        '''
+        app.basic_problem.save_material(\
+                self.output_dir, self.flow_ini.dict_files['Material'], self.material_dict)
+        
+    def solve_monte_carlo(self):
+        '''
+        @todo: implement this stub
+        '''
+        pass
+    
+    def solve_sensitivity_task(self):
+        '''
+        @todo: implement this stub
+        '''
+        pass
+               
