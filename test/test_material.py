@@ -33,7 +33,7 @@ MOCK_COLLECTION = {
                }
 
 
-inpt = '/development/python/rf2/test/data/material/mm.mtr'
+inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
 TEST_MAT = material.MaterialDict(inpt)
     
 def test_file_load():
@@ -46,22 +46,22 @@ def test_secific_values():
 
 def test_bad_load():
     '''it should test raise exception for bad data'''
-    inpt = '/development/python/rf2/test/data/material/mtr_v5_10_2.mtr'
+    inpt = '/development/python/RF_test_data/rf2_test/material/mtr_v5_10_2.mtr'
     with pytest.raises(material.EmptyListException):
         p = material.MaterialDict(inpt)
         print p
         
 def test_create_collections():
     '''it should convert data to list'''
-    inpt = '/development/python/rf2/test/data/material/mock.mtr'
+    inpt = '/development/python/RF_test_data/rf2_test/material/mock.mtr'
     mock_mat = material.MaterialDict(inpt)
     assert mock_mat.create_collections() == MOCK_COLLECTION
     
 def test_write_changes():
     '''it should make a copy of original file'''
-    inpt = '/development/python/rf2/test/data/material/mm.mtr'
+    inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
     tsss = material.MaterialDict(inpt)
-    oooo = '/development/python/rf2/test/data/material/mm-output.mtr'            
+    oooo = '/development/python/RF_test_data/rf2_test/material/mm-output.mtr'            
     tsss.save_changes(oooo)
     assert open(inpt).read() == open(oooo).read()       
     

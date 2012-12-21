@@ -6,7 +6,7 @@ Created on 11.10.2012
 import os
 from genericpath import exists
 
-DIRNAME = {'Monte Carlo' : 'MonteCarlo', 'Sensitivity Task' : 'Sensitivity', 'Basic Problem' : 'basicProblem'}
+DIRNAME = {'monte' : 'MonteCarlo', 'sens' : 'Sensitivity', 'basic' : 'basicProblem'}
 SEPARATOR = '/'
 
         

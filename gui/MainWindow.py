@@ -16,6 +16,7 @@ import gui.toolbar
 
 from app.FlowIni import FlowIni
 import app.parser.material as material
+import app.helpers 
 
 
 
@@ -83,8 +84,7 @@ class MainWindow(QMainWindow):
         
         self.menuBar.actionMonte_Carlo.triggered.connect( \
                              self.centralWidget.add_monte_carlo_tabs )
-        self.menuBar.actionBasic_Problem.triggered.connect( \
-                             self.centralWidget.add_basic_problem_tabs )
+        self.menuBar.actionBasic_Problem.triggered.connect(self.on_action_basic_problem)
         self.menuBar.actionSensitivy_task.triggered.connect( \
                              self.centralWidget.add_sensitivity_task_tabs )
     
@@ -165,4 +165,20 @@ class MainWindow(QMainWindow):
         except AttributeError:
             pass    
         setup.save_settings()
-        self.close()  
+        self.close()
+        
+    def on_action_basic_problem(self):
+        '''
+        slot for action basic problem signal
+        prepares all necesities for basic solver problem
+        '''
+        self.centralWidget.add_basic_problem_tabs
+        
+        
+        output_dir = app.helpers.output_dir.set_output_dir(\
+                               self.flow_ini.dir_name, 'basic')
+        result = app.helpers.output_dir.create_if_not_exists(output_dir)
+        
+        self.statusBar.showMessage(result, 8000)
+        app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir)
+           
