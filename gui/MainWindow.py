@@ -42,11 +42,13 @@ class MainWindow(QMainWindow):
         #central widget is tab
         self.centralWidget = MainTabWidget(self)
         self.setCentralWidget(self.centralWidget)
+        self.centralWidget.setHidden(True)
         
         #main menu of window
         self.menuBar = MainMenu(self)
         self.setMenuBar(self.menuBar)
         self.set_menubar_actions()
+        self.menuBar.disable_solver_actions()
         
         #status bar
         self.statusBar = MainStatusBar(self)
@@ -94,6 +96,8 @@ class MainWindow(QMainWindow):
         self.menuBar.actionBasic_Problem.triggered.connect(self.on_action_basic_problem)
         self.menuBar.actionSensitivy_task.triggered.connect( \
                              self.centralWidget.add_sensitivity_task_tabs )
+        
+        
     
     def quick_start(self):
         '''
@@ -124,10 +128,14 @@ class MainWindow(QMainWindow):
             self.flow_ini = FlowIni(fname)
         except TypeError:
             self.statusBar.showMessage("Nothing to do", 500) 
-        finally:        
+        else:        
             if self.centralWidget.tab_flow_ini.handle_file(self.flow_ini):
+                
                 self.load_material()
                 self.load_mesh()
+                #Enable GUI features
+                self.centralWidget.setHidden(False)
+                self.menuBar.enable_solver_actions()
             else:
                 self.statusBar.showMessage('ERROR in ini file', 8000)
                 
