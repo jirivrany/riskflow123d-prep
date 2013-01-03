@@ -22,6 +22,7 @@ import app.helpers.output_dir
 import app.helpers.solver_utils
 
 import app.parser.material as material
+import app.parser.mesh
 
 import app.basic_problem
 
@@ -67,6 +68,7 @@ class MainWindow(QMainWindow):
         self.material_dict = None
         self.current_problem = None
         self.output_dir = None
+        self.mesh = None
         
         #let's roll
         #self.quick_start()
@@ -165,8 +167,13 @@ class MainWindow(QMainWindow):
         '''
         Executed after sucessfull check of flow.ini file
         Factory for Mesh - prepares object for application
+        load mesh using mesh module
         '''            
-        pass
+        file_name = self.flow_ini.get_mesh_file_name()
+        self.statusBar.showMessage('Loading MSH') 
+        self.mesh = app.parser.mesh.Mesh()
+        self.mesh.read(file_name)
+        self.statusBar.showMessage('Mesh file successfully loaded', 8000) 
     
                 
     def on_app_exit(self):

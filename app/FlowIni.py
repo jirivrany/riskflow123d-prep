@@ -24,4 +24,13 @@ class FlowIni(object):
         self.text = flow.get_txt_from_file(fname)
         
     def get_material_file_name(self):
+        '''
+        material file name
+        '''
         return self.dir_name + path.sep + self.dict_files['Material']
+    
+    def get_mesh_file_name(self):
+        '''
+        mesh file name
+        '''
+        return self.dir_name + path.sep + self.dict_files['Mesh']
