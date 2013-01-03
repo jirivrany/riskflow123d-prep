@@ -25,6 +25,7 @@ class Mesh(object):
         self.elements = {}
         self.mtr_index = {}
         self.elm_index = {}
+        self.line = None
 
     def read(self, fname):
         """Read a Gmsh .msh file.
@@ -36,74 +37,93 @@ class Mesh(object):
         readmode = 0
         mshfile = open(fname,"r")
         for line in mshfile:
-            line = line.strip()
-            if line.startswith('$'):
-                if line == '$NOD' or line == '$Nodes':
-                    readmode = 1
-                elif line == '$ELM':
-                    readmode = 2
-                elif line == '$Elements':
-                    readmode = 3
-                else:
-                    readmode = 0
+            self.line = line.strip()
+            if self.line.startswith('$'):
+                readmode = get_read_mode(self.line)
             elif readmode:
                 columns = line.split()
                 if readmode == 1 and len(columns) == 4:
-                    # Version 1.0 or 2.0 Nodes
-                    try:
-                        self.nodes[int(columns[0])] = map(float, columns[1:])
-                    except ValueError:
-                        print 'Node format error: '+line
-                        readmode = 0
+                    readmode = self.__read_nodes(columns, readmode)
+                    
                 elif readmode > 1 and len(columns) > 5:
                     # Version 1.0 or 2.0 Elements 
                     try:
-                        columns = map(int, columns)
+                        columns = [int(val) for val in columns]
                     except ValueError:
-                        print 'Element format error: '+line
+                        print 'Element format error: ' + self.line
                         readmode = 0
                     else:
-                        (node_id, type) = columns[0:2]
-                        if readmode == 2:
-                            # Version 1.0 Elements
-                            tags = columns[2:4]
-                            nodes = columns[5:]
-                        else:
-                            # Version 2.0 Elements
-                            ntags = columns[2]
-                            tags = columns[3:3+ntags]
-                            nodes = columns[3+ntags:]
-                        self.elements[node_id] = (type, tags, nodes)
-                        
-                        #create elm index
-                        for no in nodes:
-                            if self.elm_index.has_key(no):
-                                self.elm_index[no].append(node_id)
-                            else:
-                                self.elm_index[no] = [node_id,]
-                        
-                        #create mtr index
-                        if self.mtr_index.has_key(tags[0]):
-                            self.mtr_index[tags[0]].append(node_id)
-                        else:
-                            self.mtr_index[tags[0]] = [node_id,]    
-       
+                        self.__read_elements(columns, readmode)
+    
+    def __read_nodes(self, columns, readmode):
+        '''Read version 1.0 or 2.0 Nodes'''
+        try:
+            self.nodes[int(columns[0])] = [float(val) for val in columns[1:]]
+        except ValueError:
+            print 'Node format error: ' + self.line
+            return 0
+        else:
+            return readmode
+  
+    def __read_elements(self, columns, readmode):
+        '''
+        Read version 1.0 or 2.0 elements
+        '''
+        (node_id, node_type) = columns[0:2]
+        if readmode == 2:
+            # Version 1.0 Elements
+            tags = columns[2:4]
+            nodes = columns[5:]
+        else:
+            # Version 2.0 Elements
+            ntags = columns[2]
+            tags = columns[3:3+ntags]
+            nodes = columns[3+ntags:]
+        self.elements[node_id] = (node_type, tags, nodes)
+        
+        #create elm index
+        for curent_node in nodes:
+            if self.elm_index.has_key(curent_node):
+                self.elm_index[curent_node].append(node_id)
+            else:
+                self.elm_index[curent_node] = [node_id,]
+        
+        #create mtr index
+        if self.mtr_index.has_key(tags[0]):
+            self.mtr_index[tags[0]].append(node_id)
+        else:
+            self.mtr_index[tags[0]] = [node_id,]  
 
     def write(self, fname):
+        """
+        Dump the mesh out to a Gmsh 2.0 msh file_output.
+        """
+        file_output = open(fname,"w")
         
-        fp = open(fname,"w")
-        """Dump the mesh out to a Gmsh 2.0 msh fp."""
-        print >>fp, '$MeshFormat\n2.0 0 8\n$EndMeshFormat'
-        print >>fp, '$Nodes\n%d'%len(self.nodes)
+        print >> file_output, '$MeshFormat\n2.0 0 8\n$EndMeshFormat'
+        print >> file_output, '$Nodes\n%d' % len(self.nodes)
         for (node_id, coord) in self.nodes.items():
-            print >>fp, node_id, ' '.join(map(str, coord))
-        print >>fp, '$EndNodes'
-        print >>fp, '$Elements\n%d'%len(self.elements)
+            print >> file_output, node_id, ' '.join([str(val) for val in coord])
+        print >> file_output, '$EndNodes'
+        print >> file_output, '$Elements\n%d' % len(self.elements)
         for (node_id, elem) in self.elements.items():
-            (type, tags, nodes) = elem
-            print >>fp, node_id, type, len(tags),
-            print >>fp, ' '.join(map(str, tags)),
-            print >>fp, ' '.join(map(str, nodes))
-        print >>fp, '$EndElements'
+            (node_type, tags, nodes) = elem
+            print >> file_output, node_id, node_type, len(tags),
+            print >> file_output, ' '.join([str(val) for val in tags]),
+            print >> file_output, ' '.join([str(val) for val in nodes])
+        print >> file_output, '$EndElements'
 
 
+def get_read_mode(line):
+    '''
+    sets the readmode
+    '''
+    if line == '$NOD' or line == '$Nodes':
+        return 1
+    elif line == '$ELM':
+        return 2
+    elif line == '$Elements':
+        return 3
+    else:
+        return 0
+            
