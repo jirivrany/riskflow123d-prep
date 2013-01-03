@@ -6,8 +6,13 @@
 Application Settings Tab
 '''
 
+
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
-from PyQt4.QtGui import QWidget, QListWidgetItem
+from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator
+
+
+#constants
+AXIS_TRANS = {'x':0, 'y':1, 'z':2}
 
 class MeshSettingsTab(QWidget, Ui_MeshSettings):
     '''
@@ -35,6 +40,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         #mesh control
         #self.button_mesh_imp_surface.clicked.connect(self._mesh_import_surface)
         #self.button_mesh_imp_nonzero.clicked.connect(self._mesh_import_nonzero)
+        #self.button_mesh_remove_zero.clicked.connect(self._mesh_remove_zero)
         self.button_mesh_import_all.clicked.connect(self._mesh_import_all)
         self.button_mesh_remove_all.clicked.connect(self._mesh_remove_all)
         self.button_mesh_import_mtr.clicked.connect(self._mesh_import_mtr)
@@ -48,13 +54,13 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         self.button_mesh_imp_elmid.clicked.connect(self._mesh_import_id)
         self.button_mesh_rem_elmid.clicked.connect(self._mesh_remove_id)
         
-        #self.mesh_list.itemClicked.connect(self._mesh_element_explorer_control)
-        #self.mesh_radio_z.setChecked(True)
-        #self.button_mesh_remove_zero.clicked.connect(self._mesh_remove_zero)
+        self.mesh_list.itemDoubleClicked.connect(self.mesh_go_edit_material)
+        self.mesh_list.itemClicked.connect(self._mesh_element_explorer_control)
+        self.mesh_radio_z.setChecked(True)
         
-        #integer_validator = QIntValidator()
-        #self.mesh_element_id_edit.setValidator(integer_validator)
-        #self.edit_mesh_crd.setValidator(integer_validator)
+        integer_validator = QIntValidator()
+        self.mesh_element_id_edit.setValidator(integer_validator)
+        self.edit_mesh_crd.setValidator(integer_validator)
       
     def fill_mesh_mtr_form(self):
         '''
@@ -362,5 +368,33 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         axis = self._get_mesh_axis()
         if axis:
             vals = self._mesh_find_through(axis)
-            self._mesh_import_list_deleter(vals)        
+            self._mesh_import_list_deleter(vals)
             
+    def _mesh_element_explorer_control(self):
+        '''
+        action for controling mesh_element_explorer display block
+        '''
+        idxtu = str(self.mesh_list.currentIndex().data().toString())
+        
+        idx = idxtu[:idxtu.find(' ')]
+        
+        doc = "element id: {0}\n".format(idx)
+        doc += "node : [x, y, z]\n"
+        for node in self.msh.elements[int(idx)][2]:
+            doc +=  "{0} : {1}\n".format(node, self.msh.nodes[node])
+        self.mesh_element_explorer.clear()
+        self.mesh_element_explorer.insertPlainText(doc)
+        self.mesh_element_explorer.setReadOnly(True)    
+                
+    def mesh_go_edit_material(self): 
+        '''
+        action for double click on displayed mesh list
+        '''   
+        idxtu = str(self.mesh_list.currentIndex().data().toString())
+        _11, _12, mtr = idxtu.split()
+        
+        print mtr
+        #idx = self.displayed_mtr_list.index(mtr)
+        
+        self.window().centralWidget.tab_material.get_material_from_dict(mtr)
+        self.window().centralWidget.setCurrentIndex(2)

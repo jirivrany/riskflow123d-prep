@@ -18,8 +18,8 @@ class MaterialTab(QWidget, Ui_tab_material):
         super(MaterialTab, self).__init__(parent)
         self.setupUi(self)
         
-        self.selector_material.activated.connect(self.get_material_from_dict)
-        self.button_cancel_mtr_edit.clicked.connect(self.get_material_from_dict)
+        self.selector_material.activated.connect(self.get_current_index)
+        self.button_cancel_mtr_edit.clicked.connect(self.get_current_index)
         self.button_save_mtr_mem.clicked.connect(self.set_material_to_dict)
        
         self.__set_validators()
@@ -38,12 +38,17 @@ class MaterialTab(QWidget, Ui_tab_material):
         data = sorted(material.keys())
         #self.displayed_mtr_list = data[:]
         self.selector_material.insertItems(0, data)
-        self.get_material_from_dict() #fill up the form for first node
+        self.get_current_index() #fill up the form for first node
         
-    def get_material_from_dict(self):
-        '''in selector is id of material, try to get it and fill up the form'''
+    def get_current_index(self):    
+        '''
+        get current selected index
+        '''
         idx = str(self.selector_material.currentText())
+        self.get_material_from_dict(idx)
         
+    def get_material_from_dict(self, idx):
+        '''in selector is id of material, try to get it and fill up the form'''
         try:
             material = self.window().material_dict[idx]
         except KeyError:

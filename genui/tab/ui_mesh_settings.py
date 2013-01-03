@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'meshsettings.ui'
 #
-# Created: Thu Dec 20 12:03:43 2012
+# Created: Thu Jan 03 11:52:30 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -90,9 +90,9 @@ class Ui_MeshSettings(object):
         self.button_mesh_imp_over.setMinimumSize(QtCore.QSize(102, 0))
         self.button_mesh_imp_over.setObjectName(_fromUtf8("button_mesh_imp_over"))
         self.gridLayout_4.addWidget(self.button_mesh_imp_over, 2, 0, 1, 1)
-        self.edit_mesh_axis_coord = QtGui.QLineEdit(self.groupBox_4)
-        self.edit_mesh_axis_coord.setObjectName(_fromUtf8("edit_mesh_axis_coord"))
-        self.gridLayout_4.addWidget(self.edit_mesh_axis_coord, 1, 0, 1, 1)
+        self.edit_mesh_crd = QtGui.QLineEdit(self.groupBox_4)
+        self.edit_mesh_crd.setObjectName(_fromUtf8("edit_mesh_crd"))
+        self.gridLayout_4.addWidget(self.edit_mesh_crd, 1, 0, 1, 1)
         self.gridLayout_3.addWidget(self.groupBox_4, 4, 0, 1, 2)
         self.groupBox_5 = QtGui.QGroupBox(self.mesh_control)
         self.groupBox_5.setObjectName(_fromUtf8("groupBox_5"))
