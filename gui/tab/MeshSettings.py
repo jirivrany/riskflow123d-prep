@@ -393,8 +393,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         idxtu = str(self.mesh_list.currentIndex().data().toString())
         _11, _12, mtr = idxtu.split()
         
-        print mtr
-        #idx = self.displayed_mtr_list.index(mtr)
-        
+        idx = self.window().centralWidget.tab_material.selector_material.findText(mtr)
+        self.window().centralWidget.tab_material.selector_material.setCurrentIndex(idx)
         self.window().centralWidget.tab_material.get_material_from_dict(mtr)
         self.window().centralWidget.setCurrentIndex(2)
