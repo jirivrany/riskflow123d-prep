@@ -193,7 +193,7 @@ class MainWindow(QMainWindow):
         
         self.output_dir = output_dir
         
-        self.statusBar.showMessage(result, 8000)
+        self.statusBar.showMessage(result, 8000, self.output_dir)
         
         app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir, const.SEPARATOR)
         

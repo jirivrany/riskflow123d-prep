@@ -7,3 +7,4 @@ Created on 21.12.2012
 SEPARATOR = "/"
 METHODS = ('Basic Problem', 'Monte Carlo', 'Sensitivity Task')
 PROBLEMS = ('basicProblem', 'MonteCarlo', 'Sensitivity')
+APP_NAME = 'RiskFlow123D'

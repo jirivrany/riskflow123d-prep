@@ -5,7 +5,7 @@ Created on 23.10.2012
 '''
 import os
 import app.parser.flow as parser
-from app.Settings import SEPARATOR
+from app.helpers.constants import SEPARATOR
 
 print os.getcwd()
     
