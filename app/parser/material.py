@@ -191,5 +191,25 @@ class MaterialDict(dict):
                 output_file.write('\n')
             output_file.write('$End{}\n'.format(material_property))
                         
-
+    def multiply_hydraulic_conductivity(self, id_list, multiplicator):
+        '''
+        multiply hydraulic conductivity (type_spec) for all materials
+        in id_list
+        method is used by mesh tools
+        '''
+        for mtr in id_list:
+            x_val = self[str(mtr)]
+            temp = float(x_val['type_spec']) * float(multiplicator)
+            x_val['type_spec'] = str(temp)
+            
+    def set_hydraulic_conductivity_value(self, id_list, new_value):
+        '''
+        set hydraulic conductivity (type_spec) for all materials
+        in id_list
+        method is used by mesh tools
+        '''
+        for mtr in id_list:
+            self[str(mtr)]['type_spec'] = str(new_value)
+        
+            
     

@@ -100,29 +100,23 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         take value from the form, take mtr from list of mesh if any, and multiply
         '''
         mul = self.edit_multiply_conduct.text()
-        mats = set([d[1][0] for d in self.displayed_mesh_list.values()])
-        for mtr in mats:
-            x_val = self.material_dict[str(mtr)]
-            temp = float(x_val.type_spec) * float(mul)
-            x_val.type_spec = str(temp)
-            
-        self.fill_mtr_form()    
+        
+        mats = set([d[1][0] for d in self.mesh_settings.displayed_mesh_list.values()])
+        
+        self.material.multiply_hydraulic_conductivity(mats, mul)
+        
+        self.window().centralWidget.tab_material.fill_material_form()
         msg = '%s Materials has been updated' % len(mats)
         self.messenger(msg)
-        self.tabWidget.setCurrentIndex(3)
-        self.save_mtr_button.setEnabled(True)         
                 
     def set_hydraulic_conductivity(self):
         '''sets the new value of hydraulic conductivity of selected elements'''
         mul = self.edit_nvalue_conduct.text()
         mats = set([d[1][0] for d in self.displayed_mesh_list.values()])
-        for mtr in mats:
-            temp = self.material_dict[str(mtr)]
-            temp.type_spec = str(mul)
+        
+        self.material.set_hydraulic_conductivity_value(mats, mul)
             
-        self.fill_mtr_form()    
+        self.window().centralWidget.tab_material.fill_material_form() 
         msg = '%s Materials has been updated' % len(mats)
         self.messenger(msg)
-        self.tabWidget.setCurrentIndex(3)
-        self.save_mtr_button.setEnabled(True)   
         

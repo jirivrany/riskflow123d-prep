@@ -63,5 +63,28 @@ def test_write_changes():
     tsss = material.MaterialDict(inpt)
     oooo = '/development/python/RF_test_data/rf2_test/material/mm-output.mtr'            
     tsss.save_changes(oooo)
-    assert open(inpt).read() == open(oooo).read()       
+    assert open(inpt).read() == open(oooo).read()
     
+def test_multiply_hydraulic_cond():
+    '''
+    type_spec for all elements should be multipled
+    '''       
+    inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
+    my_test_dict = material.MaterialDict(inpt)
+    my_test_list = ['9617', '4300']
+    multip = 100
+    my_test_dict.multiply_hydraulic_conductivity(my_test_dict, multip)
+    assert my_test_dict['9617']['type_spec'] == str(0.1816229383 * 100)
+    assert my_test_dict['4300']['type_spec'] == str(1629.9762434558 * 100)
+    
+def test_set_hydraulic_cond():
+    '''
+    type_spec for all elements should be new constant values
+    '''       
+    inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
+    my_test_dict = material.MaterialDict(inpt)
+    my_test_list = ['9617', '4300']
+    new_value = '100'
+    my_test_dict.set_hydraulic_conductivity_value(my_test_dict,  new_value)
+    assert my_test_dict['9617']['type_spec'] == new_value
+    assert my_test_dict['4300']['type_spec'] == new_value    
