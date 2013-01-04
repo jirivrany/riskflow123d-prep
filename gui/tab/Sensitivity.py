@@ -10,8 +10,6 @@ Tab widget for Mesh Tools
 from genui.tab.ui_sensitivity import Ui_Sensitivity
 from PyQt4.QtGui import QWidget
 
-from app import Settings
-
 class SensitivityTab(QWidget, Ui_Sensitivity):
     '''
     Tab widget for Mesh Tools
@@ -19,8 +17,5 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
     def __init__(self, parent = None):
         super(SensitivityTab, self).__init__(parent)
         self.setupUi(self)
-        
-        #will be defined later from main window
-        self.messenger = None
-    
+     
         

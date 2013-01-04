@@ -10,6 +10,7 @@ Application Settings Tab
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
 from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator
 
+import sys
 
 #constants
 AXIS_TRANS = {'x':0, 'y':1, 'z':2}
@@ -199,23 +200,6 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
             self.messenger('Choose axis first!', 8000)
             return False             
         
-    def _mesh_import_surface(self):    
-        '''
-        imports surface elements to mesh list
-        need surface_result file to work
-        '''
-        
-        if not self.surface_elements:
-            fname = self.work_dir + '/' + 'master/' + FNAME_SURF
-            self.surface_elements = surface.read_result(fname) 
-                
-        vals = {}
-        for elid in self.surface_elements:
-            elid = int(elid)
-            if self.msh.elements.has_key(elid):
-                vals[elid] = self.msh.elements[elid]
-            
-        self._mesh_import_list_updater(vals)
         
     def _mesh_remove_zero(self):
         '''
