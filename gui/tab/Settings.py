@@ -10,7 +10,7 @@ from genui.tab.ui_settings import Ui_tab_settings
 from PyQt4.QtGui import QWidget, QFileDialog
 from ast import literal_eval
 
-from app import Settings
+import app.Settings
 
 class SettingsTab(QWidget, Ui_tab_settings):
     '''
@@ -25,7 +25,7 @@ class SettingsTab(QWidget, Ui_tab_settings):
         
         
         
-        self.setup = Settings.Settings()
+        self.setup = app.Settings.Settings()
         
         self.launcher_button_local.clicked.connect(self.setup_flow_exe)
         
