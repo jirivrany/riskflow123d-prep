@@ -1,4 +1,4 @@
-*.pyc
-*.profile
+*pyc
+*profile
 .project
 .pydevproject
