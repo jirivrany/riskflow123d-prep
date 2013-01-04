@@ -83,10 +83,10 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
             todisp = len(vals)
             msg = 'Loading %s elements to the list. It may take a while...' % str(todisp)
             self.messenger(msg)
-            self._mesh_list_refresh()
+            self.mesh_list_refresh()
             self.messenger('Selection of elements loaded', 8000)
             
-    def _mesh_list_refresh(self):
+    def mesh_list_refresh(self):
         '''
         takes actual dict self.displayedList and refresh the view
         displays - element id, element type, material
@@ -130,7 +130,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
             self.messenger('Error: load MSH data first!', 8000)
         else:
             self.displayed_mesh_list = self.msh.elements.copy()
-            self._mesh_list_refresh()
+            self.mesh_list_refresh()
             self.messenger('MSH data loaded', 8000)    
             
     def _mesh_remove_all(self):
@@ -165,7 +165,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         msg = 'Deleting %s elements from the list. It may take a while...' % str(len(self.msh.mtr_index[idx]))
         self.messenger(msg)
-        self._mesh_list_refresh()
+        self.mesh_list_refresh()
         self.messenger('Selection of elements loaded', 8000)
         
     def _mesh_import_list_deleter(self, vals):
@@ -181,7 +181,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
                   
         msg = 'Refreshing the list'
         self.messenger(msg)
-        self._mesh_list_refresh()
+        self.mesh_list_refresh()
         self.messenger('Refreshing finished', 8000)
         
     def _get_mesh_axis(self):
@@ -230,7 +230,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         msg = 'Refreshing the list'
         self.messenger(msg)
-        self._mesh_list_refresh()
+        self.mesh_list_refresh()
         self.messenger('Refreshing finished', 8000)                     
     
     def _mesh_import_nonzero(self):
