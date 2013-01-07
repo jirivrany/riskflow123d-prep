@@ -65,17 +65,17 @@ def test_write_changes():
     tsss.save_changes(oooo)
     assert open(inpt).read() == open(oooo).read()
     
-def test_multiply_hydraulic_cond():
+def test_multiply_property():
     '''
     type_spec for all elements should be multipled
     '''       
     inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
     my_test_dict = material.MaterialDict(inpt)
-    my_test_list = ['9617', '4300']
+    prop_name = 'type_spec'
     multip = 100
-    my_test_dict.multiply_hydraulic_conductivity(my_test_dict, multip)
-    assert my_test_dict['9617']['type_spec'] == str(0.1816229383 * 100)
-    assert my_test_dict['4300']['type_spec'] == str(1629.9762434558 * 100)
+    my_test_dict.multiply_property(prop_name, my_test_dict, multip)
+    assert my_test_dict['9617'][prop_name] == str(0.1816229383 * 100)
+    assert my_test_dict['4300'][prop_name] == str(1629.9762434558 * 100)
     
 def test_set_hydraulic_cond():
     '''
@@ -83,8 +83,8 @@ def test_set_hydraulic_cond():
     '''       
     inpt = '/development/python/RF_test_data/rf2_test/material/mm.mtr'
     my_test_dict = material.MaterialDict(inpt)
-    my_test_list = ['9617', '4300']
+    prop_name = 'type_spec'
     new_value = '100'
-    my_test_dict.set_hydraulic_conductivity_value(my_test_dict,  new_value)
-    assert my_test_dict['9617']['type_spec'] == new_value
-    assert my_test_dict['4300']['type_spec'] == new_value    
+    my_test_dict.set_property_value(prop_name, my_test_dict,  new_value)
+    assert my_test_dict['9617'][prop_name] == new_value
+    assert my_test_dict['4300'][prop_name] == new_value    
