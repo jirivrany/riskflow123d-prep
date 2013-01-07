@@ -49,13 +49,12 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         set validators for edit fields
         '''    
         
-        validator_positive_double = MyDoubleValidator(float(0), float(100000), 50, self)
+        validator_positive_double = MyDoubleValidator(parent = self)
         
         self.edit_multiply_conduct.setValidator(validator_positive_double)
         self.edit_nvalue_conduct.setValidator(validator_positive_double)
         self.edit_nvalue_storativity.setValidator(validator_positive_double)
         
-        print 'lkkkl'
         validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
         self.edit_nvalue_porosity.setValidator(validator_zero_one)
         
