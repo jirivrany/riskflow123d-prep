@@ -94,10 +94,11 @@ class MainWindow(QMainWindow):
         self.menuBar.actionSave.triggered.connect(self.on_ini_file_save)
         
         self.menuBar.actionMonte_Carlo.triggered.connect( \
-                             self.centralWidget.add_monte_carlo_tabs )
-        self.menuBar.actionBasic_Problem.triggered.connect(self.on_action_basic_problem)
+                             self.on_action_monte_carlo )
+        self.menuBar.actionBasic_Problem.triggered.connect(\
+                             self.on_action_basic_problem)
         self.menuBar.actionSensitivy_task.triggered.connect( \
-                             self.centralWidget.add_sensitivity_task_tabs )
+                             self.on_action_sensitivity)
         
         
     
@@ -194,19 +195,43 @@ class MainWindow(QMainWindow):
         slot for action basic problem signal
         prepares all necesities for basic solver problem
         '''
+        self.common_solver_setup('basic')
+        self.centralWidget.add_basic_problem_tabs()
+        
+    def on_action_monte_carlo(self):
+        '''
+        slot for action monte carlo signal
+        prepares all necesities for monte carlo problem
+        '''
+        self.common_solver_setup('monte')
+        self.centralWidget.add_monte_carlo_tabs()
+        
+    def on_action_sensitivity(self):
+        '''
+        slot for action sensitivity problem signal
+        prepares all necesities for sensitivity solver problem
+        '''
+        self.common_solver_setup('sens')
+        self.centralWidget.add_sensitivity_task_tabs()
+        
+    def common_solver_setup(self, problem_type):
+        '''
+        common settings for all solvers, dispatch by problem type
+        '''
         output_dir = app.helpers.output_dir.set_output_dir(\
-                               self.flow_ini.dir_name, 'basic', const.SEPARATOR)
+                               self.flow_ini.dir_name, problem_type, const.SEPARATOR)
+        
         result = app.helpers.output_dir.create_if_not_exists(output_dir)
         
         self.output_dir = output_dir
         
         self.statusBar.showMessage(result, 8000, self.output_dir)
         
+        app.helpers.solver_utils.create_task_identifier(problem_type, output_dir)
         app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir, const.SEPARATOR)
         
-        self.current_problem = 'basic'
-        self.centralWidget.add_basic_problem_tabs()
-    
+        self.current_problem = problem_type
+        
     def on_action_solve(self):
         '''
         slot for action solve (run solver)

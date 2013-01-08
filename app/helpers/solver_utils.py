@@ -6,13 +6,19 @@ Created on 20.12.2012
 import os
 import shutil
 
-def identify_task(problem_type, work_dir):
+PROBLEMS = {
+            'basic' : 'basicProblem',
+            'monte' : 'MonteCarlo',
+            'sens' : 'Sensitivity'
+            }
+
+def create_task_identifier(problem_type, work_dir):
     '''
     Save problem identifier file into given work_dir
     '''
     try:
         task_file = open(work_dir + '/problem.type', 'w')
-        print >> task_file, problem_type
+        print >> task_file, PROBLEMS[problem_type]
         task_file.close()
     except IOError:
         print 'oh crap'

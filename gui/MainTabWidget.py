@@ -11,6 +11,8 @@ from gui.tab.MeshTools import MeshToolsTab
 from gui.tab.Sensitivity import SensitivityTab
 from gui.tab.MonteCarlo import MonteCarloTab
 
+from app.helpers.monte_logger import MonteLogger
+
 
 TAB_LABELS = {
               'flow' : u'Flow ini editor',
@@ -83,7 +85,8 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         
         self.__add_material_settings_tab()    
         
-        self.tab_montecarlo = MonteCarloTab(self)
+        
+        self.tab_montecarlo = MonteCarloTab(MonteLogger(self.window().output_dir), self)
         self.addTab(self.tab_montecarlo, TAB_LABELS['monte_carlo'])
         
         self.setCurrentIndex(3)
