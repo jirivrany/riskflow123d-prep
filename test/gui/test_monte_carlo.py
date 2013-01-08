@@ -9,6 +9,7 @@ from PyQt4.QtTest import QTest
 from PyQt4.QtCore import Qt
 
 from gui import MainWindow
+import os.path
 
 
 APP = QApplication(sys.argv)
@@ -43,4 +44,19 @@ def test_monte_carlo():
     save_widget = monte_carlo.button_monte_save
     QTest.mouseClick(save_widget, Qt.LeftButton)
     assert FORM.statusBar.currentMessage() == '5 new tasks has been created' 
-        
+
+def test_batch_created():
+    '''
+    after monte carlo test there has to be file with batch
+    '''
+    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/submit_all.sh'        
+    result = os.path.isfile(file_name)
+    assert result == True
+    
+    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/run.bat'
+    result = os.path.isfile(file_name)
+    assert result == True
+    
+    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/cluster.sh'
+    result = os.path.isfile(file_name)
+    assert result == True

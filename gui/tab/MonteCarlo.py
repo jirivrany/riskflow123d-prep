@@ -12,6 +12,7 @@ from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
 from app.helpers import solver_utils
 from app.helpers.constants import SEPARATOR
+from app.helpers import batch
 
 import copy
 
@@ -88,7 +89,8 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         pocet = int(self.edit_monte_tasks.text())
         poc = len(str(pocet+1))
         
-            
+        local_launcher, cluster_launcher = self.window().get_launchers()
+           
         for loop_nr in range(pocet):
             workcopy = copy.deepcopy(self.material)
             
@@ -103,17 +105,19 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             workcopy.save_changes(fname)
             ffname = self.window().output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
             self.window().flow_ini.create_changed_copy(ffname, Material = self.window().flow_ini.dict_files['Material'])
-            #self.window().flow_ini.create_changed_copy(ffname)
-            #self.create_launcher_scripts(ffname)
-            #self.identify_task('basicProblem', self.output_dir + fdir)
+            
+            batch.create_launcher_scripts(ffname, local_launcher, cluster_launcher)
+            
+            solver_utils.create_task_identifier('basic', self.window().output_dir + fdir)
             workcopy = {}  
         
-        #if self.launcher_check_hydra.isChecked():
-        #    batch.create_cluster_batch(self.output_dir)
+        if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
+            batch.create_cluster_batch(self.window().output_dir)
         
         self.monte_logger.close()
         msg = "{} new tasks has been created".format(pocet)           
         self.messenger(msg)
+    
         
     def clear_monte_carlo_list(self):
         '''clear selected values from the list'''

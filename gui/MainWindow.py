@@ -17,6 +17,7 @@ import gui.toolbar
 from app.FlowIni import FlowIni
 
 from app.helpers import constants as const
+from app.helpers import batch 
  
 import app.helpers.output_dir
 import app.helpers.solver_utils
@@ -73,9 +74,7 @@ class MainWindow(QMainWindow):
         self.current_problem = None
         self.output_dir = None
         self.mesh = None
-        
-        #let's roll
-        #self.quick_start()
+        self.setup = None
         
     def set_toolbar_actions(self):
         '''
@@ -142,6 +141,7 @@ class MainWindow(QMainWindow):
                 
                 self.load_material()
                 self.load_mesh()
+                self.setup = self.centralWidget.tab_settings.setup.values
                 #Enable GUI features
                 self.centralWidget.setHidden(False)
                 self.menuBar.enable_solver_actions()
@@ -271,4 +271,19 @@ class MainWindow(QMainWindow):
         @todo: implement this stub
         '''
         pass
-               
+    
+    def get_launchers(self):
+        '''
+        check app setup for launchers config and names
+        '''
+        local_launcher = False
+        cluster_launcher = False
+        if self.setup['Launcher']['Local']:
+            local_launcher = self.setup['Launcher']['Local_bin']
+            
+        if self.setup['Launcher']['Cluster']:
+            cluster_launcher = self.setup['Launcher']['Cluster_bin']
+            if not cluster_launcher:
+                cluster_launcher = True
+                
+        return local_launcher, cluster_launcher
