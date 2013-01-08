@@ -40,10 +40,14 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.resize(800, 600)
         
+        self.setWindowTitle('RiskFlow')
+        
         #central widget is tab
         self.centralWidget = MainTabWidget(self)
         self.setCentralWidget(self.centralWidget)
         self.centralWidget.setHidden(True)
+        
+        self.test_quickstart = False
         
         #main menu of window
         self.menuBar = MainMenu(self)
@@ -92,6 +96,7 @@ class MainWindow(QMainWindow):
         self.menuBar.actionOpen.triggered.connect(self.on_ini_file_open)
         self.menuBar.actionExit.triggered.connect(self.on_app_exit)
         self.menuBar.actionSave.triggered.connect(self.on_ini_file_save)
+        self.menuBar.actionQuick_start.triggered.connect(self.quick_start)    
         
         self.menuBar.actionMonte_Carlo.triggered.connect( \
                              self.on_action_monte_carlo )
@@ -108,6 +113,7 @@ class MainWindow(QMainWindow):
         '''
         file_name = '/development/python/RF_test_data/test_dir_create/flow_t.ini'
         #last_ini = self.setup['Work']['Last']
+        self.test_quickstart = True
         self.start_main_routine(file_name)
         
     def on_ini_file_open(self):

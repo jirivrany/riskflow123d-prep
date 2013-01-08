@@ -34,3 +34,22 @@ class FlowIni(object):
         mesh file name
         '''
         return self.dir_name + path.sep + self.dict_files['Mesh']
+    
+    def create_changed_copy(self, new_file_name, **kvargs):
+        '''accepts list of changes
+          @param fname: file name to save   
+        '''
+        opened_file = flow.open_file(self.file_name)
+        working_copy = flow.parser(opened_file)
+        
+        for dkeys in flow.EXTENSIONS_DICT.keys():
+            for iner_keys in flow.EXTENSIONS_DICT[dkeys].keys():
+                if iner_keys != 'Transport_out':
+                    working_copy[dkeys][iner_keys] = '../master/' + self.dict_files[iner_keys]
+        
+        for key in kvargs:
+            working_copy['Input'][key] = kvargs[key]
+        
+        new_ini_file = open(new_file_name, 'w')
+        print >> new_ini_file, working_copy
+        new_ini_file.close()

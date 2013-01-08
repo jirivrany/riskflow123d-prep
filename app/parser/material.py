@@ -165,16 +165,8 @@ class MaterialDict(dict):
         '''
         Save values in flow.mtr format to file_name
         '''
-        try:
-            output_file = open(file_name,'w')
-        except IOError:
-            adr = os.path.dirname(file_name)
-            try: 
-                os.mkdir(adr)
-                output_file = open(file_name,'w')
-            except IOError:    
-                print 'Error: file %s did not exists. Failed to create dir %s' % (file_name, adr)
-                return
+        
+        output_file = self.__open_output_file(file_name)
         
         data_to_save = self.create_collections()
         
@@ -190,6 +182,23 @@ class MaterialDict(dict):
                 output_file.write(line)
                 output_file.write('\n')
             output_file.write('$End{}\n'.format(material_property))
+            
+    def __open_output_file(self, file_name):
+        '''
+        Open output file, create dir if not exists
+        '''
+        try:
+            output_file = open(file_name,'w')
+        except IOError:
+            adr = os.path.dirname(file_name)
+            try: 
+                os.mkdir(adr)
+                output_file = open(file_name,'w')
+            except IOError:    
+                print 'Error: file %s did not exists. Failed to create dir %s' % (file_name, adr)
+                return
+        
+        return output_file
                         
     def multiply_property(self, property_name, id_list, multiplicator):
         '''

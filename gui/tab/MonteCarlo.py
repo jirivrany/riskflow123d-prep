@@ -101,8 +101,9 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             fname = self.window().output_dir + fdir + SEPARATOR +  self.window().flow_ini.dict_files['Material']
             
             workcopy.save_changes(fname)
-            #ffname = self.window().output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
-            #self.create_changed_ini(ffname, Material = self.file_dict['Material'])
+            ffname = self.window().output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
+            self.window().flow_ini.create_changed_copy(ffname, Material = self.window().flow_ini.dict_files['Material'])
+            #self.window().flow_ini.create_changed_copy(ffname)
             #self.create_launcher_scripts(ffname)
             #self.identify_task('basicProblem', self.output_dir + fdir)
             workcopy = {}  
