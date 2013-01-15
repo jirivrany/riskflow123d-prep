@@ -8,7 +8,7 @@ Tab widget for Mesh Tools
 '''
 
 from genui.tab.ui_sensitivity import Ui_Sensitivity
-from PyQt4.QtGui import QWidget
+from PyQt4.QtGui import QWidget, QListWidgetItem
 
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
@@ -27,8 +27,28 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         #alias
         self.messenger = self.window().statusBar.showMessage
-        self.material_dict = self.window().material_dict
+        self.material = self.window().material_dict
         
+        #fill solver list with materials
+        data = sorted(self.material.keys())
+        self.fill_solver_mtr_list(data)
+        
+    def fill_solver_mtr_list(self, data):
+        '''
+        get the mtr list from dict and fill up the list
+        '''    
+        
+        self.list_sens_mtr.clear()
+        self.displayed_solver_mtr_list = data    
+        
+        for key in data:
+            #update of list
+            QListWidgetItem(str(key), self.list_sens_mtr)
+            
+        self.list_sens_mtr.repaint()
+        msg = "{0} materials in the list".format(len(data))
+        self.groupBox_sens_2.setTitle(msg)
+    
         
     def make_sens_multiplication(self):
         '''takes all multiplicators  (A) from the form and selected materials
@@ -42,7 +62,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         for mat in selection:
             for i in range(1, 9):
-                workcopy = copy.deepcopy(self.material_dict)
+                workcopy = copy.deepcopy(self.material)
                 editor_field_value = getattr(self, "edit_sens_mult_{}".format(i)).text()
                 if editor_field_value != '':
                     count += 1
@@ -83,7 +103,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         
         for i in range(1, 9):
-            workcopy = copy.deepcopy(self.material_dict)
+            workcopy = copy.deepcopy(self.material)
             editor_field_values = getattr(self, "edit_sens_mult_{}".format(i)).text()
             if editor_field_values != '':
                 count += 1

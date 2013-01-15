@@ -111,6 +111,7 @@ class MainWindow(QMainWindow):
         quick start last edited ini file
         '''
         file_name = '/development/python/RF_test_data/test_dir_create/flow_t.ini'
+            
         #last_ini = self.setup['Work']['Last']
         self.test_quickstart = True
         self.start_main_routine(file_name)
@@ -120,22 +121,23 @@ class MainWindow(QMainWindow):
         Action onOpen handler 
         opens file using QFileDialog
         '''
-        filetuple = QFileDialog.getOpenFileName(self, \
+        file_name = QFileDialog.getOpenFileName(self, \
                         "Open File", ".", \
                         "Flow ini (*.ini)\nAll Files (*.*)")
-        fname = filetuple[0]
-        self.start_main_routine(fname)
+        
+        self.start_main_routine(str(file_name))
         
     def start_main_routine(self, fname):
         '''
         Call handler in tab_flow_ini Widget
         Calls Factory methods for Material and Mesh objects
         Display result message 
-        '''     
+        '''
+             
         try:
             self.flow_ini = FlowIni(fname)
         except TypeError:
-            self.statusBar.showMessage("Nothing to do", 500) 
+            self.statusBar.showMessage("Error reading flow ini file") 
         else:        
             if self.centralWidget.tab_flow_ini.handle_file(self.flow_ini):
                 
