@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'montecarlo.ui'
 #
-# Created: Thu Dec 20 12:05:35 2012
+# Created: Tue Jan 15 10:33:18 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -62,17 +62,20 @@ class Ui_MonteCarlo(object):
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_18.addItem(spacerItem)
         self.formLayout_4.setWidget(3, QtGui.QFormLayout.SpanningRole, self.groupBox_monte_buttons)
-        self.groupBox_26 = QtGui.QGroupBox(self.groupBox_monte_1)
-        self.groupBox_26.setObjectName(_fromUtf8("groupBox_26"))
-        self.horizontalLayout_17 = QtGui.QHBoxLayout(self.groupBox_26)
-        self.horizontalLayout_17.setObjectName(_fromUtf8("horizontalLayout_17"))
-        self.edit_monte_output_dir = QtGui.QLineEdit(self.groupBox_26)
-        self.edit_monte_output_dir.setObjectName(_fromUtf8("edit_monte_output_dir"))
-        self.horizontalLayout_17.addWidget(self.edit_monte_output_dir)
-        self.tool_sens_output_dir_4 = QtGui.QToolButton(self.groupBox_26)
-        self.tool_sens_output_dir_4.setObjectName(_fromUtf8("tool_sens_output_dir_4"))
-        self.horizontalLayout_17.addWidget(self.tool_sens_output_dir_4)
-        self.formLayout_4.setWidget(4, QtGui.QFormLayout.SpanningRole, self.groupBox_26)
+        self.groupBox = QtGui.QGroupBox(self.groupBox_monte_1)
+        self.groupBox.setObjectName(_fromUtf8("groupBox"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.groupBox)
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.check_cond = QtGui.QCheckBox(self.groupBox)
+        self.check_cond.setObjectName(_fromUtf8("check_cond"))
+        self.verticalLayout.addWidget(self.check_cond)
+        self.check_storat = QtGui.QCheckBox(self.groupBox)
+        self.check_storat.setObjectName(_fromUtf8("check_storat"))
+        self.verticalLayout.addWidget(self.check_storat)
+        self.check_porosity = QtGui.QCheckBox(self.groupBox)
+        self.check_porosity.setObjectName(_fromUtf8("check_porosity"))
+        self.verticalLayout.addWidget(self.check_porosity)
+        self.formLayout_4.setWidget(2, QtGui.QFormLayout.LabelRole, self.groupBox)
         self.horizontalLayout.addWidget(self.groupBox_monte_1)
         self.groupBox_monte_2 = QtGui.QGroupBox(MonteCarlo)
         self.groupBox_monte_2.setObjectName(_fromUtf8("groupBox_monte_2"))
@@ -93,7 +96,9 @@ class Ui_MonteCarlo(object):
         self.label_sens_mult_26.setText(_translate("MonteCarlo", "Sigma", None))
         self.button_monte_compute.setText(_translate("MonteCarlo", "Compute", None))
         self.button_monte_save.setText(_translate("MonteCarlo", "Generate tasks", None))
-        self.groupBox_26.setTitle(_translate("MonteCarlo", "Output Dir", None))
-        self.tool_sens_output_dir_4.setText(_translate("MonteCarlo", "...", None))
+        self.groupBox.setTitle(_translate("MonteCarlo", "Compute with", None))
+        self.check_cond.setText(_translate("MonteCarlo", "Hydraulic conductivity", None))
+        self.check_storat.setText(_translate("MonteCarlo", "Storativity", None))
+        self.check_porosity.setText(_translate("MonteCarlo", "Dual porosity", None))
         self.groupBox_monte_2.setTitle(_translate("MonteCarlo", "List of materials", None))
 
