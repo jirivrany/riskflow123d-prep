@@ -9,34 +9,32 @@ from PyQt4.QtTest import QTest
 from PyQt4.QtCore import Qt
 
 from gui import MainWindow
-import os.path
+#import os.path
 
 
 APP = QApplication(sys.argv)
 FORM = MainWindow.MainWindow()
-FORM.quick_start()
+#MOCK_INI = '/home/albert/riskflow_test_data/test_mock/flow_t.ini'
+
+#FORM.start_main_routine(MOCK_INI)
 
         
     
-def test_senstitivity_setup():
+def senstitivity_setup():
     FORM.on_action_sensitivity()
     
     sensitivity = FORM.centralWidget.tab_sensitivity
     
     
-    sensitivity.edit_sens_mult_1.setText('5')
-    sensitivity.edit_sens_mult_2.setText('0.2')
+    #sensitivity.edit_sens_mult_1.setText('5')
+    #sensitivity.edit_sens_mult_2.setText('0.2')
     
-    li_widget = sensitivity.list_sens_mtr
-    my_item = li_widget.item(4)
-    li_widget.setItemSelected(my_item, True)
-    my_item2 = li_widget.item(8)
-    li_widget.setItemSelected(my_item2, True)
-    my_item3 = li_widget.item(5)
-    li_widget.setItemSelected(my_item3, True)
+    #li_widget = sensitivity.list_sens_mtr
+    ##my_item = li_widget.item(1)
+    #li_widget.setItemSelected(my_item, True)
     
-    cross_button = sensitivity.button_sens_cross
-    QTest.mouseClick(cross_button, Qt.LeftButton)
+    #cross_button = sensitivity.button_sens_cross
+    #QTest.mouseClick(cross_button, Qt.LeftButton)
     
     
     '''
@@ -50,7 +48,7 @@ def test_senstitivity_setup():
     assert FORM.statusBar.currentMessage() == '5 new tasks has been created'
     ''' 
 
-def test_batch_created():
+def batch_created():
     '''
     after monte carlo test there has to be file with batch
     

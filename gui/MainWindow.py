@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
         '''
         quick start last edited ini file
         '''
-        file_name = '/development/python/RF_test_data/test_dir_create/flow_t.ini'
+        file_name = '/home/albert/riskflow_test_data/test_dir_create/flow_t.ini'
             
         #last_ini = self.setup['Work']['Last']
         self.test_quickstart = True
