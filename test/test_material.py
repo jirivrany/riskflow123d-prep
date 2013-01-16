@@ -58,12 +58,15 @@ def test_create_collections():
     assert mock_mat.create_collections() == MOCK_COLLECTION
     
 def test_write_changes():
-    '''it should make a copy of original file'''
+    '''it should make a copy of original file, the copy should have identical number of lines'''
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
     tsss = material.MaterialDict(inpt)
     oooo = '/home/albert/riskflow_test_data/rf2_test/material/mm-output.mtr'            
     tsss.save_changes(oooo)
-    assert open(inpt).read() == open(oooo).read()
+    original = open(inpt).readlines() 
+    newfile = open(oooo).readlines()
+    
+    assert len(original) == len(newfile)
     
 def test_multiply_property():
     '''

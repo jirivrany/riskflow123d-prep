@@ -31,11 +31,11 @@ def test_monte_carlo():
     monte_carlo.edit_monte_sigma.setText('0.2')
     
     li_widget = monte_carlo.list_monte_mtr
-    my_item = li_widget.item(4)
+    my_item = li_widget.item(1)
     li_widget.setItemSelected(my_item, True)
-    my_item2 = li_widget.item(8)
+    my_item2 = li_widget.item(2)
     li_widget.setItemSelected(my_item2, True)
-    my_item3 = li_widget.item(5)
+    my_item3 = li_widget.item(3)
     li_widget.setItemSelected(my_item3, True)
     
     
