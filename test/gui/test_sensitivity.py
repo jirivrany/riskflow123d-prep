@@ -9,7 +9,7 @@ from PyQt4.QtTest import QTest
 from PyQt4.QtCore import Qt
 
 from gui import MainWindow
-#import os.path
+import os.path
 
 
 APP = QApplication(sys.argv)
@@ -20,21 +20,25 @@ FORM.start_main_routine(MOCK_INI)
 
         
     
-def senstitivity_setup():
+def test_senstitivity_setup():
     FORM.on_action_sensitivity()
     
     sensitivity = FORM.centralWidget.tab_sensitivity
     
     
-    #sensitivity.edit_sens_mult_1.setText('5')
-    #sensitivity.edit_sens_mult_2.setText('0.2')
+    sensitivity.edit_sens_mult_1.setText('5')
+    sensitivity.edit_sens_mult_2.setText('0.2')
     
-    #li_widget = sensitivity.list_sens_mtr
-    ##my_item = li_widget.item(1)
-    #li_widget.setItemSelected(my_item, True)
+    li_widget = sensitivity.list_sens_mtr
+    my_item = li_widget.item(1)
+    li_widget.setItemSelected(my_item, True)
     
-    #cross_button = sensitivity.button_sens_cross
-    #QTest.mouseClick(cross_button, Qt.LeftButton)
+    cross_button = sensitivity.button_sens_cross
+    QTest.mouseClick(cross_button, Qt.LeftButton)
+    
+    file_name = '/home/albert/riskflow_test_data/test_mock/Sensitivity/00'
+    result = os.path.isdir(file_name)
+    assert result == True
     
     
     '''

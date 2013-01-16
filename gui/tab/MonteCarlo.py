@@ -68,10 +68,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         Takes number of tasks N.
         Generates N new tasks using numpy random
         '''
-        output_dir = self.window().output_dir + SEPARATOR + 'master'
-        solver_utils.copy_master_files(\
-                           self.window().flow_ini,\
-                           output_dir, SEPARATOR)
+        self.window().create_master_task()
         self.compute_log_normal_dist()
         self.clear_monte_carlo_list()
         

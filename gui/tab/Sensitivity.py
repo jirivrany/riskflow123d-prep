@@ -13,6 +13,7 @@ from PyQt4.QtGui import QWidget, QListWidgetItem
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 
+
 import copy
 
 class SensitivityTab(QWidget, Ui_Sensitivity):
@@ -48,12 +49,17 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.list_sens_mtr.repaint()
         msg = "{0} materials in the list".format(len(data))
         self.groupBox_sens_2.setTitle(msg)
-    
+        
+        
+   
+        
         
     def make_sens_multiplication(self):
         '''takes all multiplicators  (A) from the form and selected materials
         from list (B). Computes A x B results and creates new tasks
         '''
+        local_launcher, cluster_launcher = self.window().get_launchers()
+        
         self.create_master_task() 
            
         selection = [a.data(0) for a in self.list_sens_mtr.selectedItems()]

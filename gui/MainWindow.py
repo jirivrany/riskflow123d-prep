@@ -274,6 +274,15 @@ class MainWindow(QMainWindow):
         '''
         pass
     
+    def create_master_task(self):
+        '''
+        creates master tasks using solver_utils
+        '''
+        output_dir = self.window().output_dir + const.SEPARATOR + 'master'
+        app.helpers.solver_utils.copy_master_files(\
+                           self.flow_ini,\
+                           output_dir, const.SEPARATOR)
+    
     def get_launchers(self):
         '''
         check app setup for launchers config and names
