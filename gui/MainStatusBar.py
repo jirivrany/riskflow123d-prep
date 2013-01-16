@@ -5,8 +5,9 @@ Created on 23.10.2012
 '''
 
 from PyQt4.QtGui import QStatusBar, QFont
-from app.helpers import logger
 from app.helpers.constants import APP_NAME
+
+import datetime
 
 class MainStatusBar(QStatusBar):
     '''
@@ -31,10 +32,13 @@ class MainStatusBar(QStatusBar):
             self.log_message(message, log_into)
             
         super(MainStatusBar, self).showMessage(message, msecs)
-
+    
     def log_message(self, message, log_into):
         '''
-        get logger and log message
+        simple logging by print to file
         '''
-        my_logger = logger.get_it(APP_NAME, '{}{}.log'.format(log_into, APP_NAME.lower()))
-        my_logger.info(message)
+        file_name = '{}{}.log'.format(log_into, APP_NAME.lower())
+        with open(file_name, 'a') as log_file:
+            print >> log_file, '{} {}'.format(datetime.datetime.now(), message)
+    
+    

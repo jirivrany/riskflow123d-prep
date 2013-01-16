@@ -18,6 +18,9 @@ def get_it(an, lf):
     lg = logging.getLogger(an)
     return lg
 
+def close_it():
+    logging.shutdown()
+
 if __name__ == '__main__':
     '''test'''
     an = 'RiskFlow'

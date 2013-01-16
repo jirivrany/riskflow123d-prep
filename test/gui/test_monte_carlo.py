@@ -77,6 +77,7 @@ class TestMonteCarlo():
         """ 
         remove created dir
         """
+        FORM.on_app_exit()
         import shutil
         shutil.rmtree('/home/albert/riskflow_test_data/test_mock/MonteCarlo') 
         
