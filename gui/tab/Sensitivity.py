@@ -12,6 +12,7 @@ from PyQt4.QtGui import QWidget, QListWidgetItem
 
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
+from app.helpers import solver_utils
 
 
 import copy
@@ -58,13 +59,14 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''takes all multiplicators  (A) from the form and selected materials
         from list (B). Computes A x B results and creates new tasks
         '''
-        local_launcher, cluster_launcher = self.window().get_launchers()
         
-        self.create_master_task() 
+        self.window().create_master_task() 
            
-        selection = [a.data(0) for a in self.list_sens_mtr.selectedItems()]
+        selection = [str(list_item.text()) for list_item in self.list_sens_mtr.selectedItems()]
         count = 0
         poc = len(str(len(selection)*9))
+        
+        local_launcher, cluster_launcher = self.window().get_launchers()
         
         for mat in selection:
             for i in range(1, 9):
@@ -73,26 +75,28 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 if editor_field_value != '':
                     count += 1
                     fdir = '{num:0{width}}'.format(num=count, width=poc+1)
-                    mtr_file = self.output_dir + fdir + SEPARATOR +  self.file_dict['Material']
-                    ini_file = self.output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
+                    mtr_file = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material']
+                    ini_file = self.window().output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
                     
-                    nval = float(workcopy[mat].type_spec) * float(editor_field_value)
+                    nval = float(workcopy[mat]['type_spec']) * float(editor_field_value)
                     workcopy[mat].type_spec = nval
                     
-                    self.material.saveDictToFile(mtr_file, workcopy)
-                    self.create_changed_ini(ini_file, Material = self.file_dict['Material'])
-                    self.create_launcher_scripts(ini_file)
+                    workcopy.save_changes(mtr_file)
                     
-                    self.identify_task('basicProblem', self.output_dir + fdir)
+                    self.window().flow_ini.create_changed_copy(ini_file, Material = self.window().flow_ini.dict_files['Material'])
+            
+                    batch.create_launcher_scripts(ini_file, local_launcher, cluster_launcher)
+            
+                    solver_utils.create_task_identifier('basic', self.window().output_dir + fdir)
                     
-                    logfile = open('{}{}/sens{}.log'.format(self.output_dir, fdir, fdir), 'w')
-                    print >> logfile, '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
-                    logfile.close()
+                    #logfile = open('{}{}/sens{}.log'.format(self.output_dir, fdir, fdir), 'w')
+                    #print >> logfile, '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
+                    #logfile.close()
                     
                 workcopy = {}    
         
-        if self.launcher_check_hydra.isChecked():
-            batch.create_cluster_batch(self.output_dir)
+        if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
+            batch.create_cluster_batch(self.window().output_dir)
             
         msg = "{} new tasks has been created".format(count)           
         self.messenger(msg)            
