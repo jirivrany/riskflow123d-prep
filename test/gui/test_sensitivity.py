@@ -14,9 +14,9 @@ from gui import MainWindow
 
 APP = QApplication(sys.argv)
 FORM = MainWindow.MainWindow()
-#MOCK_INI = '/home/albert/riskflow_test_data/test_mock/flow_t.ini'
+MOCK_INI = '/home/albert/riskflow_test_data/test_mock/flow_t.ini'
 
-#FORM.start_main_routine(MOCK_INI)
+FORM.start_main_routine(MOCK_INI)
 
         
     
