@@ -15,9 +15,9 @@ import os.path
 APP = QApplication(sys.argv)
 FORM = MainWindow.MainWindow()
 
-MOCK_INI = '/development/python/RF_test_data/test_mock/flow_t.ini'
+MOCK_INI = '/home/albert/riskflow_test_data/test_mock/flow_t.ini'
 
-FORM.quick_start(MOCK_INI)
+FORM.start_main_routine(MOCK_INI)
 
         
     
@@ -47,7 +47,7 @@ def test_monte_carlo():
     save_widget = monte_carlo.button_monte_save
     QTest.mouseClick(save_widget, Qt.LeftButton)
     
-    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/00_ini.ini'
+    file_name = '/home/albert/riskflow_test_data/test_dir_create/MonteCarlo/00/00_ini.ini'
     result = os.path.isfile(file_name)
     assert result == True
 
@@ -55,14 +55,14 @@ def test_batch_created():
     '''
     after monte carlo test there has to be file with batch
     '''
-    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/submit_all.sh'        
+    file_name = '/home/albert/riskflow_test_data/test_dir_create/MonteCarlo/submit_all.sh'        
     result = os.path.isfile(file_name)
     assert result == True
     
-    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/run.bat'
+    file_name = '/home/albert/riskflow_test_data/test_dir_create/MonteCarlo/00/run.bat'
     result = os.path.isfile(file_name)
     assert result == True
     
-    file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/cluster.sh'
+    file_name = '/home/albert/riskflow_test_data/test_dir_create/MonteCarlo/00/cluster.sh'
     result = os.path.isfile(file_name)
     assert result == True

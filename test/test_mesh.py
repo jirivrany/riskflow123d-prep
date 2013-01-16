@@ -10,7 +10,7 @@ outName = '../../data/out.msh'
 p.write(outName)
 '''
 
-inpt = '/development/python/RF_test_data/test1.msh'
+inpt = '/home/albert/riskflow_test_data/test1.msh'
 TEST_MESH = mesh.Mesh()
 TEST_MESH.read(inpt)
     

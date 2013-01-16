@@ -13,7 +13,7 @@ def test_flow():
     '''
     kompletni nacteni a zpracovani flow ini souboru
     ''' 
-    file_name = '/development/python/RF_test_data/rf2_test/flow_t.ini'
+    file_name = '/home/albert/riskflow_test_data/rf2_test/flow_t.ini'
     slovnik = parser.get_dict_from_file(file_name)
     
     adr = os.path.dirname(file_name)
@@ -33,7 +33,7 @@ def test_short_check():
     '''
     kratky test pouze pro inputy / pouziva se pri testovani v RiskFlow pro FlowCheck
     ''' 
-    file_name = '/development/python/RF_test_data/rf2_test/flow_t.ini'
+    file_name = '/home/albert/riskflow_test_data/rf2_test/flow_t.ini'
     slovnik = parser.get_dict_from_file(file_name)
     
     adr = os.path.dirname(file_name)
