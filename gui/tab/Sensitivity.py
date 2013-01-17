@@ -89,9 +89,9 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             
                     solver_utils.create_task_identifier('basic', self.window().output_dir + fdir)
                     
-                    #logfile = open('{}{}/sens{}.log'.format(self.output_dir, fdir, fdir), 'w')
-                    #print >> logfile, '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
-                    #logfile.close()
+                    task_logfile_name = '{}{}/sens{}.log'.format(self.window().output_dir, fdir, fdir)
+                    with open(task_logfile_name, 'w') as logfile:
+                        print >> logfile, '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
                     
                 workcopy = {}    
         

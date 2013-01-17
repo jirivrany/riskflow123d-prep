@@ -41,35 +41,33 @@ class TestSensitivity():
         assert result == True
         
         
-        '''
-        okWidget = monte_carlo.button_monte_compute
-        QTest.mouseClick(okWidget, Qt.LeftButton)
-        
-        assert monte_carlo.groupBox_monte_buttons.title() == '3 materials in memory'
-        
-        save_widget = monte_carlo.button_monte_save
-        QTest.mouseClick(save_widget, Qt.LeftButton)
-        assert FORM.statusBar.currentMessage() == '5 new tasks has been created'
-        ''' 
-    
-    def batch_created(self):
+    def test_batch_created(self):
         '''
         after monte carlo test there has to be file with batch
-        
-        file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/submit_all.sh'        
-        result = os.path.isfile(file_name)
-        assert result == True
-        
-        file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/run.bat'
-        result = os.path.isfile(file_name)
-        assert result == True
-        
-        file_name = '/development/python/RF_test_data/test_dir_create/MonteCarlo/00/cluster.sh'
-        result = os.path.isfile(file_name)
-        assert result == True
         '''
-        pass
+        file_name = '/home/albert/riskflow_test_data/test_mock/Sensitivity/submit_all.sh'        
+        result = os.path.isfile(file_name)
+        assert result == True
     
+    def test_master_created(self):
+        '''
+        after monte carlo test there has to be file with batch
+        '''
+        file_name = '/home/albert/riskflow_test_data/test_mock/Sensitivity/master'
+        result = os.path.isdir(file_name)
+        assert result == True
+    
+    def test_log_created(self):
+        '''
+        after monte carlo test there has to be file with batch
+        '''
+        file_name = '/home/albert/riskflow_test_data/test_mock/Sensitivity/01/sens01.log'
+        result = os.path.isfile(file_name)
+        assert result == True    
+        
+
+        
+        
     @classmethod
     def teardown_class(self):
         """ 
@@ -78,4 +76,4 @@ class TestSensitivity():
         FORM.on_app_exit()
         import shutil
         shutil.rmtree('/home/albert/riskflow_test_data/test_mock/Sensitivity') 
-        
+    
