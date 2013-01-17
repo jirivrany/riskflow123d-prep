@@ -36,6 +36,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         
         #fill solver list with materials
+        self.displayed_solver_mtr_list = []
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
         
@@ -54,10 +55,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.list_sens_mtr.repaint()
         msg = "{0} materials in the list".format(len(data))
         self.groupBox_sens_2.setTitle(msg)
-        
-        
-   
-        
+         
         
     def make_sens_multiplication(self):
         '''takes all multiplicators  (A) from the form and selected materials
@@ -69,8 +67,6 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         selection, poc = self.get_selected_items()
         count = 0
         
-        local_launcher, cluster_launcher = self.window().get_launchers()
-        
         for mat in selection:
             for i in range(1, 9):
                 workcopy = copy.deepcopy(self.material)
@@ -79,22 +75,16 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                     count += 1
                     fdir = '{num:0{width}}'.format(num=count, width=poc+1)
                     #operation with material
-                    mtr_file = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material']
+                    mtr_file = self.window().output_dir + fdir +\
+                     SEPARATOR + self.window().flow_ini.dict_files['Material']
                     nval = float(workcopy[mat]['type_spec']) * float(editor_field_value)
                     workcopy[mat].type_spec = nval
                     workcopy.save_changes(mtr_file)
                     
-                    #now to the ini file
-                    ini_file = self.window().output_dir + fdir + SEPARATOR + fdir + '_ini.ini'
-                    self.window().flow_ini.create_changed_copy(ini_file, Material = self.window().flow_ini.dict_files['Material'])
+                    self.create_common_task_files(fdir)
                     
-                    #and batch
-                    batch.create_launcher_scripts(ini_file, local_launcher, cluster_launcher)
-                    solver_utils.create_task_identifier('basic', self.window().output_dir + fdir)
-                    
-                    task_logfile_name = '{}{}/sens{}.log'.format(self.window().output_dir, fdir, fdir)
                     message = '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
-                    self.log_message(message, task_logfile_name)
+                    self.log_message(message, fdir)
                     
                 workcopy = {}    
         
@@ -104,14 +94,6 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         msg = "{} new tasks has been created".format(count)           
         self.messenger(msg)            
     
-    def get_selected_items(self):
-        '''
-        get items selected in gui as list of strings
-        '''
-        selection = [str(list_item.text()) for list_item in self.list_sens_mtr.selectedItems()]
-        pocet = len(str(len(selection)*9))
-        
-        return selection, pocet
     
     def make_sens_multiplication_group(self):
         '''takes all multiplicators  (A) from the form and selected materials
@@ -140,8 +122,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 
                 self.create_common_task_files(fdir)
                 
-                task_logfile_name = '{}{}/sens{}.log'.format(self.window().output_dir, fdir, fdir)
-                self.log_message(message, task_logfile_name)
+                self.log_message(message, fdir)
                 
                 
             workcopy = {}    
@@ -151,7 +132,15 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             
         msg = "{} new tasks has been created".format(count)           
         self.messenger(msg)
-     
+    
+    def get_selected_items(self):
+        '''
+        get items selected in gui as list of strings
+        '''
+        selection = [str(list_item.text()) for list_item in self.list_sens_mtr.selectedItems()]
+        pocet = len(str(len(selection)*9))
+        
+        return selection, pocet 
      
     def create_common_task_files(self, dir_name):
         '''
@@ -161,7 +150,8 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         task identifier
         '''
         ini_file = self.window().output_dir + dir_name + SEPARATOR + dir_name + '_ini.ini'
-        self.window().flow_ini.create_changed_copy(ini_file, Material = self.window().flow_ini.dict_files['Material'])
+        self.window().flow_ini.create_changed_copy(ini_file, Material = \
+                                       self.window().flow_ini.dict_files['Material'])
         batch.create_launcher_scripts(ini_file, self.local_launcher, self.cluster_launcher)
         solver_utils.create_task_identifier('basic', self.window().output_dir + dir_name)
                 
@@ -171,5 +161,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''
         simple logger - append message to file
         '''
-        with open(where, 'a') as logfile:
+        task_logfile_name = '{}{}/sens{}.log'.format(self.window().output_dir, where, where)
+        
+        with open(task_logfile_name, 'a') as logfile:
             print >> logfile, message
