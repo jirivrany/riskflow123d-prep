@@ -8,7 +8,7 @@ Tab widget for Mesh Tools
 '''
 
 from genui.tab.ui_sensitivity import Ui_Sensitivity
-from PyQt4.QtGui import QWidget, QListWidgetItem
+from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
@@ -27,6 +27,9 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.button_sens_cross.clicked.connect(self.make_sens_multiplication)
         self.button_sens_group.clicked.connect(self.make_sens_multiplication_group)
         
+        #multipleseclect
+        self.list_sens_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
+        
         #alias
         self.messenger = self.window().statusBar.showMessage
         self.material = self.window().material_dict
@@ -36,7 +39,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         
         #fill solver list with materials
-        self.displayed_solver_mtr_list = []
+        self.displayed_solver_mtr_list = [ ]
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
         
