@@ -10,6 +10,7 @@ Tab widget for Mesh Tools
 from genui.tab.ui_sensitivity import Ui_Sensitivity
 from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
+from gui.MyDoubleValidator import MyDoubleValidator
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
@@ -29,7 +30,8 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         #multipleseclect
         self.list_sens_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
-        
+        #validator
+        self.__set_validators()        
         #alias
         self.messenger = self.window().statusBar.showMessage
         self.material = self.window().material_dict
@@ -42,6 +44,17 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.displayed_solver_mtr_list = [ ]
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
+        
+    def __set_validators(self):
+        '''
+        set validators for edit fields
+        '''    
+        
+        validator_positive_double = MyDoubleValidator(parent = self)
+        for row_number in xrange(1, 9):
+            tmp_name = 'edit_sens_mult_{}'.format(row_number)
+            getattr(self, tmp_name).setValidator(validator_positive_double)
+        
         
     def fill_solver_mtr_list(self, data):
         '''
