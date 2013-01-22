@@ -8,8 +8,9 @@ Tab widget for Mesh Tools
 '''
 
 from genui.tab.ui_montecarlo import Ui_MonteCarlo
-from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
+from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView, QIntValidator
 
+from gui.MyDoubleValidator import MyDoubleValidator
 from app.helpers import solver_utils
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
@@ -30,6 +31,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.button_monte_save.clicked.connect(self.save_monte_carlo_results)
         
         self.list_monte_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
+        self.__set_validators()
         
         self.monte_logger = monte_logger
         
@@ -45,6 +47,16 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
         
+    
+    def __set_validators(self):
+        '''
+        set validators for edit fields
+        '''    
+        
+        validator_positive_double = MyDoubleValidator(parent = self)
+        
+        self.edit_monte_sigma.setValidator(validator_positive_double)
+        self.edit_monte_tasks.setValidator(QIntValidator())
     
     def fill_solver_mtr_list(self, data):
         '''
