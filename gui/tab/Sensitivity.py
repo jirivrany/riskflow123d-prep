@@ -52,13 +52,15 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
+        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
+        
         for row_number in xrange(1, 9):
             tmp_name = 'edit_sens_conduct_{}'.format(row_number)
             getattr(self, tmp_name).setValidator(validator_positive_double)
             tmp_name = 'edit_sens_storativity_{}'.format(row_number)
             getattr(self, tmp_name).setValidator(validator_positive_double)
             tmp_name = 'edit_sens_porosity_{}'.format(row_number)
-            getattr(self, tmp_name).setValidator(validator_positive_double)
+            getattr(self, tmp_name).setValidator(validator_zero_one)
         
     def fill_solver_mtr_list(self, data):
         '''
@@ -89,7 +91,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         field_values = self.get_editor_values()
         
-        for mat in selection:
+        for material_id in selection:
             for values_row in field_values: 
                 workcopy = copy.deepcopy(self.material)
                 count += 1
@@ -98,12 +100,12 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 mtr_file = self.window().output_dir + fdir +\
                  SEPARATOR + self.window().flow_ini.dict_files['Material']
                 
-                changed_values = workcopy.compute_new_material_values(values_row)
+                changed_values = workcopy.compute_new_material_values(material_id, values_row)
                 workcopy.save_changes(mtr_file)
                 
                 self.create_common_task_files(fdir)
                 
-                message = '{} {} {}'.format(mat, workcopy[mat].type_spec, changed_values)
+                message = '{} computed values {} (None = no change)'.format(material_id, changed_values)
                 self.log_message(message, fdir)
                 
                 workcopy = {}    
