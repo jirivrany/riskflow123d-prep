@@ -56,6 +56,9 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         validator_positive_double = MyDoubleValidator(parent = self)
         
         self.edit_monte_sigma.setValidator(validator_positive_double)
+        self.edit_monte_porosity.setValidator(validator_positive_double)
+        self.edit_monte_storativity.setValidator(validator_positive_double)
+        
         self.edit_monte_tasks.setValidator(QIntValidator())
     
     def fill_solver_mtr_list(self, data):
