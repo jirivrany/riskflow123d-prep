@@ -206,9 +206,16 @@ class MaterialDict(dict):
         method is used by mesh tools
         '''
         for mtr in id_list:
-            x_val = self[str(mtr)]
-            temp = float(x_val[property_name]) * float(multiplicator)
-            x_val['type_spec'] = str(temp)
+            self.multiply_single_property(str(mtr), property_name, multiplicator)
+    
+    def multiply_single_property(self, mtr_id, property_name, multiplicator): 
+        '''
+        multiply one single property
+        '''
+        x_val = self[mtr_id]
+        temp = float(x_val[property_name]) * float(multiplicator)
+        x_val[property_name] = str(temp)
+        return str(temp)       
             
     def set_property_value(self, property_name, id_list, new_value):
         '''
@@ -216,7 +223,35 @@ class MaterialDict(dict):
         method is used by mesh tools
         '''
         for mtr in id_list:
-            self[str(mtr)][property_name] = str(new_value)
-        
+            self.set_single_property_value(str(mtr), property_name, new_value)
             
+    def set_single_property_value(self,  mtr_id, property_name, new_value):
+        '''
+        set defined property to new value 
+        method is used by mesh tools
+        '''
+        self[mtr_id][property_name] = str(new_value)
+        return str(new_value)    
     
+    def compute_new_material_values(self, mtr_id, values_row):
+        '''
+        values row is tuple created in sensitivity task or monte carlo
+        (conductivity, porosity, storativity)
+        '''
+        new_cond = None
+        new_poro = None
+        new_stora = None
+        
+        
+        #conductivity
+        if values_row[0]:
+            new_cond = self.multiply_single_property(mtr_id, 'type_spec', values_row[0])
+        #porosity
+        if values_row[1]:
+            new_poro = self.set_single_property_value(mtr_id, 'dualporosity', values_row[1])
+        #storativity
+        if values_row[2]:
+            new_stora = self.multiply_single_property(mtr_id, 'storativity', values_row[2])
+            
+        return (new_cond, new_poro, new_stora)
+        

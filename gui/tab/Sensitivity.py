@@ -17,6 +17,7 @@ from app.helpers import solver_utils
 
 
 import copy
+from scipy.constants.codata import val
 
 class SensitivityTab(QWidget, Ui_Sensitivity):
     '''
@@ -86,33 +87,60 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         selection, poc = self.get_selected_items()
         count = 0
         
+        field_values = self.get_editor_values()
+        
         for mat in selection:
-            for i in range(1, 9):
+            for values_row in field_values: 
                 workcopy = copy.deepcopy(self.material)
-                editor_field_value = getattr(self, "edit_sens_mult_{}".format(i)).text()
-                if editor_field_value != '':
-                    count += 1
-                    fdir = '{num:0{width}}'.format(num=count, width=poc+1)
-                    #operation with material
-                    mtr_file = self.window().output_dir + fdir +\
-                     SEPARATOR + self.window().flow_ini.dict_files['Material']
-                    nval = float(workcopy[mat]['type_spec']) * float(editor_field_value)
-                    workcopy[mat].type_spec = nval
-                    workcopy.save_changes(mtr_file)
-                    
-                    self.create_common_task_files(fdir)
-                    
-                    message = '{} {} {}'.format(mat, workcopy[mat].type_spec, nval)
-                    self.log_message(message, fdir)
-                    
+                count += 1
+                fdir = '{num:0{width}}'.format(num=count, width=poc+1)
+                #operation with material
+                mtr_file = self.window().output_dir + fdir +\
+                 SEPARATOR + self.window().flow_ini.dict_files['Material']
+                
+                changed_values = workcopy.compute_new_material_values(values_row)
+                workcopy.save_changes(mtr_file)
+                
+                self.create_common_task_files(fdir)
+                
+                message = '{} {} {}'.format(mat, workcopy[mat].type_spec, changed_values)
+                self.log_message(message, fdir)
+                
                 workcopy = {}    
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
             
         msg = "{} new tasks has been created".format(count)           
-        self.messenger(msg)            
-    
+        self.messenger(msg)
+        
+        
+    def get_editor_values(self):
+        '''
+        check all the editor and return 8 row list of tuples with editor values
+        '''
+        result = []
+        
+        for row in xrange(8):
+            try:
+                conductivity = float(getattr(self, "edit_sens_conduct_{}".format(row + 1)).text())
+            except ValueError:
+                conductivity = None                
+            
+            try:
+                porosity = float(getattr(self, "edit_sens_porosity_{}".format(row + 1)).text())
+            except ValueError:
+                porosity = None
+            
+            try:            
+                storativity = float(getattr(self, "edit_sens_storativity_{}".format(row + 1)).text())
+            except ValueError:
+                storativity = None
+            
+            if storativity or porosity or conductivity:
+                result.append( (conductivity, porosity, storativity) )
+            
+        return result 
     
     def make_sens_multiplication_group(self):
         '''takes all multiplicators  (A) from the form and selected materials
@@ -125,7 +153,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         for i in xrange(1, 9):
             workcopy = copy.deepcopy(self.material)
-            editor_field_values = getattr(self, "edit_sens_mult_{}".format(i)).text()
+            editor_field_values = getattr(self, "edit_sens_conduct_{}".format(i)).text()
             if editor_field_values != '':
                 count += 1
                 message = ''

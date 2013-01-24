@@ -26,8 +26,13 @@ class TestSensitivityGroup():
         sensitivity = FORM.centralWidget.tab_sensitivity
         
         
-        sensitivity.edit_sens_mult_1.setText('5')
-        sensitivity.edit_sens_mult_2.setText('0.2')
+        sensitivity.edit_sens_conduct_1.setText('5')
+        sensitivity.edit_sens_porosity_1.setText('2')
+        sensitivity.edit_sens_storativity_1.setText('2')
+        sensitivity.edit_sens_conduct_2.setText('0.2')
+        sensitivity.edit_sens_porosity_3.setText('9')
+        sensitivity.edit_sens_porosity_4.setText('7')
+        sensitivity.edit_sens_storativity_4.setText('6')
         
         li_widget = sensitivity.list_sens_mtr
         my_item = li_widget.item(1)
@@ -40,6 +45,9 @@ class TestSensitivityGroup():
         result = os.path.isdir(file_name)
         assert result == True
         
+        expected_result_tuple = [(5, 2, 2), (0.2, None, None), (None, 9, None), (None, 7, 6)]
+        result = sensitivity.get_editor_values()
+        assert result == expected_result_tuple
         
     def test_batch_created(self):
         '''

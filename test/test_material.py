@@ -90,4 +90,19 @@ def test_set_hydraulic_cond():
     new_value = '100'
     my_test_dict.set_property_value(prop_name, my_test_dict,  new_value)
     assert my_test_dict['9617'][prop_name] == new_value
-    assert my_test_dict['4300'][prop_name] == new_value    
+    assert my_test_dict['4300'][prop_name] == new_value
+    
+def test_compute_new_material_values():
+    '''
+    compute new material values and test 
+    '''
+    inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
+    my_test_dict = material.MaterialDict(inpt)
+    values_row = (5.0, 2.0, 2.0)
+    
+    new_values = my_test_dict.compute_new_material_values('9617', values_row)
+    print new_values   
+    assert my_test_dict['9617']['type_spec'] == str(0.1816229383 * 5.0)
+    assert my_test_dict['9617']['dualporosity'] == '2.0'
+    assert my_test_dict['9617']['storativity'] == str(0.01 * 2.0)
+     

@@ -26,8 +26,8 @@ class TestSensitivity():
         sensitivity = FORM.centralWidget.tab_sensitivity
         
         
-        sensitivity.edit_sens_mult_1.setText('5')
-        sensitivity.edit_sens_mult_2.setText('0.2')
+        sensitivity.edit_sens_conduct_1.setText('5')
+        sensitivity.edit_sens_conduct_2.setText('0.2')
         
         li_widget = sensitivity.list_sens_mtr
         my_item = li_widget.item(1)
