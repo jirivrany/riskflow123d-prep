@@ -52,9 +52,12 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         validator_positive_double = MyDoubleValidator(parent = self)
         for row_number in xrange(1, 9):
-            tmp_name = 'edit_sens_mult_{}'.format(row_number)
+            tmp_name = 'edit_sens_conduct_{}'.format(row_number)
             getattr(self, tmp_name).setValidator(validator_positive_double)
-        
+            tmp_name = 'edit_sens_storativity_{}'.format(row_number)
+            getattr(self, tmp_name).setValidator(validator_positive_double)
+            tmp_name = 'edit_sens_porosity_{}'.format(row_number)
+            getattr(self, tmp_name).setValidator(validator_positive_double)
         
     def fill_solver_mtr_list(self, data):
         '''
