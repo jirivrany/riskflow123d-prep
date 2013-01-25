@@ -87,6 +87,12 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.window().create_master_task() 
            
         selection, poc = self.get_selected_items()
+        
+        if not selection:
+            msg = "Select some material first"        
+            self.messenger(msg)
+            return
+        
         count = 0
         
         field_values = self.get_editor_values()
@@ -105,7 +111,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 
                 self.create_common_task_files(fdir)
                 
-                message = '{} computed values {} (None = no change)'.format(material_id, changed_values)
+                message = '{} computed values {} (None = no change)\n'.format(material_id, changed_values)
                 self.log_message(message, fdir)
                 
                 workcopy = {}    
@@ -116,6 +122,50 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         msg = "{} new tasks has been created".format(count)           
         self.messenger(msg)
         
+        
+    
+    
+    def make_sens_multiplication_group(self):
+        '''takes all multiplicators  (A) from the form and selected materials
+        from list (B). Computes A results for Group B of materials and creates new tasks
+        '''
+        self.window().create_master_task() 
+           
+        selection, pocet = self.get_selected_items()
+        count = 0
+        
+        if not selection:
+            msg = "Select some material first"        
+            self.messenger(msg)
+            return
+        
+        field_values = self.get_editor_values()
+        
+        for values_row in field_values: 
+            workcopy = copy.deepcopy(self.material)
+            count += 1
+            message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
+            for material_id in selection:
+                changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                message += '{} new values {} \n'.format(material_id, changed_values)
+                
+            fdir = '{num:0{width}}'.format(num=count, width=pocet+1)
+            fname = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material'] 
+            
+            workcopy.save_changes(fname)
+            
+            self.create_common_task_files(fdir)
+            
+            self.log_message(message, fdir)
+                
+                
+            workcopy = {}    
+        
+        if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
+            batch.create_cluster_batch(self.window().output_dir)
+            
+        msg = "{} new tasks has been created".format(count)           
+        self.messenger(msg)
         
     def get_editor_values(self):
         '''
@@ -143,44 +193,6 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 result.append( (conductivity, porosity, storativity) )
             
         return result 
-    
-    def make_sens_multiplication_group(self):
-        '''takes all multiplicators  (A) from the form and selected materials
-        from list (B). Computes A results for Group B of materials and creates new tasks
-        '''
-        self.window().create_master_task() 
-           
-        selection, poc = self.get_selected_items()
-        count = 0
-        
-        for i in xrange(1, 9):
-            workcopy = copy.deepcopy(self.material)
-            editor_field_values = getattr(self, "edit_sens_conduct_{}".format(i)).text()
-            if editor_field_values != '':
-                count += 1
-                message = ''
-                for mat in selection:
-                    nval = float(workcopy[mat]['type_spec']) * float(editor_field_values)
-                    message += '{} {} {}\n'.format(mat, workcopy[mat]['type_spec'], nval)
-                    workcopy[mat].type_spec = nval
-                    
-                fdir = '{num:0{width}}'.format(num=count, width=poc+1)
-                fname = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material'] 
-                
-                workcopy.save_changes(fname)
-                
-                self.create_common_task_files(fdir)
-                
-                self.log_message(message, fdir)
-                
-                
-            workcopy = {}    
-        
-        if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
-            batch.create_cluster_batch(self.window().output_dir)
-            
-        msg = "{} new tasks has been created".format(count)           
-        self.messenger(msg)
     
     def get_selected_items(self):
         '''
