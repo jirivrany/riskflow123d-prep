@@ -95,6 +95,7 @@ class MainWindow(QMainWindow):
         self.menuBar.actionOpen.triggered.connect(self.on_ini_file_open)
         self.menuBar.actionExit.triggered.connect(self.on_app_exit)
         self.menuBar.actionSave.triggered.connect(self.on_ini_file_save)
+        self.menuBar.actionClose.triggered.connect(self.on_ini_file_close)
         self.menuBar.actionQuick_start.triggered.connect(self.quick_start)    
         
         self.menuBar.actionMonte_Carlo.triggered.connect( \
@@ -124,6 +125,19 @@ class MainWindow(QMainWindow):
                         "Flow ini (*.ini)\nAll Files (*.*)")
         
         self.start_main_routine(str(file_name))
+        
+    def on_ini_file_close(self):
+        '''
+        when ini file is closed application has to close all related stuff
+        '''
+        self.flow_ini = None
+        self.material_dict = None
+        self.current_problem = None
+        self.output_dir = None
+        self.mesh = None
+        
+        self.centralWidget.remove_solver_tabs()
+        self.centralWidget.hide()
         
     def start_main_routine(self, fname):
         '''

@@ -47,7 +47,7 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         material settings
         mesh settings and mesh tools
         ''' 
-        self.__remove_solver_tabs()
+        self.remove_solver_tabs()
         
         self.__add_material_settings_tab()
         
@@ -66,7 +66,7 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         sensitivity solver and material settings
         '''
         
-        self.__remove_solver_tabs()
+        self.remove_solver_tabs()
         
         self.__add_material_settings_tab()
             
@@ -81,7 +81,7 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         monte carlo solver + material settings
         '''
         
-        self.__remove_solver_tabs()
+        self.remove_solver_tabs()
         
         self.__add_material_settings_tab()    
         
@@ -91,7 +91,7 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         
         self.setCurrentIndex(3)
         
-    def __remove_solver_tabs(self):
+    def remove_solver_tabs(self):
         '''
         remove tables when switching between solver methods
         '''
