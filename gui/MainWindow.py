@@ -124,7 +124,9 @@ class MainWindow(QMainWindow):
                         "Open File", ".", \
                         "Flow ini (*.ini)\nAll Files (*.*)")
         
-        self.start_main_routine(str(file_name))
+        if file_name:
+            self.on_ini_file_close()
+            self.start_main_routine(str(file_name))
         
     def on_ini_file_close(self):
         '''
