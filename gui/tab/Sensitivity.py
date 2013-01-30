@@ -18,6 +18,7 @@ from app.helpers import solver_utils
 
 import copy
 from scipy.constants.codata import val
+from dateutil.tz import ZERO
 
 class SensitivityTab(QWidget, Ui_Sensitivity):
     '''
@@ -58,7 +59,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             tmp_name = 'edit_sens_conduct_{}'.format(row_number)
             getattr(self, tmp_name).setValidator(validator_positive_double)
             tmp_name = 'edit_sens_storativity_{}'.format(row_number)
-            getattr(self, tmp_name).setValidator(validator_positive_double)
+            getattr(self, tmp_name).setValidator(validator_zero_one)
             tmp_name = 'edit_sens_porosity_{}'.format(row_number)
             getattr(self, tmp_name).setValidator(validator_zero_one)
         

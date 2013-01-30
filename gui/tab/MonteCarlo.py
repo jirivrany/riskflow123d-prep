@@ -54,10 +54,12 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
+        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5, self)
+        
         
         self.edit_monte_sigma.setValidator(validator_positive_double)
-        self.edit_monte_porosity.setValidator(validator_positive_double)
-        self.edit_monte_storativity.setValidator(validator_positive_double)
+        self.edit_monte_porosity.setValidator(validator_zero_one)
+        self.edit_monte_storativity.setValidator(validator_zero_one)
         
         self.edit_monte_tasks.setValidator(QIntValidator())
     

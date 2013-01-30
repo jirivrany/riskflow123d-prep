@@ -50,12 +50,11 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
+        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
         
         self.edit_multiply_conduct.setValidator(validator_positive_double)
         self.edit_nvalue_conduct.setValidator(validator_positive_double)
-        self.edit_nvalue_storativity.setValidator(validator_positive_double)
-        
-        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
+        self.edit_nvalue_storativity.setValidator(validator_zero_one)
         self.edit_nvalue_porosity.setValidator(validator_zero_one)
         
     def generate_um_for_all(self):

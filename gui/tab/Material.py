@@ -7,7 +7,8 @@ Application Settings Tab
 '''
 
 from genui.tab.ui_material import Ui_tab_material
-from PyQt4.QtGui import QWidget, QIntValidator, QDoubleValidator
+from PyQt4.QtGui import QWidget, QIntValidator
+from gui.MyDoubleValidator import MyDoubleValidator
 
 
 class MaterialTab(QWidget, Ui_tab_material):
@@ -99,12 +100,12 @@ class MaterialTab(QWidget, Ui_tab_material):
         validator_positive_integer = QIntValidator()
         validator_positive_integer.setBottom(0)
         
-        validator_positive_double = QDoubleValidator()
-        validator_positive_double.setBottom(0.0)
+        validator_positive_double = MyDoubleValidator(bottom = 0, parent = self)
+        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5, self)
         
         self.edit_specific_data.setValidator(validator_positive_double)
         self.edit_geometry_coeficient.setValidator(validator_positive_double)
         self.edit_geometry_type.setValidator(validator_positive_integer)
-        self.edit_storativity.setValidator(validator_positive_double)
-        self.editl_dual_porosity.setValidator(validator_positive_double)
+        self.edit_storativity.setValidator(validator_zero_one)
+        self.editl_dual_porosity.setValidator(validator_zero_one)
         self.edit_type.setValidator(validator_positive_integer)

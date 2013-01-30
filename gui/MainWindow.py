@@ -160,9 +160,19 @@ class MainWindow(QMainWindow):
                 self.setup = self.centralWidget.tab_settings.setup.values
                 #Enable GUI features
                 self.centralWidget.setHidden(False)
-                self.menuBar.enable_solver_actions()
+                self.try_enable_solver_actions()
             else:
                 self.statusBar.showMessage('ERROR in ini file', 8000)
+                
+    def try_enable_solver_actions(self):
+        '''
+        enable or disable solver actions according to the settings
+        '''
+        if self.centralWidget.tab_settings.check_launchers():
+            self.menuBar.enable_solver_actions()
+        else:
+            self.menuBar.disable_solver_actions()
+            self.statusBar.showMessage('ERROR : Check at last one type of launcher in settings please.')
                 
     def on_ini_file_save(self):
         '''

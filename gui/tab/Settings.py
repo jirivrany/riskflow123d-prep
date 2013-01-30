@@ -29,13 +29,26 @@ class SettingsTab(QWidget, Ui_tab_settings):
         
         self.launcher_button_local.clicked.connect(self.setup_flow_exe)
         
+        self.launcher_check_hydra.stateChanged.connect(self.solver_action_control)
+        self.launcher_check_local.stateChanged.connect(self.solver_action_control)
+        
+        
         #fill up the form
         self.load()
         #debug
         #print self.setup
         
+    def solver_action_control(self):
+        '''
+        call parent method for test and enable solver actions
+        '''
+        self.window().try_enable_solver_actions()
         
         
+    def check_launchers(self):
+        '''returns true if at last one of launchers is checked'''
+        
+        return self.launcher_check_local.isChecked() or self.launcher_check_hydra.isChecked()    
         
     def save(self):
         '''
