@@ -13,7 +13,6 @@ def empty_output_dir(parent, output_dir):
     
     
     if ret == QMessageBox.Ok:
-        print "mazeme"
+        return True
     else:
-        print "aaaaa"    
-    return str(ret)
+        return False

@@ -232,24 +232,72 @@ class MainWindow(QMainWindow):
         slot for action basic problem signal
         prepares all necesities for basic solver problem
         '''
-        self.common_solver_setup('basic')
-        self.centralWidget.add_basic_problem_tabs()
+        problem_type = 'basic'
+        if self.set_output_dir(problem_type):
+            self.common_solver_setup(problem_type)
+            self.centralWidget.add_basic_problem_tabs()
+        else:
+            self.backup_warning()        
         
     def on_action_monte_carlo(self):
         '''
         slot for action monte carlo signal
         prepares all necesities for monte carlo problem
         '''
-        self.common_solver_setup('monte')
-        self.centralWidget.add_monte_carlo_tabs()
+        problem_type = 'monte'
+        if self.set_output_dir(problem_type):
+            self.common_solver_setup(problem_type)
+            self.centralWidget.add_monte_carlo_tabs()
+        else:
+            self.backup_warning()    
         
     def on_action_sensitivity(self):
         '''
         slot for action sensitivity problem signal
         prepares all necesities for sensitivity solver problem
         '''
-        self.common_solver_setup('sens')
-        self.centralWidget.add_sensitivity_task_tabs()
+        problem_type = 'sens'
+        if self.set_output_dir(problem_type):
+            self.common_solver_setup(problem_type)
+            self.centralWidget.add_sensitivity_task_tabs()
+        else:
+            self.backup_warning()        
+            
+    def backup_warning(self):
+        '''
+        display a message with backup warning
+        '''
+        result = "Make backup of you previous work, and try again."
+        self.statusBar.showMessage(result)
+                
+        
+    def set_output_dir(self, problem_type):    
+        '''
+        sets empty output dir
+        '''
+        output_dir = app.helpers.output_dir.set_output_dir(\
+                               self.flow_ini.dir_name, problem_type)
+        
+        
+        
+        if app.helpers.output_dir.exist(output_dir):
+            if app.helpers.output_dir.is_not_empty(output_dir):
+                delete_it = gui.dialogs.empty_output_dir(self, output_dir)
+                if delete_it:
+                    app.helpers.output_dir.delete_content(output_dir)
+                    result = "Obsolete content of {} has been deleted.".format(output_dir)
+                else:
+                    return False    
+            else:
+                result = "Output dir exists and is empty"
+                
+        else:        
+            result = app.helpers.output_dir.create(output_dir)
+        
+        self.output_dir = output_dir
+        
+        self.statusBar.showMessage(result, 8000, self.output_dir)
+        return True
         
     def common_solver_setup(self, problem_type):
         '''
@@ -265,22 +313,8 @@ class MainWindow(QMainWindow):
         if not self.mesh:
             self.load_mesh()
         
-        output_dir = app.helpers.output_dir.set_output_dir(\
-                               self.flow_ini.dir_name, problem_type)
-        
-        if app.helpers.output_dir.exist(output_dir):
-            if app.helpers.output_dir.is_not_empty(output_dir):
-                result = gui.dialogs.empty_output_dir(self, output_dir)
-                
-        else:        
-            result = app.helpers.output_dir.create(output_dir)
-        
-        self.output_dir = output_dir
-        
-        self.statusBar.showMessage(result, 8000, self.output_dir)
-        
-        app.helpers.solver_utils.create_task_identifier(problem_type, output_dir)
-        app.helpers.solver_utils.copy_master_files(self.flow_ini, output_dir, const.SEPARATOR)
+        app.helpers.solver_utils.create_task_identifier(problem_type, self.output_dir)
+        app.helpers.solver_utils.copy_master_files(self.flow_ini, self.output_dir, const.SEPARATOR)
         
         self.current_problem = problem_type
         

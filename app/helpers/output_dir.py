@@ -46,5 +46,12 @@ def is_not_empty(output_dir):
         return True
     else:
         return False
-        
+    
+def delete_content(output_dir):
+    '''
+    delete content of output dir
+    '''    
+    import shutil
+    shutil.rmtree(output_dir)
+    create(output_dir)     
         
