@@ -154,15 +154,18 @@ class MainWindow(QMainWindow):
             self.statusBar.showMessage("Error reading flow ini file") 
         else:        
             if self.centralWidget.tab_flow_ini.handle_file(self.flow_ini):
-                
-                self.load_material()
-                self.load_mesh()
-                self.setup = self.centralWidget.tab_settings.setup.values
-                #Enable GUI features
-                self.centralWidget.setHidden(False)
                 self.try_enable_solver_actions()
             else:
+                self.menuBar.disable_solver_actions()
                 self.statusBar.showMessage('ERROR in ini file', 8000)
+                
+            self.setup = self.centralWidget.tab_settings.setup.values
+            #Enable central widget
+            self.centralWidget.setHidden(False)
+            #enable flow ini edtior
+            self.centralWidget.tab_flow_ini.set_writable()
+            
+       
                 
     def try_enable_solver_actions(self):
         '''
@@ -253,6 +256,10 @@ class MainWindow(QMainWindow):
         '''
         #setttings and edit tables read only from now
         self.centralWidget.tab_flow_ini.set_read_only()
+        #load material
+        self.load_material()
+        #and mesh
+        self.load_mesh()
         
         output_dir = app.helpers.output_dir.set_output_dir(\
                                self.flow_ini.dir_name, problem_type, const.SEPARATOR)

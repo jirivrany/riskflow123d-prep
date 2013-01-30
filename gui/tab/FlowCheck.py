@@ -28,25 +28,36 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         Populate editor window with flow.ini file.
         Display warning message in case of failure.
         '''
+        status = True
+        
         if not self._set_labels_from_dict(ini_file.dict_files, ini_file.dir_name):
             message = "Missing some required files, please check your flow.ini"
             self.window().statusBar.showMessage(message)
-            return False
+            status = False
+
         if not self._set_editor_text(ini_file.text):
             message = "Failed to populate editor window"
             self.window().statusBar.showMessage(message, 5000)
-            return False
+            status = False
         
         message = "successfully opened the ini file"
         self.window().statusBar.showMessage(message, 5000)
-        return True
+        return status
     
     def set_read_only(self):
         '''
-        set all widgets in this tab to read only
+        set editor in this tab to read only
         '''
-        self.la
+        self.groupBox_editor.setTitle('Flow.ini - READ ONLY')
         self.edit_flow_ini.setReadOnly(True)
+        
+    def set_writable(self):
+        '''
+        set editor in this tab to writable
+        '''
+        self.groupBox_editor.setTitle('Flow.ini - Editor')
+        self.edit_flow_ini.setReadOnly(False)
+        
         
     def dialog_ini_file_save(self, file_name):
         '''

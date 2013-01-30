@@ -40,8 +40,6 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         self.tab_settings = SettingsTab(self)
         self.addTab(self.tab_settings, TAB_LABELS['settings'])
         
-        self.is_ready = False
-        
         
     def add_basic_problem_tabs(self):
         '''
@@ -59,7 +57,6 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         self.tab_mesh_tools = MeshToolsTab(self)
         self.addTab(self.tab_mesh_tools, TAB_LABELS['mesh_tools'])
         
-        self.is_ready = True
         self.setCurrentIndex(2)
                    
             
@@ -76,7 +73,6 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         self.tab_sensitivity = SensitivityTab(self)
         self.addTab(self.tab_sensitivity, TAB_LABELS['sensitivity'])
         
-        self.is_ready = True
         self.setCurrentIndex(3)
         
     def add_monte_carlo_tabs(self):
@@ -93,7 +89,6 @@ class MainTabWidget(QtGui.QTabWidget, Ui_TabWidget):
         self.tab_montecarlo = MonteCarloTab(MonteLogger(self.window().output_dir), self)
         self.addTab(self.tab_montecarlo, TAB_LABELS['monte_carlo'])
         
-        self.is_ready = True
         self.setCurrentIndex(3)
         
     def remove_solver_tabs(self):
