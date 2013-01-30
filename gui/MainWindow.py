@@ -279,15 +279,12 @@ class MainWindow(QMainWindow):
                                self.flow_ini.dir_name, problem_type)
         
         
-        
         if app.helpers.output_dir.exist(output_dir):
             if app.helpers.output_dir.is_not_empty(output_dir):
-                delete_it = gui.dialogs.empty_output_dir(self, output_dir)
-                if delete_it:
-                    app.helpers.output_dir.delete_content(output_dir)
-                    result = "Obsolete content of {} has been deleted.".format(output_dir)
+                if problem_type == 'sens':
+                    return self.output_dir_sens(output_dir)
                 else:
-                    return False    
+                    return self.output_dir_monte_basic(output_dir)      
             else:
                 result = "Output dir exists and is empty"
                 
@@ -298,6 +295,41 @@ class MainWindow(QMainWindow):
         
         self.statusBar.showMessage(result, 8000, self.output_dir)
         return True
+    
+    def output_dir_sens(self, output_dir):
+        '''
+        outputdir dialog and delete for sensitivity
+        '''
+        return_code = gui.dialogs.append_or_empty_output_dir(self, output_dir)
+        if return_code == 0:
+            self.delete_output_dir(output_dir)
+            self.output_dir = output_dir
+            return True
+        elif return_code == 2:
+            print 'append'
+        else:
+            return False         
+        
+        
+    def output_dir_monte_basic(self, output_dir):
+        '''
+        deletes the data for monte and basic after confirm
+        '''
+        delete_it = gui.dialogs.empty_output_dir(self, output_dir)
+        if delete_it:
+            self.delete_output_dir(output_dir)
+            self.output_dir = output_dir
+            return True
+        else:
+            return False  
+    
+    def delete_output_dir(self, output_dir):
+        '''
+        delete content of output dir
+        '''
+        app.helpers.output_dir.delete_content(output_dir)
+        result = "Obsolete content of {} has been deleted.".format(output_dir)
+        self.statusBar.showMessage(result, 8000, self.output_dir)    
         
     def common_solver_setup(self, problem_type):
         '''
