@@ -13,6 +13,7 @@ from gui.MainTabWidget import MainTabWidget
 from gui.MainMenu import MainMenu
 from gui.MainStatusBar import MainStatusBar
 import gui.toolbar
+import gui.dialogs
 
 from app.FlowIni import FlowIni
 
@@ -269,7 +270,8 @@ class MainWindow(QMainWindow):
         
         if app.helpers.output_dir.exist(output_dir):
             if app.helpers.output_dir.is_not_empty(output_dir):
-                result = "musime smazat obsah"
+                result = gui.dialogs.empty_output_dir(self, output_dir)
+                
         else:        
             result = app.helpers.output_dir.create(output_dir)
         

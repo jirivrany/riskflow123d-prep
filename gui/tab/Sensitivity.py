@@ -17,8 +17,6 @@ from app.helpers import solver_utils
 
 
 import copy
-from scipy.constants.codata import val
-from dateutil.tz import ZERO
 
 class SensitivityTab(QWidget, Ui_Sensitivity):
     '''
