@@ -256,6 +256,7 @@ class MainWindow(QMainWindow):
         '''
         #setttings and edit tables read only from now
         self.centralWidget.tab_flow_ini.set_read_only()
+        self.centralWidget.tab_settings.setDisabled(True)
         #load material
         self.load_material()
         #and mesh
