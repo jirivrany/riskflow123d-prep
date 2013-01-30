@@ -41,6 +41,13 @@ class FlowCheck(QtGui.QWidget, Ui_tab_8):
         self.window().statusBar.showMessage(message, 5000)
         return True
     
+    def set_read_only(self):
+        '''
+        set all widgets in this tab to read only
+        '''
+        self.la
+        self.edit_flow_ini.setReadOnly(True)
+        
     def dialog_ini_file_save(self, file_name):
         '''
         Save changes in flow.ini file

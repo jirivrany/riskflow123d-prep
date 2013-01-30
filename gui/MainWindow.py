@@ -168,11 +168,12 @@ class MainWindow(QMainWindow):
         '''
         enable or disable solver actions according to the settings
         '''
-        if self.centralWidget.tab_settings.check_launchers():
-            self.menuBar.enable_solver_actions()
-        else:
-            self.menuBar.disable_solver_actions()
-            self.statusBar.showMessage('ERROR : Check at last one type of launcher in settings please.')
+        if hasattr(self.centralWidget, 'tab_settings'):
+            if self.centralWidget.tab_settings.check_launchers():
+                self.menuBar.enable_solver_actions()
+            else:
+                self.menuBar.disable_solver_actions()
+                self.statusBar.showMessage('ERROR : Check at last one type of launcher in settings please.')
                 
     def on_ini_file_save(self):
         '''
@@ -250,6 +251,9 @@ class MainWindow(QMainWindow):
         '''
         common settings for all solvers, dispatch by problem type
         '''
+        #setttings and edit tables read only from now
+        self.centralWidget.tab_flow_ini.set_read_only()
+        
         output_dir = app.helpers.output_dir.set_output_dir(\
                                self.flow_ini.dir_name, problem_type, const.SEPARATOR)
         

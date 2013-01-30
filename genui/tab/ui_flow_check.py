@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'flow_check.ui'
 #
-# Created: Thu Dec 20 12:02:55 2012
+# Created: Wed Jan 30 12:14:43 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
