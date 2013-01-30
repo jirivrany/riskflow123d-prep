@@ -267,7 +267,11 @@ class MainWindow(QMainWindow):
         output_dir = app.helpers.output_dir.set_output_dir(\
                                self.flow_ini.dir_name, problem_type)
         
-        result = app.helpers.output_dir.create_if_not_exists(output_dir)
+        if app.helpers.output_dir.exist(output_dir):
+            if app.helpers.output_dir.is_not_empty(output_dir):
+                result = "musime smazat obsah"
+        else:        
+            result = app.helpers.output_dir.create(output_dir)
         
         self.output_dir = output_dir
         
