@@ -5,11 +5,12 @@ Created on 11.10.2012
 '''
 import os
 from genericpath import exists
+from app.helpers.constants import SEPARATOR
 
 DIRNAME = {'monte' : 'MonteCarlo', 'sens' : 'Sensitivity', 'basic' : 'basicProblem'}
 
         
-def set_output_dir(start_dir, method, separator):
+def set_output_dir(start_dir, method, separator = SEPARATOR):
     '''
     output dir string builder
     '''

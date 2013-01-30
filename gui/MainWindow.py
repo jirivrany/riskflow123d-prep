@@ -258,12 +258,14 @@ class MainWindow(QMainWindow):
         self.centralWidget.tab_flow_ini.set_read_only()
         
         #load material
-        self.load_material()
+        if not self.material_dict:
+            self.load_material()
         #and mesh
-        self.load_mesh()
+        if not self.mesh:
+            self.load_mesh()
         
         output_dir = app.helpers.output_dir.set_output_dir(\
-                               self.flow_ini.dir_name, problem_type, const.SEPARATOR)
+                               self.flow_ini.dir_name, problem_type)
         
         result = app.helpers.output_dir.create_if_not_exists(output_dir)
         
