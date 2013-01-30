@@ -47,6 +47,13 @@ def is_not_empty(output_dir):
     else:
         return False
     
+def get_max_dir_number(output_dir):
+    '''
+    find maximum number of dir / dir names are numbers
+    '''
+    print max(os.listdir(output_dir), key = to_int)
+        
+    
 def delete_content(output_dir):
     '''
     delete content of output dir
@@ -54,4 +61,9 @@ def delete_content(output_dir):
     import shutil
     shutil.rmtree(output_dir)
     create(output_dir)     
-        
+
+def to_int(value):
+    try:
+        return int(value)
+    except ValueError:
+        pass        

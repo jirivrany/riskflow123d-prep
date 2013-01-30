@@ -306,7 +306,7 @@ class MainWindow(QMainWindow):
             self.output_dir = output_dir
             return True
         elif return_code == 2:
-            print 'append'
+            app.helpers.output_dir.get_max_dir_number(output_dir)
         else:
             return False         
         
