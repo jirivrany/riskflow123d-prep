@@ -23,4 +23,6 @@ encoding//gui/tab/Settings.py=utf-8
 encoding//test/parser/test_material.py=utf-8
 encoding//test/parser/test_mesh.py=utf-8
 encoding//test/test_material.py=utf-8
+encoding//test/test_mesh.py=utf-8
+encoding//test/test_mesh_utlis.py=utf-8
 encoding/rf123d.py=utf-8

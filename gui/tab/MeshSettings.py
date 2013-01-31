@@ -10,6 +10,8 @@ Application Settings Tab
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
 from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator
 
+from app import mesh_utils
+
 import sys
 
 #constants
@@ -232,47 +234,6 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
             
         self._mesh_import_list_updater(vals)       
         
-        
-    def _mesh_import_axis(self, compare, axis = 'z'):
-        '''import elements with coordinate in given axis, 
-           compare given val with the value of mesh spinbox
-        @param compare: -1 for elements bellow, 0 for through, 1 for over 
-        @param axix: what axis (x, y, z)
-        '''
-        val = int(self.edit_mesh_crd.text())
-        vals = {}
-        for elid, elem in self.msh.elements.items():
-            pridat = True
-            for node_id in elem[2]:
-                node_coord = self.msh.nodes[node_id][AXIS_TRANS[axis]]
-                if cmp(node_coord, val) == compare or cmp(node_coord, val) == 0 :
-                    pridat = False
-            if pridat:
-                vals[elid] = self.msh.elements[elid]
-        
-        return vals
-        
-    def _mesh_find_through(self, axis = 'z'):
-        '''import elements with at last one node over coordinate in given axis,
-           such elements has to be cuted through given plane
-           compare given val with the value of mesh spinbox
-        @param axix: what axis (x, y, z)
-        '''
-        val = int(self.edit_mesh_crd.text())
-        
-        vals = {}
-        for elid, elem in self.msh.elements.items():
-            nad = False
-            pod = False
-            for node_id in elem[2]:
-                node_coord = self.msh.nodes[node_id][AXIS_TRANS[axis]]
-                if cmp(node_coord, val) == 1 or cmp(node_coord, val) == 0 :
-                    nad = True
-                elif cmp(node_coord, val) == -1 or cmp(node_coord, val) == 0 :
-                    pod = True
-            if nad and pod:
-                vals[elid] = self.msh.elements[elid]
-        return vals        
     
     def _mesh_import_through(self):
         '''import elements where one node has Z over value of mesh spinbox
@@ -280,7 +241,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_find_through(axis)
+            val = int(self.edit_mesh_crd.text())
+            vals = mesh_utils.find_through(val, self.msh, axis)
             self._mesh_import_list_updater(vals)
         
     def _mesh_import_over(self):
@@ -288,7 +250,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_import_axis(-1, axis)
+            val = int(self.edit_mesh_crd.text())
+            vals = mesh_utils.import_axis(val, self.msh, -1, axis)
             self._mesh_import_list_updater(vals)
         
     def _mesh_import_bellow(self):
@@ -296,7 +259,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_import_axis(1, axis)
+            val = int(self.edit_mesh_crd.text())
+            vals = mesh_utils.import_axis(val, self.msh, 1, axis)
             self._mesh_import_list_updater(vals)
             
     def _mesh_import_id(self):
@@ -331,7 +295,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_import_axis(-1, axis)
+            val = int(self.edit_mesh_crd.text())
+            vals = mesh_utils.import_axis(val, self.msh, -1, axis)
             self._mesh_import_list_deleter(vals)               
         
     def _mesh_remove_bellow(self):
@@ -341,7 +306,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_import_axis(1, axis)
+            val = int(self.edit_mesh_crd.text())
+            vals = mesh_utils.import_axis(val, self.msh, 1, axis)
             self._mesh_import_list_deleter(vals)
         
     def _mesh_remove_through(self):
@@ -351,7 +317,8 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         axis = self._get_mesh_axis()
         if axis:
-            vals = self._mesh_find_through(axis)
+            val = int(self.edit_mesh_crd.text()) 
+            vals = mesh_utils.find_through(val, self.msh, axis)
             self._mesh_import_list_deleter(vals)
             
     def _mesh_element_explorer_control(self):

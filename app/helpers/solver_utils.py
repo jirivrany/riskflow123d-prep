@@ -12,6 +12,29 @@ PROBLEMS = {
             'sens' : 'Sensitivity'
             }
 
+
+def round_storativity_porosity(value):
+    '''
+    takes a text value, convert it to float, round it and return 
+    str again
+    '''
+    try:
+        value = float(value)
+    except ValueError:
+        value = 0.00001
+        
+    return str(round_to_positive_zero(value))    
+
+def round_to_positive_zero(value):
+    '''
+    takes a value convert it to 0.00001 if it's zero
+    '''
+    if value < 0.00001:
+        return 0.00001
+    else:
+        return value   
+
+
 def create_task_identifier(problem_type, work_dir):
     '''
     Save problem identifier file into given work_dir
@@ -43,5 +66,10 @@ def copy_master_files(flow_ini, output_dir, separator):
             shutil.copy2(src, output_dir)
         except IOError:
             pass    
-  
+
+if __name__ == '__main__':
+    print round_storativity_porosity('0')
+    print round_storativity_porosity('0.0001')
+    print round_storativity_porosity('0.00001')
+    print round_storativity_porosity('')  
             

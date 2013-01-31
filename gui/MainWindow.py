@@ -376,6 +376,8 @@ class MainWindow(QMainWindow):
         app.basic_problem.save_material(\
                 self.output_dir, self.flow_ini.dict_files['Material'], self.material_dict)
         
+        self.statusBar.showMessage('All changes was saved to disk')
+        
     def solve_monte_carlo(self):
         '''
         @todo: implement this stub
