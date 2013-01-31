@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'meshsettings.ui'
 #
-# Created: Thu Jan 03 11:52:30 2013
+# Created: Thu Jan 31 10:54:20 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -165,7 +165,7 @@ class Ui_MeshSettings(object):
         self.button_mesh_rem_over.setText(_translate("MeshSettings", "Remove Over", None))
         self.button_mesh_imp_bellow.setText(_translate("MeshSettings", "Import Bellow", None))
         self.button_mesh_rem_bellow.setText(_translate("MeshSettings", "Remove Bellow", None))
-        self.button_mesh_imp_through.setText(_translate("MeshSettings", "Import through", None))
+        self.button_mesh_imp_through.setText(_translate("MeshSettings", "Import Through", None))
         self.button_mesh_rem_through.setText(_translate("MeshSettings", "Remove Through", None))
         self.button_mesh_imp_over.setToolTip(_translate("MeshSettings", "Import all elements with altitude over set height", None))
         self.button_mesh_imp_over.setText(_translate("MeshSettings", "Import Over ", None))

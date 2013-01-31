@@ -13,7 +13,7 @@ def import_axis(val, mesh, compare, axis = 'z'):
     @param axis: what axis (x, y, z)
     '''
     vals = {}
-    for elid, elem in mesh.elements.items():
+    for elid, elem in mesh.elements.iteritems():
         pridat = True
         for node_id in elem[2]:
             node_coord = mesh.nodes[node_id][AXIS_TRANS[axis]]
@@ -33,7 +33,7 @@ def find_through(val, mesh, axis = 'z'):
     '''
     
     vals = {}
-    for elid, elem in mesh.elements.items():
+    for elid, elem in mesh.elements.iteritems():
         nad = False
         pod = False
         for node_id in elem[2]:
