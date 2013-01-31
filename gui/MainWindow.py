@@ -257,9 +257,11 @@ class MainWindow(QMainWindow):
         prepares all necesities for sensitivity solver problem
         '''
         problem_type = 'sens'
-        if self.set_output_dir(problem_type):
+        append = self.set_output_dir(problem_type)
+        if append:
             self.common_solver_setup(problem_type)
             self.centralWidget.add_sensitivity_task_tabs()
+            self.centralWidget.tab_sensitivity.set_initial_count(append)
         else:
             self.backup_warning()        
             
@@ -306,7 +308,9 @@ class MainWindow(QMainWindow):
             self.output_dir = output_dir
             return True
         elif return_code == 2:
-            app.helpers.output_dir.get_max_dir_number(output_dir)
+            count = app.helpers.output_dir.get_max_dir_number(output_dir)
+            self.output_dir = output_dir
+            return count
         else:
             return False         
         

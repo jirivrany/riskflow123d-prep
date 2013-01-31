@@ -39,11 +39,26 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         #launchers 
         self.local_launcher, self.cluster_launcher = self.window().get_launchers()
         
+        #init count (for append names)
+        self.initial_count = 0
         
         #fill solver list with materials
         self.displayed_solver_mtr_list = [ ]
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
+        
+    def set_initial_count(self, value):
+        '''
+        setter for inital count
+        value has to be type int, or it can be True and in that case we need
+        to make it zero
+        '''
+        
+        if type(value) == int:
+            self.initial_count = value
+        else:
+            self.initial_count = 0
+        
         
     def __set_validators(self):
         '''
@@ -92,7 +107,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             self.messenger(msg)
             return
         
-        count = 0
+        count = self.initial_count
         
         field_values = self.get_editor_values()
         
@@ -117,21 +132,21 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
-            
-        msg = "{} new tasks has been created".format(count)           
-        self.messenger(msg)
+        
+        self.message_after_computation(count)
         
         
     
     
     def make_sens_multiplication_group(self):
-        '''takes all multiplicators  (A) from the form and selected materials
+        '''
+        takes all multiplicators  (A) from the form and selected materials
         from list (B). Computes A results for Group B of materials and creates new tasks
         '''
         self.window().create_master_task() 
            
         selection, pocet = self.get_selected_items()
-        count = 0
+        
         
         if not selection:
             msg = "Select some material first"        
@@ -139,6 +154,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             return
         
         field_values = self.get_editor_values()
+        count = self.initial_count
         
         for values_row in field_values: 
             workcopy = copy.deepcopy(self.material)
@@ -162,9 +178,20 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
+        
+        self.message_after_computation(count)
+         
+        
+    def message_after_computation(self, count):
+        '''
+        display a message after computation
+        '''
+        if self.initial_count > 0:    
+            msg = "{} new tasks has been appended to existing directory".format(count - self.initial_count)
+        else:
+            msg = "{} new tasks has been created".format(count)               
+        self.messenger(msg)   
             
-        msg = "{} new tasks has been created".format(count)           
-        self.messenger(msg)
         
     def get_editor_values(self):
         '''

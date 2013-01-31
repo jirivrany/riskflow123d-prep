@@ -51,7 +51,7 @@ def get_max_dir_number(output_dir):
     '''
     find maximum number of dir / dir names are numbers
     '''
-    print max(os.listdir(output_dir), key = to_int)
+    return int(max(os.listdir(output_dir), key = to_int))
         
     
 def delete_content(output_dir):
