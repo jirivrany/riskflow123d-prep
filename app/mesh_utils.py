@@ -38,11 +38,19 @@ def find_through(val, mesh, axis = 'z'):
         pod = False
         for node_id in elem[2]:
             node_coord = mesh.nodes[node_id][AXIS_TRANS[axis]]
+            
+            #is over or in touch
             if cmp(node_coord, val) == 1 or cmp(node_coord, val) == 0 :
                 nad = True
-            elif cmp(node_coord, val) == -1 or cmp(node_coord, val) == 0 :
+            
+            #is bellow or in touch
+            if cmp(node_coord, val) == -1 or cmp(node_coord, val) == 0 :
                 pod = True
+            
+                
         if nad and pod:
             vals[elid] = mesh.elements[elid]
             
+            
+           
     return vals        
