@@ -36,7 +36,9 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.monte_logger = monte_logger
         
         #dict of distributions for monte carlo method
-        self.distributions_dict = {} 
+        self.computed_conductivity_values = {} 
+        self.computed_storativity_values = {}
+        self.computed_porosity_values = {}
         
         
         #shortening aliases
@@ -92,10 +94,10 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         
     def save_monte_carlo_results(self):    
         '''
-        save results from dict distributions_dict if there are any
+        save results from dict computed_conductivity_values if there are any
         '''
         
-        if len(self.distributions_dict) == 0:
+        if len(self.computed_conductivity_values) == 0:
             msg = "ERROR - nothing to save"           
             self.messenger(msg)
             return
@@ -108,10 +110,20 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         for loop_nr in range(pocet):
             workcopy = copy.deepcopy(self.material)
             
-            for mat in self.distributions_dict.keys():
+            for mat in self.computed_conductivity_values.keys():
                 self.monte_logger.log_message(\
-                      loop_nr, mat, workcopy[mat]['type_spec'], self.distributions_dict[mat][loop_nr])
-                workcopy[mat]['type_spec'] = self.distributions_dict[mat][loop_nr]   
+                      loop_nr, mat, workcopy[mat]['type_spec'], self.computed_conductivity_values[mat][loop_nr])
+                workcopy[mat]['type_spec'] = self.computed_conductivity_values[mat][loop_nr]   
+            
+            for mat in self.computed_storativity_values.keys():
+                self.monte_logger.log_message(\
+                      loop_nr, mat, workcopy[mat]['storativity'], self.computed_storativity_values[mat][loop_nr])
+                workcopy[mat]['storativity'] = self.computed_storativity_values[mat][loop_nr]   
+            
+            for mat in self.computed_porosity_values.keys():
+                self.monte_logger.log_message(\
+                      loop_nr, mat, workcopy[mat]['dualporosity'], self.computed_porosity_values[mat][loop_nr])
+                workcopy[mat]['dualporosity'] = self.computed_porosity_values[mat][loop_nr]      
             
             fdir = '{num:0{width}}'.format(num=loop_nr, width=poc+1)
             fname = self.window().output_dir + fdir + SEPARATOR +  self.window().flow_ini.dict_files['Material']
@@ -165,20 +177,34 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         else:
             return    
         
-        
         for mat in selection:
             hydraulic_cond = float(self.material[mat]['type_spec'])
             val = lognormal(log(hydraulic_cond), sigma, pocet)
-            self.distributions_dict[mat] = val
+            self.computed_conductivity_values[mat] = val
             
+            if storat:
+                storativity = float(self.material[mat]['storativity'])
+                val = lognormal(log(storativity), storat, pocet)
+                self.computed_storativity_values[mat] = val
+                
+            if poros:
+                porosity = float(self.material[mat]['dualporosity'])
+                val = lognormal(log(porosity), poros, pocet)
+                self.computed_porosity_values[mat] = val    
+            
+        self.message_after_computation(pocet)
+        
+    def message_after_computation(self, pocet):
+        '''
+        set message after computation
+        '''
         msg = "{} new values has been computed for each selected material".format(pocet)           
         self.messenger(msg)
-        msg = "{0} materials in memory".format(len(self.distributions_dict))
+        msg = "{0} materials in memory".format(len(self.computed_conductivity_values))
         self.groupBox_monte_buttons.setTitle(msg)
         #cant change number of tasks anymore
         self.edit_monte_tasks.setReadOnly(True)
         
-        print self.distributions_dict
         
     def get_sigma_values(self):
         '''
