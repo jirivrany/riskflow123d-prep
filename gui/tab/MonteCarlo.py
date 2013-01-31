@@ -151,18 +151,20 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         from numpy.random import lognormal
         from numpy import log 
         selection = [str(list_item.text()) for list_item in self.list_monte_mtr.selectedItems()]
-        if not self.edit_monte_sigma.text() or not self.edit_monte_tasks.text():
-            msg = "ERROR - please set number of computations and sigma first!"           
-            self.messenger(msg)
-            return
+        
         
         if len(selection) == 0:
             msg = "ERROR - please select some materials first!"           
             self.messenger(msg)
             return
         
-        pocet = int(self.edit_monte_tasks.text())
-        sigma =  float(self.edit_monte_sigma.text())
+        user_set = self.get_sigma_values()
+        
+        if user_set:
+            pocet, sigma, storat, poros = user_set
+        else:
+            return    
+        
         
         for mat in selection:
             hydraulic_cond = float(self.material[mat]['type_spec'])
@@ -174,4 +176,32 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         msg = "{0} materials in memory".format(len(self.distributions_dict))
         self.groupBox_monte_buttons.setTitle(msg)
         #cant change number of tasks anymore
-        self.edit_monte_tasks.setReadOnly(True) 
+        self.edit_monte_tasks.setReadOnly(True)
+        
+        print self.distributions_dict
+        
+    def get_sigma_values(self):
+        '''
+        get sigma values for conductivity, porosity and storativity
+        '''
+            
+        try:
+            pocet = int(self.edit_monte_tasks.text())
+            conduct =  float(self.edit_monte_sigma.text())
+        except ValueError:
+            msg = "ERROR - please set number of computations and sigma for conductivity first!"           
+            self.messenger(msg)
+            return False
+        
+        try:
+            storat =  float(self.edit_monte_storativity.text())
+        except ValueError:
+            storat = None
+        
+        try:        
+            porosity = float(self.edit_monte_porosity.text())
+        except ValueError:
+            porosity = None    
+         
+        return pocet, conduct, storat, porosity 
+         
