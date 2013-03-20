@@ -11,6 +11,7 @@ from genui.tab.ui_sensitivity import Ui_Sensitivity
 from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
 from gui.MyDoubleValidator import MyDoubleValidator
+from gui.MyZeroOneValidator import MyZeroOneValidator
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
@@ -66,7 +67,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
-        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
+        validator_zero_one = MyZeroOneValidator(self)
         
         for row_number in xrange(1, 9):
             tmp_name = 'edit_sens_conduct_{}'.format(row_number)

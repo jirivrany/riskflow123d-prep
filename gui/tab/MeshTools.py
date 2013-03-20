@@ -10,7 +10,9 @@ Tab widget for Mesh Tools
 from genui.tab.ui_mesh_tools import Ui_MeshTools
 from PyQt4.QtGui import QWidget
 
+
 from gui.MyDoubleValidator import MyDoubleValidator
+from gui.MyZeroOneValidator import MyZeroOneValidator
 
 import copy
 
@@ -49,8 +51,12 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         set validators for edit fields
         '''    
         
-        validator_positive_double = MyDoubleValidator(parent = self)
-        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5)
+        
+        validator_positive_double = MyDoubleValidator(True, self)
+        validator_zero_one = MyZeroOneValidator(self)
+        
+        
+        
         
         self.edit_multiply_conduct.setValidator(validator_positive_double)
         self.edit_nvalue_conduct.setValidator(validator_positive_double)

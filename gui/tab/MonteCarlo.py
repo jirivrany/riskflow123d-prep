@@ -11,6 +11,7 @@ from genui.tab.ui_montecarlo import Ui_MonteCarlo
 from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView, QIntValidator
 
 from gui.MyDoubleValidator import MyDoubleValidator
+from gui.MyZeroOneValidator import MyZeroOneValidator
 from app.helpers import solver_utils
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
@@ -56,7 +57,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
-        validator_zero_one = MyDoubleValidator(0.00001, 0.99999, 5, self)
+        validator_zero_one = MyZeroOneValidator(self)
         
         
         self.edit_monte_sigma.setValidator(validator_positive_double)

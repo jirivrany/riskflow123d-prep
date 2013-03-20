@@ -9,6 +9,7 @@ Application Settings Tab
 from genui.tab.ui_material import Ui_tab_material
 from PyQt4.QtGui import QWidget, QIntValidator
 from gui.MyDoubleValidator import MyDoubleValidator
+from gui.MyZeroOneValidator import MyZeroOneValidator
 
 from app.helpers import solver_utils
 
@@ -102,8 +103,8 @@ class MaterialTab(QWidget, Ui_tab_material):
         validator_positive_integer = QIntValidator()
         validator_positive_integer.setBottom(0)
         
-        validator_positive_double = MyDoubleValidator(bottom = 0, parent = self)
-        validator_zero_one = MyDoubleValidator(0, 0.99999, 5, self)
+        validator_positive_double = MyDoubleValidator(True, self)
+        validator_zero_one = MyZeroOneValidator(self)
         
         self.edit_specific_data.setValidator(validator_positive_double)
         self.edit_geometry_coeficient.setValidator(validator_positive_double)

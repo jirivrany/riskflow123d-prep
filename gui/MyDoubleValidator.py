@@ -1,29 +1,18 @@
-from PyQt4.QtGui import QDoubleValidator, QValidator
+from PyQt4.QtCore import QRegExp
+from PyQt4.QtGui import QRegExpValidator
 
-from sys import float_info
-
-class MyDoubleValidator(QDoubleValidator):
+class MyDoubleValidator(QRegExpValidator):
     
     '''
     Fix for strange behavior of default QDoubleValidator
     '''
 
-    def __init__(self, bottom = float_info.min, \
-                 top = float_info.max, \
-                 decimals = float_info.dig, parent = None):
+    def __init__(self, positive = True, parent = None):
         
-        super(MyDoubleValidator, self).__init__(bottom, top, decimals, parent)
-
-    def validate(self, input_value, pos):
+        if positive:
+            regex = QRegExp("\d{0,}\.{0,1}\d{0,}")
+        else:    
+            regex = QRegExp("-{0,1}\d{0,}\.{0,1}\d{0,}")
         
-        state, pos = QDoubleValidator.validate(self, input_value, pos)
+        super(MyDoubleValidator, self).__init__(regex, parent)
         
-        allowed_start_values = ('.', '0', '0.')
-        
-        if input_value.isEmpty() or input_value in allowed_start_values:
-            return QValidator.Intermediate, pos
-        
-        if state != QValidator.Acceptable:
-            return QValidator.Invalid, pos
-        
-        return QValidator.Acceptable, pos
