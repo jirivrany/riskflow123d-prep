@@ -210,11 +210,16 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 porosity = float(getattr(self, "edit_sens_porosity_{}".format(row + 1)).text())
             except ValueError:
                 porosity = None
+            else:
+                porosity = solver_utils.round_to_positive_zero(porosity)
+            
             
             try:            
                 storativity = float(getattr(self, "edit_sens_storativity_{}".format(row + 1)).text())
             except ValueError:
                 storativity = None
+            else:
+                storativity = solver_utils.round_to_positive_zero(storativity)
             
             if storativity or porosity or conductivity:
                 result.append( (conductivity, porosity, storativity) )

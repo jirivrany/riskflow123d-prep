@@ -224,11 +224,15 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             storat =  float(self.edit_monte_storativity.text())
         except ValueError:
             storat = None
+        else:
+            storat = solver_utils.round_to_positive_zero(storat)
         
         try:        
             porosity = float(self.edit_monte_porosity.text())
         except ValueError:
-            porosity = None    
+            porosity = None
+        else:
+            porosity = solver_utils.round_to_positive_zero(porosity)        
          
         return pocet, conduct, storat, porosity 
          
