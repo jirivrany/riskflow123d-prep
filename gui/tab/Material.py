@@ -61,7 +61,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         else:
             #type and type spec (conductivity)
             self.edit_type.setText(material['type'])
-            self.edit_specific_data.setText(material['type_spec'])
+            self.edit_specific_data.setText(str(material['type_spec']))
             #geometry
             self.edit_geometry_type.setDisabled(True)
             if material['type'] == '21':
