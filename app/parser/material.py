@@ -92,38 +92,46 @@ class MaterialDict(dict):
            parses values to collections if succeed
            interested only for items in listOfInterest 
         '''
-        try:
-            line = line.strip()
-            if line.count('$') == 1:
-                if (line.count('$End')) == 1:
-                    self.attribute_name = False
-                else:
-                    self.attribute_name = line[1:].lower()
-                    
+        line = line.strip()
+        if line.count('$') == 1:
+            if (line.count('$End')) == 1:
+                self.attribute_name = False
             else:
-                line = filtr.sub(';', line)
-                if self.attribute_name == 'materials' and line.count(';'):
-                    key, mtr_type, mtr_type_spec = line.split(';')
-                    if not(self.has_key(key)):
-                        new_material = Material()
-                        new_material['type'] = mtr_type
-                        new_material['type_spec'] = mtr_type_spec
-                        self[key] = new_material
+                self.attribute_name = line[1:].lower()
                 
-                elif self.attribute_name == 'geometry' and line.count(';'):
-                    key, geometry_type, geometry_spec = line.split(';')
-                    self[key]['geometry_type'] = geometry_type
-                    self[key]['geometry_spec'] = geometry_spec
+        else:
+            line = filtr.sub(';', line)
+            if self.attribute_name == 'materials' and line.count(';'):
+                self.parse_material(line)
+            
+            elif self.attribute_name == 'geometry' and line.count(';'):
+                key, geometry_type, geometry_spec = line.split(';')
+                self[key]['geometry_type'] = geometry_type
+                self[key]['geometry_spec'] = geometry_spec
+                
+            else:
+                data = line.split(';')
+                
+                key = data[0]
+                if self.has_key(key) and data[1]:
+                    self[key][self.attribute_name] = data[1]
                     
-                else:
-                    data = line.split(';')
-                    
-                    key = data[0]
-                    if self.has_key(key) and data[1]:
-                        self[key][self.attribute_name] = data[1]
-                        
-        except ValueError:
-            pass
+        
+    def parse_material(self, line):
+        '''
+        parses line for materials
+        line format is
+        material_id mtr_type mtr_type_spec
+        type spec depends on type and can be 1-3 values  
+        '''
+        line_values = line.split(';')
+        key = line_values[0]
+        if not(self.has_key(key)):
+            new_material = Material()
+            new_material['type'] = line_values[1]
+            new_material['type_spec'] = line_values[2:]
+            self[key] = new_material
+                
 
     def create_collections(self):
         '''
@@ -254,4 +262,15 @@ class MaterialDict(dict):
             new_stora = self.multiply_single_property(mtr_id, 'storativity', values_row[2])
             
         return (new_cond, new_poro, new_stora)
+    
+if __name__ == '__main__':
+    inpt = '/home/albert/riskflow_test_data/rf2_test/material/mtr_v5_10_2.mtr'
+    #ff = open(inpt)
+    TEST_MAT = MaterialDict(inpt)
+    print TEST_MAT.values() 
+    
+    inpt2 = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
+    #ff = open(inpt)
+    TEST_MAT2 = MaterialDict(inpt2)
+    print TEST_MAT2.values()   
         
