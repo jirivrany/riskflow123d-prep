@@ -202,7 +202,7 @@ class MaterialDict(dict):
         for ele in type_spec_list:
             output += '{} '.format(ele)
     
-        return output
+        return output.strip()
             
     def __open_output_file(self, file_name):
         '''
@@ -227,7 +227,10 @@ class MaterialDict(dict):
         method is used by mesh tools
         '''
         for mtr in id_list:
-            self.multiply_single_property(str(mtr), property_name, multiplicator)
+            if property_name == 'type_spec':
+                self.multiply_hydraulic_conductivity(str(mtr), multiplicator)
+            else:    
+                self.multiply_single_property(str(mtr), property_name, multiplicator)
     
     def multiply_single_property(self, mtr_id, property_name, multiplicator): 
         '''
@@ -236,7 +239,16 @@ class MaterialDict(dict):
         x_val = self[mtr_id]
         temp = float(x_val[property_name]) * float(multiplicator)
         x_val[property_name] = str(temp)
-        return str(temp)       
+        return str(temp)
+    
+    def multiply_hydraulic_conductivity(self, mtr_id, multiplicator): 
+        '''
+        multiply one single property
+        '''
+        x_val = self[mtr_id]
+        temp = [float(value) * float(multiplicator) for value in x_val['type_spec']]
+        x_val['type_spec'] = self.format_type_spec_data(temp)
+        return temp         
             
     def set_property_value(self, property_name, id_list, new_value):
         '''

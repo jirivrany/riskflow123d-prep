@@ -11,7 +11,7 @@ TEST_KEYS = ['9617', '9207', '4300', '9612', '9200', '9107', '9100', '4100', '94
 MOCK_KEY = '9500'
 MOCK_MATERIAL = {
                  'type': '31',
-                 'type_spec': '0.0056306766'
+                 'type_spec': ['0.0056306766']
                  }
 
 MOCK_MATERIAL['storativity'] = '0.01'
@@ -44,12 +44,6 @@ def test_secific_values():
     '''it should test one element from loaded file, it it was created in order'''
     assert TEST_MAT[MOCK_KEY] == MOCK_MATERIAL        
 
-def test_bad_load():
-    '''it should test raise exception for bad data'''
-    inpt = '/home/albert/riskflow_test_data/rf2_test/material/mtr_v5_10_2.mtr'
-    with pytest.raises(material.EmptyListException):
-        p = material.MaterialDict(inpt)
-        print p
         
 def test_create_collections():
     '''it should convert data to list'''
@@ -77,7 +71,7 @@ def test_multiply_property():
     prop_name = 'type_spec'
     multip = 100
     my_test_dict.multiply_property(prop_name, my_test_dict, multip)
-    assert my_test_dict['9617'][prop_name] == str(0.1816229383 * 100)
+    assert my_test_dict['9617'][prop_name] == '{} {} {}'.format(0.1816229383 * 100, 3.5 * 100, 2.5 * 100)
     assert my_test_dict['4300'][prop_name] == str(1629.9762434558 * 100)
     
 def test_set_hydraulic_cond():
