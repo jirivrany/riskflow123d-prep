@@ -82,7 +82,10 @@ class MaterialTab(QWidget, Ui_tab_material):
         number of directions.
         '''
         self.edit_specific_data_1.hide()
+        self.edit_specific_data_1.clear()
         self.edit_specific_data_2.hide()
+        self.edit_specific_data_2.clear()
+        
         self.label_hydrcon_1.hide()
         self.label_hydrcon_2.hide()
         
@@ -102,7 +105,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         idx = str(self.selector_material.currentText())
         try:
             material_object = self.window().material_dict[idx]
-            material_object['type_spec'] = str(self.edit_specific_data.text())
+            material_object['type_spec'] = self.material_specific_val_to_list()
             material_object['geometry_type'] = str(self.edit_geometry_type.text())
             material_object['geometry_spec'] = str(self.edit_geometry_coeficient.text())
             material_object['storativity'] = solver_utils.round_storativity_porosity(self.edit_storativity.text())
@@ -112,6 +115,19 @@ class MaterialTab(QWidget, Ui_tab_material):
             self.window().statusBar.showMessage('ERROR no save', 2000)
        
         self.window().statusBar.showMessage('MTR changes saved to Memory', 2000)
+    
+    def material_specific_val_to_list(self):
+        '''
+            hydraulic conductivity can have more than one direction 
+            get it from form and set it to dict in a list
+        '''
+        new_value = [self.edit_specific_data_0.text(),
+                   self.edit_specific_data_1.text(),
+                   self.edit_specific_data_2.text()]
+        
+        new_value = [str(old) for old in new_value]
+        
+        return new_value
     
         
     def __set_validators(self):

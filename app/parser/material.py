@@ -153,8 +153,8 @@ class MaterialDict(dict):
         for key in sorted(self.keys()):
             wrk_mat = self[key]
             material_string = '%s\t%s\t%s' % \
-                (key, wrk_mat['type'], wrk_mat['type_spec'])
-    
+                (key, wrk_mat['type'], self.format_type_spec_data(wrk_mat['type_spec']))
+            
             result_data['materials'].append(material_string)
         
             if wrk_mat['geometry_type']:    
@@ -185,11 +185,24 @@ class MaterialDict(dict):
             key = material_property.lower()
             if material_property == 'Materials':
                 output_file.write(str(len(data_to_save['materials'])) + '\n')
-            
+        
             for line in data_to_save[key]:
                 output_file.write(line)
                 output_file.write('\n')
+            
             output_file.write('$End{}\n'.format(material_property))
+            
+        
+            
+    def format_type_spec_data(self, type_spec_list):
+        '''
+        write list data from collection to file 
+        '''
+        output = ''
+        for ele in type_spec_list:
+            output += '{} '.format(ele)
+    
+        return output
             
     def __open_output_file(self, file_name):
         '''
