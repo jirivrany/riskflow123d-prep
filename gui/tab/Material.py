@@ -61,7 +61,7 @@ class MaterialTab(QWidget, Ui_tab_material):
         else:
             #type and type spec (conductivity)
             self.edit_type.setText(material['type'])
-            self.edit_specific_data.setText(str(material['type_spec']))
+            self.fill_form_material_type_spec(material)
             #geometry
             self.edit_geometry_type.setDisabled(True)
             if material['type'] == '21':
@@ -74,6 +74,25 @@ class MaterialTab(QWidget, Ui_tab_material):
             self.edit_storativity.setText(material['storativity'])
             #dual porosity
             self.editl_dual_porosity.setText(material['dualporosity'])
+            
+    def fill_form_material_type_spec(self, material):
+        '''
+        Some materials can have conductivity in more than one direction
+        Material['type_spec'] is a list and number of elements in this list is the
+        number of directions.
+        '''
+        self.edit_specific_data_1.hide()
+        self.edit_specific_data_2.hide()
+        self.label_hydrcon_1.hide()
+        self.label_hydrcon_2.hide()
+        
+        for axis, value in enumerate(material['type_spec']):
+            row_name = 'edit_specific_data_{}'.format(axis)
+            label_name = 'label_hydrcon_{}'.format(axis)
+            getattr(self, row_name).setText(value)
+            getattr(self, row_name).show()
+            getattr(self, label_name).show()
+            
             
     def set_material_to_dict(self):
         '''
@@ -106,7 +125,9 @@ class MaterialTab(QWidget, Ui_tab_material):
         validator_positive_double = MyDoubleValidator(True, self)
         validator_zero_one = MyZeroOneValidator(self)
         
-        self.edit_specific_data.setValidator(validator_positive_double)
+        self.edit_specific_data_0.setValidator(validator_positive_double)
+        self.edit_specific_data_1.setValidator(validator_positive_double)
+        self.edit_specific_data_2.setValidator(validator_positive_double)
         self.edit_geometry_coeficient.setValidator(validator_positive_double)
         self.edit_geometry_type.setValidator(validator_positive_integer)
         self.edit_storativity.setValidator(validator_zero_one)

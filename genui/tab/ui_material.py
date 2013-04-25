@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'material.ui'
 #
-# Created: Mon Apr 22 12:28:15 2013
+# Created: Thu Apr 25 12:37:39 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,9 +52,9 @@ class Ui_tab_material(object):
         self.edit_storativity = QtGui.QLineEdit(tab_material)
         self.edit_storativity.setObjectName(_fromUtf8("edit_storativity"))
         self.gridLayout.addWidget(self.edit_storativity, 9, 1, 1, 1)
-        self.edit_specific_data = QtGui.QLineEdit(tab_material)
-        self.edit_specific_data.setObjectName(_fromUtf8("edit_specific_data"))
-        self.gridLayout.addWidget(self.edit_specific_data, 4, 1, 1, 1)
+        self.edit_specific_data_0 = QtGui.QLineEdit(tab_material)
+        self.edit_specific_data_0.setObjectName(_fromUtf8("edit_specific_data_0"))
+        self.gridLayout.addWidget(self.edit_specific_data_0, 4, 1, 1, 1)
         self.edit_type = QtGui.QLineEdit(tab_material)
         self.edit_type.setReadOnly(True)
         self.edit_type.setObjectName(_fromUtf8("edit_type"))
@@ -74,9 +74,9 @@ class Ui_tab_material(object):
         self.label_material = QtGui.QLabel(tab_material)
         self.label_material.setObjectName(_fromUtf8("label_material"))
         self.gridLayout.addWidget(self.label_material, 2, 0, 1, 1)
-        self.label_hydrcon_x = QtGui.QLabel(tab_material)
-        self.label_hydrcon_x.setObjectName(_fromUtf8("label_hydrcon_x"))
-        self.gridLayout.addWidget(self.label_hydrcon_x, 4, 0, 1, 1)
+        self.label_hydrcon_0 = QtGui.QLabel(tab_material)
+        self.label_hydrcon_0.setObjectName(_fromUtf8("label_hydrcon_0"))
+        self.gridLayout.addWidget(self.label_hydrcon_0, 4, 0, 1, 1)
         self.label_3 = QtGui.QLabel(tab_material)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.gridLayout.addWidget(self.label_3, 7, 0, 1, 1)
@@ -91,18 +91,18 @@ class Ui_tab_material(object):
         self.gridLayout.addWidget(self.edit_geometry_coeficient, 8, 1, 1, 1)
         spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.gridLayout.addItem(spacerItem2, 12, 1, 1, 1)
-        self.edit_specific_data_y = QtGui.QLineEdit(tab_material)
-        self.edit_specific_data_y.setObjectName(_fromUtf8("edit_specific_data_y"))
-        self.gridLayout.addWidget(self.edit_specific_data_y, 5, 1, 1, 1)
-        self.edit_specific_data_z = QtGui.QLineEdit(tab_material)
-        self.edit_specific_data_z.setObjectName(_fromUtf8("edit_specific_data_z"))
-        self.gridLayout.addWidget(self.edit_specific_data_z, 6, 1, 1, 1)
-        self.label_hydrcon_y = QtGui.QLabel(tab_material)
-        self.label_hydrcon_y.setObjectName(_fromUtf8("label_hydrcon_y"))
-        self.gridLayout.addWidget(self.label_hydrcon_y, 5, 0, 1, 1)
-        self.label_hydrcon_z = QtGui.QLabel(tab_material)
-        self.label_hydrcon_z.setObjectName(_fromUtf8("label_hydrcon_z"))
-        self.gridLayout.addWidget(self.label_hydrcon_z, 6, 0, 1, 1)
+        self.edit_specific_data_1 = QtGui.QLineEdit(tab_material)
+        self.edit_specific_data_1.setObjectName(_fromUtf8("edit_specific_data_1"))
+        self.gridLayout.addWidget(self.edit_specific_data_1, 5, 1, 1, 1)
+        self.edit_specific_data_2 = QtGui.QLineEdit(tab_material)
+        self.edit_specific_data_2.setObjectName(_fromUtf8("edit_specific_data_2"))
+        self.gridLayout.addWidget(self.edit_specific_data_2, 6, 1, 1, 1)
+        self.label_hydrcon_1 = QtGui.QLabel(tab_material)
+        self.label_hydrcon_1.setObjectName(_fromUtf8("label_hydrcon_1"))
+        self.gridLayout.addWidget(self.label_hydrcon_1, 5, 0, 1, 1)
+        self.label_hydrcon_2 = QtGui.QLabel(tab_material)
+        self.label_hydrcon_2.setObjectName(_fromUtf8("label_hydrcon_2"))
+        self.gridLayout.addWidget(self.label_hydrcon_2, 6, 0, 1, 1)
 
         self.retranslateUi(tab_material)
         QtCore.QMetaObject.connectSlotsByName(tab_material)
@@ -114,9 +114,9 @@ class Ui_tab_material(object):
         self.label_storativity.setText(_translate("tab_material", "storativity", None))
         self.label_dual_porosity.setText(_translate("tab_material", "dual porosity", None))
         self.label_material.setText(_translate("tab_material", "Select material", None))
-        self.label_hydrcon_x.setText(_translate("tab_material", "hydraulic conductivity", None))
+        self.label_hydrcon_0.setText(_translate("tab_material", "hydraulic conductivity", None))
         self.label_3.setText(_translate("tab_material", "geometry type", None))
         self.label_4.setText(_translate("tab_material", "geometry coeficient", None))
-        self.label_hydrcon_y.setText(_translate("tab_material", "hydraulic cond. y", None))
-        self.label_hydrcon_z.setText(_translate("tab_material", "hydraulic cond. z", None))
+        self.label_hydrcon_1.setText(_translate("tab_material", "hydraulic cond. y", None))
+        self.label_hydrcon_2.setText(_translate("tab_material", "hydraulic cond. z", None))
 
