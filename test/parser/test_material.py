@@ -82,8 +82,8 @@ def test_set_hydraulic_cond():
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
     my_test_dict = material.MaterialDict(inpt)
     prop_name = 'type_spec'
-    new_value = '100'
-    my_test_dict.set_property_value(prop_name, my_test_dict,  new_value)
-    assert my_test_dict['9617'][prop_name] == '{} {} {}'.format(new_value, new_value, new_value)
-    assert my_test_dict['4300'][prop_name] == new_value 
+    new_values = ['10','20', '0']
+    my_test_dict.set_property_value(prop_name, my_test_dict, new_values)
+    assert my_test_dict['9617'][prop_name] == ' '.join(new_values)
+    assert my_test_dict['4300'][prop_name] == new_values[0] 
     

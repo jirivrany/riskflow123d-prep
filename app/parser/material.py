@@ -257,9 +257,12 @@ class MaterialDict(dict):
         this value is stored as list (vector) so it has to be formated separately
         '''
         x_val = self[mtr_id]
-        temp = [new_value  for _11 in x_val['type_spec']]
-        x_val['type_spec'] = self.format_type_spec_data(temp)
-        return temp             
+        if x_val['type'] == '33':
+            x_val['type_spec'] = self.format_type_spec_data(new_value)
+        else:
+            x_val['type_spec'] = new_value[0]
+        
+        return x_val['type_spec']             
             
     def set_property_value(self, property_name, id_list, new_value):
         '''
