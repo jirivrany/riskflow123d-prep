@@ -62,9 +62,10 @@ def test_write_changes():
     
     assert len(original) == len(newfile)
     
-def test_multiply_property():
+def test_multiply_type_spec():
     '''
     type_spec for all elements should be multipled
+    type spec is hydraulict conductivity
     '''       
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
     my_test_dict = material.MaterialDict(inpt)
@@ -83,5 +84,6 @@ def test_set_hydraulic_cond():
     prop_name = 'type_spec'
     new_value = '100'
     my_test_dict.set_property_value(prop_name, my_test_dict,  new_value)
-    assert my_test_dict['9617'][prop_name] == new_value
-    assert my_test_dict['4300'][prop_name] == new_value    
+    assert my_test_dict['9617'][prop_name] == '{} {} {}'.format(new_value, new_value, new_value)
+    assert my_test_dict['4300'][prop_name] == new_value 
+    

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'meshtools.ui'
 #
-# Created: Fri Jan 04 12:45:18 2013
+# Created: Mon Jul 01 12:56:47 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -55,6 +55,18 @@ class Ui_MeshTools(object):
         self.button_nvalue_conduct = QtGui.QPushButton(self.groupBox)
         self.button_nvalue_conduct.setObjectName(_fromUtf8("button_nvalue_conduct"))
         self.gridLayout_2.addWidget(self.button_nvalue_conduct, 1, 2, 1, 1)
+        self.edit_nvalue_conduct_y = QtGui.QLineEdit(self.groupBox)
+        self.edit_nvalue_conduct_y.setObjectName(_fromUtf8("edit_nvalue_conduct_y"))
+        self.gridLayout_2.addWidget(self.edit_nvalue_conduct_y, 2, 1, 1, 1)
+        self.edit_nvalue_conduct_z = QtGui.QLineEdit(self.groupBox)
+        self.edit_nvalue_conduct_z.setObjectName(_fromUtf8("edit_nvalue_conduct_z"))
+        self.gridLayout_2.addWidget(self.edit_nvalue_conduct_z, 3, 1, 1, 1)
+        self.label = QtGui.QLabel(self.groupBox)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.gridLayout_2.addWidget(self.label, 2, 0, 1, 1)
+        self.label_2 = QtGui.QLabel(self.groupBox)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.gridLayout_2.addWidget(self.label_2, 3, 0, 1, 1)
         self.gridLayout_9.addWidget(self.groupBox, 0, 0, 1, 1)
         self.groupBox_2 = QtGui.QGroupBox(self.groupBox_10)
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
@@ -110,8 +122,12 @@ class Ui_MeshTools(object):
         self.groupBox.setTitle(_translate("MeshTools", "Hydraulic Conductivity", None))
         self.label_9.setText(_translate("MeshTools", "Multiply Hydraulic Conductivity by:", None))
         self.button_multiply_conduct.setText(_translate("MeshTools", "OK", None))
-        self.label_10.setText(_translate("MeshTools", "Set Hydraulict Conductivity to:", None))
+        self.label_10.setText(_translate("MeshTools", "Set Hydraulict Conductivity X to:", None))
         self.button_nvalue_conduct.setText(_translate("MeshTools", "OK", None))
+        self.edit_nvalue_conduct_y.setToolTip(_translate("MeshTools", "<html><head/><body><p>This aplies only for material type 33</p></body></html>", None))
+        self.edit_nvalue_conduct_z.setToolTip(_translate("MeshTools", "<html><head/><body><p>This aplies only for material type 33</p></body></html>", None))
+        self.label.setText(_translate("MeshTools", "Set Hydraulict Conductivity Y to:", None))
+        self.label_2.setText(_translate("MeshTools", "Set Hydraulict Conductivity Z to:", None))
         self.groupBox_2.setTitle(_translate("MeshTools", "Storativity", None))
         self.label_12.setText(_translate("MeshTools", "Set Storativity to:", None))
         self.button_nvalue_storativity.setText(_translate("MeshTools", "OK", None))

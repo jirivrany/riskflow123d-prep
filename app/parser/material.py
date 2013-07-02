@@ -196,7 +196,7 @@ class MaterialDict(dict):
             
     def format_type_spec_data(self, type_spec_list):
         '''
-        write list data from collection to file 
+        format list to specific text format
         '''
         output = ''
         for ele in type_spec_list:
@@ -243,12 +243,23 @@ class MaterialDict(dict):
     
     def multiply_hydraulic_conductivity(self, mtr_id, multiplicator): 
         '''
-        multiply one single property
+        multiply hydraulic conductivity
+        this value is stored as list (vector) so it has to be formated separately
         '''
         x_val = self[mtr_id]
         temp = [float(value) * float(multiplicator) for value in x_val['type_spec']]
         x_val['type_spec'] = self.format_type_spec_data(temp)
-        return temp         
+        return temp
+    
+    def set_hydraulic_conductivity(self, mtr_id, new_value): 
+        '''
+        multiply hydraulic conductivity
+        this value is stored as list (vector) so it has to be formated separately
+        '''
+        x_val = self[mtr_id]
+        temp = [new_value  for _11 in x_val['type_spec']]
+        x_val['type_spec'] = self.format_type_spec_data(temp)
+        return temp             
             
     def set_property_value(self, property_name, id_list, new_value):
         '''
@@ -256,7 +267,10 @@ class MaterialDict(dict):
         method is used by mesh tools
         '''
         for mtr in id_list:
-            self.set_single_property_value(str(mtr), property_name, new_value)
+            if property_name == 'type_spec':
+                self.set_hydraulic_conductivity(str(mtr), new_value)
+            else:    
+                self.set_single_property_value(str(mtr), property_name, new_value)
             
     def set_single_property_value(self,  mtr_id, property_name, new_value):
         '''
