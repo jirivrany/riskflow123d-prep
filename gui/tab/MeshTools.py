@@ -143,8 +143,12 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         otazka - type_spec sem patrne zmenil opet na pole / vyzkouset
         
         '''
-        new_value = self.edit_nvalue_conduct.text()
-        self.__set_property('type_spec', new_value)
+        new_value_x = str(self.edit_nvalue_conduct.text())
+        new_value_y = str(self.edit_nvalue_conduct_y.text())
+        new_value_z = str(self.edit_nvalue_conduct_z.text())
+        new_values = [new_value_x, new_value_y, new_value_z]
+        
+        self.__set_property('type_spec', new_values)
         
     def set_storativity(self):
         '''sets the new value of storativity for selected elements'''

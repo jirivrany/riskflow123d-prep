@@ -198,6 +198,7 @@ class MaterialDict(dict):
         '''
         format list to specific text format
         '''
+        print type_spec_list
         output = ''
         for ele in type_spec_list:
             output += '{} '.format(ele)
@@ -256,12 +257,14 @@ class MaterialDict(dict):
         multiply hydraulic conductivity
         this value is stored as list (vector) so it has to be formated separately
         '''
-        x_val = self[mtr_id]
-        if x_val['type'] == '33':
-            x_val['type_spec'] = self.format_type_spec_data(new_value)
-        else:
-            x_val['type_spec'] = new_value[0]
         
+        x_val = self[mtr_id]
+        
+        if x_val['type'] == '33':
+            x_val['type_spec'] = new_value
+        else:
+            x_val['type_spec'] = new_value[:1]
+            
         return x_val['type_spec']             
             
     def set_property_value(self, property_name, id_list, new_value):
