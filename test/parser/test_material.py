@@ -84,6 +84,7 @@ def test_set_hydraulic_cond():
     prop_name = 'type_spec'
     new_values = ['10','20', '0']
     my_test_dict.set_property_value(prop_name, my_test_dict, new_values)
+    assert my_test_dict['4100'][prop_name] == new_values[:2]
     assert my_test_dict['9617'][prop_name] == new_values
     assert my_test_dict['4300'][prop_name] == new_values[:1] 
     

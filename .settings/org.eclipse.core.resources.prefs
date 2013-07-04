@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//app/helpers/monte_carlo.py=utf-8
 encoding//app/parser/flow.py=utf-8
 encoding//app/parser/material.py=utf-8
 encoding//genui/tab/ui_flow_check.py=utf-8

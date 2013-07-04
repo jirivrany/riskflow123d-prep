@@ -198,7 +198,6 @@ class MaterialDict(dict):
         '''
         format list to specific text format
         '''
-        print type_spec_list
         output = ''
         for ele in type_spec_list:
             output += '{} '.format(ele)
@@ -262,6 +261,8 @@ class MaterialDict(dict):
         
         if x_val['type'] == '33':
             x_val['type_spec'] = new_value
+        elif x_val['type'] == '22':
+            x_val['type_spec'] = new_value[:2]    
         else:
             x_val['type_spec'] = new_value[:1]
             

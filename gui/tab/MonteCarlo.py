@@ -15,6 +15,7 @@ from gui.MyZeroOneValidator import MyZeroOneValidator
 from app.helpers import solver_utils
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
+from app.helpers import monte_carlo
 
 import copy
 
@@ -112,9 +113,14 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             workcopy = copy.deepcopy(self.material)
             
             for mat in self.computed_conductivity_values.keys():
-                self.monte_logger.log_message(\
-                      loop_nr, mat, workcopy[mat]['type_spec'], self.computed_conductivity_values[mat][loop_nr])
-                workcopy[mat]['type_spec'] = self.computed_conductivity_values[mat][loop_nr]   
+            
+                workcopy[mat]['type_spec'] = []
+                for direction_value in self.computed_conductivity_values[mat]:
+                    
+                    self.monte_logger.log_message(\
+                          loop_nr, mat, workcopy[mat]['type_spec'], direction_value[loop_nr])
+                    workcopy[mat]['type_spec'].append(direction_value[loop_nr])   
+                
             
             for mat in self.computed_storativity_values.keys():
                 self.monte_logger.log_message(\
@@ -141,7 +147,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
         
-        self.monte_logger.close()
+        #self.monte_logger.close()
         msg = "{} new tasks has been created".format(pocet)           
         self.messenger(msg)
     
@@ -161,8 +167,6 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         compute log normal distribution for selected materials
         '''
         
-        from numpy.random import lognormal
-        from numpy import log 
         selection = [str(list_item.text()) for list_item in self.list_monte_mtr.selectedItems()]
         
         
@@ -179,21 +183,24 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             return    
         
         for mat in selection:
-            hydraulic_cond = float(self.material[mat]['type_spec'])
-            val = lognormal(log(hydraulic_cond), sigma, pocet)
+            conductivity = self.material[mat]['type_spec']
+            val = monte_carlo.compute_conductivity(conductivity, sigma, pocet)
             self.computed_conductivity_values[mat] = val
             
             if storat:
-                storativity = float(self.material[mat]['storativity'])
-                val = lognormal(log(storativity), storat, pocet)
+                storativity = self.material[mat]['storativity']
+                val = monte_carlo.compute_storativity(storativity, storat, pocet)
                 self.computed_storativity_values[mat] = val
                 
             if poros:
                 porosity = float(self.material[mat]['dualporosity'])
-                val = lognormal(log(porosity), poros, pocet)
+                val = monte_carlo.compute_porosity(porosity, poros, pocet)
                 self.computed_porosity_values[mat] = val    
             
         self.message_after_computation(pocet)
+        
+   
+            
         
     def message_after_computation(self, pocet):
         '''
