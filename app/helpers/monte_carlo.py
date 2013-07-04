@@ -7,6 +7,8 @@ Created on 4.7.2013
 '''
 from numpy.random import lognormal
 from numpy import log
+import solver_utils
+
 
 def compute_conductivity(material_type_spec, sigma, pocet):
     '''
@@ -22,14 +24,18 @@ def compute_conductivity(material_type_spec, sigma, pocet):
         
     return result
     
-def compute_storativity(storativity, storat, pocet):
+def compute_storativity_porosity(coeficient, values, pocet):
     '''
     computes new storativity value
     using log normal distribution
     '''
-    storativity = float(storativity)
-    val = lognormal(log(storativity), storat, pocet)
-    return val
+    f_coeficient = float(coeficient)
+    values = lognormal(log(f_coeficient), values, pocet)
+    result = []
+    for val in values:
+        result.append(solver_utils.normalize_result_stora_poro(val))
+    
+    return result
 
 def compute_porosity(porosity, poros, pocet):
     '''
@@ -37,5 +43,9 @@ def compute_porosity(porosity, poros, pocet):
     using log normal distribution
     '''
     porosity = float(porosity)
-    val = lognormal(log(porosity), poros, pocet)
-    return val
+    values = lognormal(log(porosity), poros, pocet)
+    result = []
+    for val in values:
+        result.append(solver_utils.round_storativity_porosity(val))
+    
+    return result

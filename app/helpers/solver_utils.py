@@ -13,6 +13,22 @@ PROBLEMS = {
             }
 
 
+def normalize_result_stora_poro(value):
+    '''
+    the new value for storativity or porosity has to be in <0.00001, 0.99999>
+    '''
+    try:
+        value = float(value)
+    except ValueError:
+        value = 0.00001
+        
+    result = round_to_positive_zero(value)
+    if result > 1:
+        return 0.99999
+    else:
+        return result
+      
+
 def round_storativity_porosity(value):
     '''
     takes a text value, convert it to float, round it and return 

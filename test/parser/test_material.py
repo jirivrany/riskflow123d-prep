@@ -88,3 +88,13 @@ def test_set_hydraulic_cond():
     assert my_test_dict['9617'][prop_name] == new_values
     assert my_test_dict['4300'][prop_name] == new_values[:1] 
     
+def test_new_value_norm():
+    '''
+    new values for storativty and porosity must be in <0.0001, 0.9999>
+    '''
+    inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
+    my_test_dict = material.MaterialDict(inpt)
+    prop_name = 'storativity'
+    new_values = 100
+    my_test_dict.set_property_value(prop_name, my_test_dict, new_values)
+    assert my_test_dict['4100'][prop_name] == '0.99999'
