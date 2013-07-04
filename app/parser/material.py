@@ -6,6 +6,7 @@ Class representing materials in flow .mtr file
 import re
 import sys
 import os
+import app.helpers.solver_utils as solver_utils
 
 
 ORDER_OF_MTR = (
@@ -234,12 +235,13 @@ class MaterialDict(dict):
     
     def multiply_single_property(self, mtr_id, property_name, multiplicator): 
         '''
-        multiply one single property
+        multiply one single property used for storativity and porosity
+        
         '''
         x_val = self[mtr_id]
         temp = float(x_val[property_name]) * float(multiplicator)
-        x_val[property_name] = str(temp)
-        return str(temp)
+        x_val[property_name] = solver_utils.round_storativity_porosity(temp)
+        return x_val[property_name]
     
     def multiply_hydraulic_conductivity(self, mtr_id, multiplicator): 
         '''
