@@ -72,8 +72,8 @@ def test_multiply_type_spec():
     prop_name = 'type_spec'
     multip = 100
     my_test_dict.multiply_property(prop_name, my_test_dict, multip)
-    assert my_test_dict['9617'][prop_name] == '{} {} {}'.format(0.1816229383 * 100, 3.5 * 100, 2.5 * 100)
-    assert my_test_dict['4300'][prop_name] == str(1629.9762434558 * 100)
+    assert my_test_dict['9617'][prop_name] == [0.1816229383 * 100, 3.5 * 100, 2.5 * 100]
+    assert my_test_dict['4300'][prop_name] == [1629.9762434558 * 100, ]
     
 def test_set_hydraulic_cond():
     '''

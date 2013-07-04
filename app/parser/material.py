@@ -247,9 +247,8 @@ class MaterialDict(dict):
         this value is stored as list (vector) so it has to be formated separately
         '''
         x_val = self[mtr_id]
-        temp = [float(value) * float(multiplicator) for value in x_val['type_spec']]
-        x_val['type_spec'] = self.format_type_spec_data(temp)
-        return temp
+        x_val['type_spec'] = [float(value) * float(multiplicator) for value in x_val['type_spec']]
+        return x_val['type_spec']
     
     def set_hydraulic_conductivity(self, mtr_id, new_value): 
         '''
@@ -299,7 +298,7 @@ class MaterialDict(dict):
         
         #conductivity
         if values_row[0]:
-            new_cond = self.multiply_single_property(mtr_id, 'type_spec', values_row[0])
+            new_cond = self.multiply_hydraulic_conductivity(mtr_id, values_row[0])
         #porosity
         if values_row[1]:
             new_poro = self.set_single_property_value(mtr_id, 'dualporosity', values_row[1])
