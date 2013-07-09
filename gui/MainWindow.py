@@ -394,10 +394,20 @@ class MainWindow(QMainWindow):
         '''
         creates master tasks using solver_utils
         '''
+        from os import path
+        
         output_dir = self.window().output_dir + const.SEPARATOR + 'master'
+        local_launcher, cluster_launcher = self.get_launchers()
+        
+        ini_name = output_dir + const.SEPARATOR + path.split(self.flow_ini.file_name)[1]
+        
+            
         app.helpers.solver_utils.copy_master_files(\
                            self.flow_ini,\
                            output_dir, const.SEPARATOR)
+        
+        batch.create_launcher_scripts(ini_name, local_launcher, cluster_launcher)
+        
     
     def get_launchers(self):
         '''

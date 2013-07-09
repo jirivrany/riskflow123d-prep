@@ -57,8 +57,8 @@ def create_local_launcher(inifile, flow_exec):
     if sys.platform.find('win') > -1:
         file_name = adr + SEPARATOR + 'run.bat'
     else:
-        file_name = adr + SEPARATOR + 'run.sh'    
-    
+        file_name = adr + SEPARATOR + 'run.sh' 
+     
     launcher_file = open(file_name, 'w')
     print >> launcher_file, '{} -S {}'.format(flow_exec, inifname)
     launcher_file.close()
