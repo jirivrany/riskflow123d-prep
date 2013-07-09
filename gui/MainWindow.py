@@ -208,10 +208,10 @@ class MainWindow(QMainWindow):
         load mesh using mesh module
         '''            
         file_name = self.flow_ini.get_mesh_file_name()
-        self.statusBar.showMessage('Loading MSH') 
+        self.statusBar.showMessage('Loading mesh file. It may take a while') 
         self.mesh = app.parser.mesh.Mesh()
         self.mesh.read(file_name)
-        self.statusBar.showMessage('Mesh file successfully loaded', 8000) 
+        self.statusBar.showMessage('Mesh file loaded successfully') 
     
                 
     def on_app_exit(self):
