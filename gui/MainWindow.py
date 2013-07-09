@@ -396,15 +396,21 @@ class MainWindow(QMainWindow):
         '''
         from os import path
         
+        
+        
         output_dir = self.window().output_dir + const.SEPARATOR + 'master'
         local_launcher, cluster_launcher = self.get_launchers()
         
-        ini_name = output_dir + const.SEPARATOR + path.split(self.flow_ini.file_name)[1]
         
+        ini_name = output_dir + const.SEPARATOR + path.split(self.flow_ini.file_name)[1]
             
         app.helpers.solver_utils.copy_master_files(\
                            self.flow_ini,\
                            output_dir, const.SEPARATOR)
+        
+        #save last changes
+        app.basic_problem.save_material(\
+                output_dir, self.flow_ini.dict_files['Material'], self.material_dict)
         
         batch.create_launcher_scripts(ini_name, local_launcher, cluster_launcher)
         

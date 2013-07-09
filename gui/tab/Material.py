@@ -121,11 +121,11 @@ class MaterialTab(QWidget, Ui_tab_material):
             hydraulic conductivity can have more than one direction 
             get it from form and set it to dict in a list
         '''
-        new_value = [self.edit_specific_data_0.text(),
-                   self.edit_specific_data_1.text(),
-                   self.edit_specific_data_2.text()]
+        new_value = [str(self.edit_specific_data_0.text()),
+                   str(self.edit_specific_data_1.text()),
+                   str(self.edit_specific_data_2.text())]
         
-        new_value = [str(old) for old in new_value]
+        new_value = [old for old in new_value if old is not '']
         
         return new_value
     

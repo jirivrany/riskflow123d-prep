@@ -157,7 +157,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         field_values = self.get_editor_values()
         count = self.initial_count
         
-        for values_row in field_values: 
+        for values_row in field_values:
             workcopy = copy.deepcopy(self.material)
             count += 1
             message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'

@@ -249,7 +249,7 @@ class MaterialDict(dict):
         this value is stored as list (vector) so it has to be formated separately
         '''
         x_val = self[mtr_id]
-        x_val['type_spec'] = [float(value) * float(multiplicator) for value in x_val['type_spec']]
+        x_val['type_spec'] = [float(value) * float(multiplicator) for value in x_val['type_spec'] if value is not None]
         return x_val['type_spec']
     
     def set_hydraulic_conductivity(self, mtr_id, new_value): 
