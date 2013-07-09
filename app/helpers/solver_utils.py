@@ -5,6 +5,7 @@ Created on 20.12.2012
 '''
 import os
 import shutil
+import glob
 
 PROBLEMS = {
             'basic' : 'basicProblem',
@@ -75,13 +76,24 @@ def copy_master_files(flow_ini, output_dir, separator):
     original_dir = flow_ini.dir_name
     
     shutil.copy2(flow_ini.file_name, output_dir)
+    
+    copy_boudnary_cond_files(original_dir, output_dir)
         
     for master_file_name in flow_ini.dict_files.values():
         src = original_dir + separator + master_file_name
         try:
             shutil.copy2(src, output_dir)
         except IOError:
-            pass    
+            pass 
+        
+def copy_boudnary_cond_files(original_dir, output_dir):
+    '''
+    Fix for Flow1.6.6 boundary conditions in time change
+    '''
+    files = glob.iglob(os.path.join(original_dir, "*.bct_*"))
+    for file_name in files:
+        if os.path.isfile(file_name):
+            shutil.copy2(file_name, output_dir)       
 
 if __name__ == '__main__':
     print round_storativity_porosity('0')
