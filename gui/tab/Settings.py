@@ -78,8 +78,8 @@ class SettingsTab(QWidget, Ui_tab_settings):
         '''
         tmp = self._pick_up_flow_exe()
         try:
-            self.flow_exec = tmp[0]
-            self.edit_local_launcher.setText(tmp[0])
+            self.flow_exec = tmp
+            self.edit_local_launcher.setText(tmp)
             self.launcher_check_local.setChecked(True)
         except TypeError:
             self.window().statusBar.showMessage("Pick up of executable has failed")    
