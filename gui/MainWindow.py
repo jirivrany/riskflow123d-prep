@@ -28,7 +28,7 @@ import app.parser.mesh
 
 import app.basic_problem
 
-
+from os import path
 
 
 class MainWindow(QMainWindow):
@@ -372,9 +372,15 @@ class MainWindow(QMainWindow):
     def solve_basic_problem(self):
         '''
         calls method from basic_problem module with correct data
+        save all changes to material file
+        creates launchers
         '''
         app.basic_problem.save_material(\
                 self.output_dir, self.flow_ini.dict_files['Material'], self.material_dict)
+        
+        local_launcher, cluster_launcher = self.get_launchers()
+        ini_name = self.output_dir + const.SEPARATOR + path.split(self.flow_ini.file_name)[1]
+        batch.create_launcher_scripts(ini_name, local_launcher, cluster_launcher)
         
         self.statusBar.showMessage('All changes was saved to disk')
         
@@ -394,7 +400,6 @@ class MainWindow(QMainWindow):
         '''
         creates master tasks using solver_utils
         '''
-        from os import path
         
         
         

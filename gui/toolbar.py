@@ -29,7 +29,10 @@ class QuickStartAction(QAction):
         self.setIcon(QIcon('./ico/quick8.png'))
         self.setText('Quick Start')
         self.setShortcut('Ctrl+Q')
-        self.setStatusTip('Quick Start')
+        
+        tip = 'Quick open last working problem.'
+        self.setStatusTip(tip)
+        self.setToolTip(tip)
 
         
 class SolveAction(QAction):
@@ -39,9 +42,12 @@ class SolveAction(QAction):
     def __init__(self, parent = None):
         super(SolveAction, self).__init__(parent)
         self.setIcon(QIcon('./ico/solve8.png'))
-        self.setText('Run Solver')
+        self.setText('Generate Task')
         self.setShortcut('Ctrl+R')
-        self.setStatusTip('Run Solver')
+        
+        tip = 'Generate task and save all changes from memory to disk.'
+        self.setStatusTip(tip)
+        self.setToolTip(tip)
 
 class ExitAction(QAction):
     '''
