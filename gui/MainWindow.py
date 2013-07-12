@@ -82,8 +82,9 @@ class MainWindow(QMainWindow):
         '''
         set the main common actions for toolbar
         '''
-        self.toolBar.addAction(self.action_exit)
         self.toolBar.addAction(self.action_quick_start)
+        self.toolBar.addAction(self.action_exit)
+        
         self.action_exit.triggered.connect(self.on_app_exit)
         self.action_quick_start.triggered.connect(self.quick_start)
         
