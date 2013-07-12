@@ -66,6 +66,7 @@ class MainWindow(QMainWindow):
         self.action_exit = gui.toolbar.ExitAction()
         self.action_solve = gui.toolbar.SolveAction()
         self.action_quick_start = gui.toolbar.QuickStartAction()
+        self.action_solve_2 = gui.toolbar.SolveActionSens()
         
         self.set_toolbar_actions()
         
@@ -79,15 +80,23 @@ class MainWindow(QMainWindow):
         
     def set_toolbar_actions(self):
         '''
-        set the actions for toolbar
+        set the main common actions for toolbar
         '''
-        
-        self.toolBar.addAction(self.action_quick_start)
-        self.toolBar.addAction(self.action_solve)
         self.toolBar.addAction(self.action_exit)
+        self.toolBar.addAction(self.action_quick_start)
         self.action_exit.triggered.connect(self.on_app_exit)
+        self.action_quick_start.triggered.connect(self.quick_start)
+        
+        
+    def set_toolbar_solve_actions(self):
+        '''
+        set solver actions in toolbar
+        '''
+        self.toolBar.addAction(self.action_solve)
+        self.toolBar.addAction(self.action_solve_2)
+            
         self.action_solve.triggered.connect(self.on_action_solve)
-        self.action_quick_start.triggered.connect(self.quick_start)       
+        
             
     def set_menubar_actions(self):
         '''
@@ -236,6 +245,10 @@ class MainWindow(QMainWindow):
         if self.set_output_dir(problem_type):
             self.common_solver_setup(problem_type)
             self.centralWidget.add_basic_problem_tabs()
+            
+            self.set_toolbar_solve_actions()
+            self.action_solve.setText('Generate Task')
+            self.toolBar.removeAction(self.action_solve_2)
         else:
             self.backup_warning()        
         
@@ -248,6 +261,10 @@ class MainWindow(QMainWindow):
         if self.set_output_dir(problem_type):
             self.common_solver_setup(problem_type)
             self.centralWidget.add_monte_carlo_tabs()
+            
+            self.set_toolbar_solve_actions()
+            self.action_solve.setText('Generate Tasks')
+            self.toolBar.removeAction(self.action_solve_2)
         else:
             self.backup_warning()    
         
@@ -262,6 +279,11 @@ class MainWindow(QMainWindow):
             self.common_solver_setup(problem_type)
             self.centralWidget.add_sensitivity_task_tabs()
             self.centralWidget.tab_sensitivity.set_initial_count(append)
+            
+            self.set_toolbar_solve_actions()
+            self.action_solve.setText('Multiplier x Material')
+            self.action_solve_2.triggered.connect(self.centralWidget.tab_sensitivity.make_sens_multiplication_group)       
+        
         else:
             self.backup_warning()        
             
@@ -386,22 +408,20 @@ class MainWindow(QMainWindow):
         
     def solve_monte_carlo(self):
         '''
-        @todo: implement this stub
+        save monte carlo results to disk
         '''
-        pass
+        self.centralWidget.tab_montecarlo.save_monte_carlo_results()
     
     def solve_sensitivity_task(self):
         '''
         @todo: implement this stub
         '''
-        pass
+        self.centralWidget.tab_sensitivity.make_sens_multiplication()
     
     def create_master_task(self):
         '''
         creates master tasks using solver_utils
         '''
-        
-        
         
         output_dir = self.window().output_dir + const.SEPARATOR + 'master'
         local_launcher, cluster_launcher = self.get_launchers()

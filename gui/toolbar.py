@@ -48,6 +48,20 @@ class SolveAction(QAction):
         tip = 'Generate task and save all changes from memory to disk.'
         self.setStatusTip(tip)
         self.setToolTip(tip)
+        
+class SolveActionSens(QAction):
+    '''
+    solve action
+    '''
+    def __init__(self, parent = None):
+        super(SolveActionSens, self).__init__(parent)
+        self.setIcon(QIcon('./ico/solve8.png'))
+        self.setText('Multiplier x Group')
+        self.setShortcut('Ctrl+M')
+        
+        tip = 'Multiplier x Group of Materials'
+        self.setStatusTip(tip)
+        self.setToolTip(tip)        
 
 class ExitAction(QAction):
     '''
@@ -56,7 +70,7 @@ class ExitAction(QAction):
     def __init__(self, parent = None):
         super(ExitAction, self).__init__(parent)
         self.setIcon(QIcon('./ico/exit8.png'))
-        self.setText('Exit')
+        self.setText('   Exit   ')
         self.setShortcut('Ctrl+Q')
         self.setStatusTip('Exit application')
         

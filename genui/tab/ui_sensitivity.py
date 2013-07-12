@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'sensitivity.ui'
 #
-# Created: Thu Jan 24 09:57:37 2013
+# Created: Fri Jul 12 11:52:25 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -175,7 +175,7 @@ class Ui_Sensitivity(object):
 
     def retranslateUi(self, Sensitivity):
         Sensitivity.setWindowTitle(_translate("Sensitivity", "Form", None))
-        self.groupBox_sens_1.setTitle(_translate("Sensitivity", "Choose multiplicator for material property", None))
+        self.groupBox_sens_1.setTitle(_translate("Sensitivity", "Choose multiplier for material property", None))
         self.label_sens_mult_2.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#2</p></body></html>", None))
         self.label_sens_mult_5.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#5</p></body></html>", None))
         self.label_sens_mult_6.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#6</p></body></html>", None))
@@ -186,9 +186,9 @@ class Ui_Sensitivity(object):
         self.label_sens_mult_4.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#4</p></body></html>", None))
         self.label_sens_mult_7.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#7</p></body></html>", None))
         self.label_sens_mult_8.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#8</p></body></html>", None))
-        self.label_sens_mult_1.setText(_translate("Sensitivity", "Multiplicator", None))
+        self.label_sens_mult_1.setText(_translate("Sensitivity", "Multiplier for", None))
         self.label_4.setText(_translate("Sensitivity", "<html><head/><body><p align=\"center\">#1</p></body></html>", None))
-        self.button_sens_cross.setText(_translate("Sensitivity", "multiplicator x Material ", None))
-        self.button_sens_group.setText(_translate("Sensitivity", "multiplicator x Group of materials", None))
+        self.button_sens_cross.setText(_translate("Sensitivity", "Multiplier x Material ", None))
+        self.button_sens_group.setText(_translate("Sensitivity", "Multiplier x Group of materials", None))
         self.groupBox_sens_2.setTitle(_translate("Sensitivity", "List of materials", None))
 
