@@ -12,17 +12,16 @@ from PyQt4 import QtGui
 
 import gui.MainWindow
 
+
 def main():
-	'''
-	main application loop
-	'''
-	app = QtGui.QApplication(sys.argv)
-
-	window = gui.MainWindow.MainWindow()
-	window.show()
-
-	sys.exit(app.exec_())
+    '''
+    main application loop
+    '''
+    app = QtGui.QApplication(sys.argv)
+    window = gui.MainWindow.MainWindow()
+    window.show()
+    sys.exit(app.exec_())
 
 
 if __name__ == '__main__':
-	main()
+    main()
