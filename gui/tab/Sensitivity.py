@@ -219,7 +219,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             except ValueError:
                 storativity = None
             else:
-                storativity = solver_utils.round_to_positive_zero(storativity)
+                storativity = solver_utils.round_storativity(storativity)
             
             if storativity or porosity or conductivity:
                 result.append( (conductivity, porosity, storativity) )

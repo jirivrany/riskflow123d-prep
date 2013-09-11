@@ -108,7 +108,7 @@ class MaterialTab(QWidget, Ui_tab_material):
             material_object['type_spec'] = self.material_specific_val_to_list()
             material_object['geometry_type'] = str(self.edit_geometry_type.text())
             material_object['geometry_spec'] = str(self.edit_geometry_coeficient.text())
-            material_object['storativity'] = solver_utils.round_porosity(self.edit_storativity.text())
+            material_object['storativity'] = solver_utils.round_storativity(self.edit_storativity.text())
             material_object['dualporosity'] = solver_utils.round_porosity(self.editl_dual_porosity.text())
 
         except KeyError:

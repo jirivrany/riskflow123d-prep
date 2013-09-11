@@ -199,9 +199,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             
         self.message_after_computation(pocet)
         
-   
-            
-        
+                
     def message_after_computation(self, pocet):
         '''
         set message after computation
@@ -210,7 +208,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.messenger(msg)
         msg = "{0} materials in memory".format(len(self.computed_conductivity_values))
         self.groupBox_monte_buttons.setTitle(msg)
-        #cant change number of tasks anymore
+        # can't change number of tasks anymore
         self.edit_monte_tasks.setReadOnly(True)
         
         
@@ -232,7 +230,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         except ValueError:
             storat = None
         else:
-            storat = solver_utils.round_to_positive_zero(storat)
+            storat = solver_utils.round_storativity(storat)
         
         try:        
             porosity = float(self.edit_monte_porosity.text())
@@ -241,5 +239,4 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         else:
             porosity = solver_utils.round_to_positive_zero(porosity)        
          
-        return pocet, conduct, storat, porosity 
-         
+        return pocet, conduct, storat, porosity

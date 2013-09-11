@@ -32,8 +32,8 @@ def normalize_result_stora_poro(value):
 
 def round_porosity(value):
     '''
-    takes a text value, convert it to float, round it and return
-    str again
+    takes a text value, convert it to float, 
+    round it to positive zero and return str again
     '''
     try:
         value = float(value)
@@ -41,6 +41,18 @@ def round_porosity(value):
         value = 0.00001
 
     return str(round_to_positive_zero(value))
+
+def round_storativity(value):
+    '''
+    takes a text value, convert it to float, round it and return
+    str again
+    '''
+    try:
+        value = float(value)
+    except ValueError:
+        value = 0.0
+
+    return str(value)
 
 
 def round_to_positive_zero(value):
