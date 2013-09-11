@@ -430,9 +430,10 @@ class MainWindow(QMainWindow):
         
         ini_name = output_dir + const.SEPARATOR + path.split(self.flow_ini.file_name)[1]
             
-        app.helpers.solver_utils.copy_master_files(\
-                           self.flow_ini,\
+        app.helpers.solver_utils.copy_master_files(
+                           self.flow_ini,
                            output_dir, const.SEPARATOR)
+        app.helpers.solver_utils.create_task_identifier('basic', output_dir)
         
         #save last changes
         app.basic_problem.save_material(\
