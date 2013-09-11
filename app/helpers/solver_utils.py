@@ -40,7 +40,8 @@ def round_porosity(value):
     except ValueError:
         value = 0.00001
 
-    return str(round_to_positive_zero(value))
+    value = normalize_result_stora_poro(value)    
+    return str(value)
 
 def round_storativity(value):
     '''
@@ -51,7 +52,8 @@ def round_storativity(value):
         value = float(value)
     except ValueError:
         value = 0.0
-
+        
+    value = normalize_result_stora_poro(value)    
     return str(value)
 
 
