@@ -8,9 +8,9 @@ import shutil
 import glob
 
 PROBLEMS = {
-            'basic' : 'basicProblem',
-            'monte' : 'MonteCarlo',
-            'sens' : 'Sensitivity'
+            'basic': 'basicProblem',
+            'monte': 'MonteCarlo',
+            'sens': 'Sensitivity'
             }
 
 
@@ -22,25 +22,26 @@ def normalize_result_stora_poro(value):
         value = float(value)
     except ValueError:
         value = 0.00001
-        
+
     result = round_to_positive_zero(value)
     if result > 1:
         return 0.99999
     else:
         return result
-      
 
-def round_storativity_porosity(value):
+
+def round_porosity(value):
     '''
-    takes a text value, convert it to float, round it and return 
+    takes a text value, convert it to float, round it and return
     str again
     '''
     try:
         value = float(value)
     except ValueError:
         value = 0.00001
-        
-    return str(round_to_positive_zero(value))    
+
+    return str(round_to_positive_zero(value))
+
 
 def round_to_positive_zero(value):
     '''
@@ -49,7 +50,7 @@ def round_to_positive_zero(value):
     if value < 0.00001:
         return 0.00001
     else:
-        return value   
+        return value
 
 
 def create_task_identifier(problem_type, work_dir):
@@ -72,20 +73,20 @@ def copy_master_files(flow_ini, output_dir, separator):
     '''
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
-        
+
     original_dir = flow_ini.dir_name
-    
+
     shutil.copy2(flow_ini.file_name, output_dir)
-    
+
     copy_boudnary_cond_files(original_dir, output_dir)
-        
+
     for master_file_name in flow_ini.dict_files.values():
         src = original_dir + separator + master_file_name
         try:
             shutil.copy2(src, output_dir)
         except IOError:
-            pass 
-        
+            pass
+
 def copy_boudnary_cond_files(original_dir, output_dir):
     '''
     Fix for Flow1.6.6 boundary conditions in time change
@@ -93,11 +94,10 @@ def copy_boudnary_cond_files(original_dir, output_dir):
     files = glob.iglob(os.path.join(original_dir, "*.bct_*"))
     for file_name in files:
         if os.path.isfile(file_name):
-            shutil.copy2(file_name, output_dir)       
+            shutil.copy2(file_name, output_dir)
 
 if __name__ == '__main__':
-    print round_storativity_porosity('0')
-    print round_storativity_porosity('0.0001')
-    print round_storativity_porosity('0.00001')
-    print round_storativity_porosity('')  
-            
+    print round_porosity('0')
+    print round_porosity('0.0001')
+    print round_porosity('0.00001')
+    print round_porosity('')

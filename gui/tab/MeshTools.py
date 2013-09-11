@@ -152,12 +152,12 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
         
     def set_storativity(self):
         '''sets the new value of storativity for selected elements'''
-        new_value = solver_utils.round_storativity_porosity(self.edit_nvalue_storativity.text())
+        new_value = solver_utils.round_porosity(self.edit_nvalue_storativity.text())
         self.__set_property('storativity', new_value)
         
     def set_dualporosity(self):
         '''sets the new value of dualporosity for selected elements'''
-        new_value = solver_utils.round_storativity_porosity(self.edit_nvalue_porosity.text())
+        new_value = solver_utils.round_porosity(self.edit_nvalue_porosity.text())
         self.__set_property('dualporosity', new_value)    
         
     def __set_property(self, property_name, new_value):
