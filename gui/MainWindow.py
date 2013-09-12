@@ -126,6 +126,7 @@ class MainWindow(QMainWindow):
         self.test_quickstart = True
         self.start_main_routine(file_name)
         
+        
     def on_ini_file_open(self):
         '''
         Action onOpen handler 

@@ -21,6 +21,7 @@ class FlowIni(object):
         self.file_name = fname
         self.dir_name = path.split(fname)[0]
         self.dict_files = flow.get_dict_from_file(fname)
+        self.substances = flow.get_substances_from_file(fname)
         self.text = flow.get_txt_from_file(fname)
         
     def get_material_file_name(self):

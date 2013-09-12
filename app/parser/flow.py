@@ -56,6 +56,16 @@ def get_dict_from_file(fname):
     data.close()
     return vals
 
+
+def get_substances_from_file(fname):
+    '''@param fname
+       @return Dictionary of values'''
+    data = open_file(fname)
+    vals = parse_substances(data)
+    data.close()
+    return vals
+
+
 def parser(opened_file):
     '''
     @param: opened_file - opened file
@@ -77,6 +87,23 @@ def parse(opened_file):
     for key in EXTENSIONS_DICT.keys():
         for in_key in EXTENSIONS_DICT[key].keys():
             values[in_key] = pars[key][in_key]
+     
+    return values       
+
+def parse_substances(opened_file):
+    '''search a file for values
+    @param opened_file - opened file
+    @return vals - {} of values
+    '''
+    values = {
+              'Sorption': False,
+              'Dual_porosity': False,
+              'N_substances': 0,
+              'Substances': None
+              } 
+    pars = parser(opened_file)
+    for key in values.keys():
+        values[key] = pars['Transport'][key]
      
     return values       
 
