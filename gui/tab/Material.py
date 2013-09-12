@@ -90,7 +90,8 @@ class MaterialTab(QWidget, Ui_tab_material):
         self.label_hydrcon_1.hide()
         self.label_hydrcon_2.hide()
 
-        for axis, value in enumerate(material['type_spec']):
+        for axis in range(int(material['type'][1])):
+            value = material['type_spec'][axis]
             row_name = 'edit_specific_data_{}'.format(axis)
             label_name = 'label_hydrcon_{}'.format(axis)
             getattr(self, row_name).setText(value)
@@ -105,29 +106,44 @@ class MaterialTab(QWidget, Ui_tab_material):
         idx = str(self.selector_material.currentText())
         try:
             material_object = self.window().material_dict[idx]
-            material_object['type_spec'] = self.material_specific_val_to_list()
-            material_object['geometry_type'] = str(self.edit_geometry_type.text())
-            material_object['geometry_spec'] = str(self.edit_geometry_coeficient.text())
+            material_object['type_spec'] = self.material_specific_val_to_list(material_object)
+            material_object['geometry_type'] = self.non_empty_value(self.edit_geometry_type.text())
+            material_object['geometry_spec'] = self.non_empty_value(self.edit_geometry_coeficient.text())
             material_object['storativity'] = solver_utils.round_storativity(self.edit_storativity.text())
             material_object['dualporosity'] = solver_utils.round_porosity(self.editl_dual_porosity.text())
 
         except KeyError:
             self.window().statusBar.showMessage('ERROR no save', 2000)
+        except ValueError:
+            self.window().statusBar.showMessage('ERROR - Form fields can not be empty!')    
+        else:    
+            self.window().statusBar.showMessage('MTR changes saved to Memory', 2000)
 
-        self.window().statusBar.showMessage('MTR changes saved to Memory', 2000)
-
-    def material_specific_val_to_list(self):
+    def material_specific_val_to_list(self, material):
         '''
             hydraulic conductivity can have more than one direction
             get it from form and set it to dict in a list
         '''
-        new_value = [str(self.edit_specific_data_0.text()),
-                   str(self.edit_specific_data_1.text()),
-                   str(self.edit_specific_data_2.text())]
-
-        new_value = [old for old in new_value if old is not '']
-
+        new_value = []
+        
+        for axis in range(int(material['type'][1])):
+            row_name = 'edit_specific_data_{}'.format(axis)
+            label_name = 'label_hydrcon_{}'.format(axis)
+            value = getattr(self, row_name).text()
+            value = self.non_empty_value(value)
+            new_value.append(value)
+            
+        
         return new_value
+    
+    
+    def non_empty_value(self, value):
+        
+        value = str(value)
+        if value == '':
+            raise ValueError
+        
+        return value
 
     def __set_validators(self):
         '''
