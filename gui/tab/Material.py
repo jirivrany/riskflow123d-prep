@@ -9,10 +9,9 @@ Application Settings Tab
 from genui.tab.ui_material import Ui_tab_material
 from PyQt4.QtGui import QWidget, QIntValidator
 
-from formlayout import fedit
-
 from gui.MyDoubleValidator import MyDoubleValidator
 from gui.MyZeroOneValidator import MyZeroOneValidator
+from gui.SubstancesDialog import SubstancesDialog
 
 from app.helpers import solver_utils
 
@@ -46,12 +45,14 @@ class MaterialTab(QWidget, Ui_tab_material):
             datalist = []
             substances = subst['Substances'].split()
             for substance in substances:
-                datalist.append((substance, 0))
+                datalist.append(substance)
         
-            result = fedit(datalist, title=label,
-                       comment="Some details about substances")
-                       
-            print result
+        
+            dlg = SubstancesDialog(len(datalist), datalist)
+            if dlg.exec_():
+                values = dlg.get_values()
+                print values
+            
         else:
             self.window().statusBar.showMessage(
                 'No sorption substances', 8000)

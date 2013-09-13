@@ -14,6 +14,7 @@ encoding//genui/ui_tabwidget.py=utf-8
 encoding//gui/MainMenu.py=utf-8
 encoding//gui/MainTabWidget.py=utf-8
 encoding//gui/MainWindow.py=utf-8
+encoding//gui/SubstancesDialog.py=utf-8
 encoding//gui/tab/FlowCheck.py=utf-8
 encoding//gui/tab/Material.py=utf-8
 encoding//gui/tab/MeshSettings.py=utf-8
