@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'material.ui'
 #
-# Created: Thu Apr 25 12:37:39 2013
+# Created: Fri Sep 13 11:59:50 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,8 +37,9 @@ class Ui_tab_material(object):
         self.box_mtr_control.setObjectName(_fromUtf8("box_mtr_control"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.box_mtr_control)
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
+        self.button_substances = QtGui.QPushButton(self.box_mtr_control)
+        self.button_substances.setObjectName(_fromUtf8("button_substances"))
+        self.horizontalLayout_2.addWidget(self.button_substances)
         self.button_save_mtr_mem = QtGui.QPushButton(self.box_mtr_control)
         self.button_save_mtr_mem.setObjectName(_fromUtf8("button_save_mtr_mem"))
         self.horizontalLayout_2.addWidget(self.button_save_mtr_mem)
@@ -89,8 +90,8 @@ class Ui_tab_material(object):
         self.edit_geometry_coeficient = QtGui.QLineEdit(tab_material)
         self.edit_geometry_coeficient.setObjectName(_fromUtf8("edit_geometry_coeficient"))
         self.gridLayout.addWidget(self.edit_geometry_coeficient, 8, 1, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem2, 12, 1, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem1, 12, 1, 1, 1)
         self.edit_specific_data_1 = QtGui.QLineEdit(tab_material)
         self.edit_specific_data_1.setObjectName(_fromUtf8("edit_specific_data_1"))
         self.gridLayout.addWidget(self.edit_specific_data_1, 5, 1, 1, 1)
@@ -108,6 +109,7 @@ class Ui_tab_material(object):
         QtCore.QMetaObject.connectSlotsByName(tab_material)
 
     def retranslateUi(self, tab_material):
+        self.button_substances.setText(_translate("tab_material", "substances", None))
         self.button_save_mtr_mem.setText(_translate("tab_material", "save", None))
         self.button_cancel_mtr_edit.setText(_translate("tab_material", "cancel", None))
         self.label.setText(_translate("tab_material", "material type", None))

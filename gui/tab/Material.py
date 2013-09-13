@@ -8,6 +8,9 @@ Application Settings Tab
 
 from genui.tab.ui_material import Ui_tab_material
 from PyQt4.QtGui import QWidget, QIntValidator
+
+from formlayout import fedit
+
 from gui.MyDoubleValidator import MyDoubleValidator
 from gui.MyZeroOneValidator import MyZeroOneValidator
 
@@ -26,11 +29,34 @@ class MaterialTab(QWidget, Ui_tab_material):
         self.selector_material.activated.connect(self.get_current_index)
         self.button_cancel_mtr_edit.clicked.connect(self.get_current_index)
         self.button_save_mtr_mem.clicked.connect(self.set_material_to_dict)
+        self.button_substances.clicked.connect(self.substance_dialog)
 
         self.__set_validators()
 
         self.fill_material_form()
-
+        
+        
+    def substance_dialog(self):
+        '''
+        Dialog for substance details - for flow 1.6.7
+        '''    
+        subst = self.window().flow_ini.substances
+        if subst['Sorption'] == 'Yes':
+            label = 'Sorption Substances'
+            datalist = []
+            substances = subst['Substances'].split()
+            for substance in substances:
+                datalist.append((substance, 0))
+        
+            result = fedit(datalist, title=label,
+                       comment="Some details about substances")
+                       
+            print result
+        else:
+            self.window().statusBar.showMessage(
+                'No sorption substances', 8000)
+        
+        
     def fill_material_form(self):
         '''
         fill the material editor tab
