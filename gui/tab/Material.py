@@ -25,30 +25,32 @@ class MaterialTab(QWidget, Ui_tab_material):
         super(MaterialTab, self).__init__(parent)
         self.setupUi(self)
 
-        self.selector_material.activated.connect(self.get_current_index)
-        self.button_cancel_mtr_edit.clicked.connect(self.get_current_index)
+        self.selector_material.activated.connect(self.get_mtr_for_current_idx)
+        self.button_cancel_mtr_edit.clicked.connect(self.get_mtr_for_current_idx)
         self.button_save_mtr_mem.clicked.connect(self.set_material_to_dict)
-        self.button_substances.clicked.connect(self.substance_dialog)
+        self.button_substances.clicked.connect(self.sorption_substance_dialog)
 
         self.__set_validators()
 
         self.fill_material_form()
         
         
-    def substance_dialog(self):
+    def sorption_substance_dialog(self):
         '''
-        Dialog for substance details - for flow 1.6.7
+        Dialog for sorption substance details - for flow 1.6.7
         '''    
         subst = self.window().flow_ini.substances
         if subst['Sorption'] == 'Yes':
             label = 'Sorption Substances'
             datalist = []
+            
+            idx = str(self.selector_material.currentText())
+            
+            material = self.window().material_dict
+            sorption_dict = material[idx]['sorption']
             substances = subst['Substances'].split()
-            for substance in substances:
-                datalist.append(substance)
-        
-        
-            dlg = SubstancesDialog(len(datalist), datalist)
+            
+            dlg = SubstancesDialog(len(substances), sorption_dict)
             if dlg.exec_():
                 values = dlg.get_values()
                 print values
@@ -70,11 +72,11 @@ class MaterialTab(QWidget, Ui_tab_material):
         data = sorted(material.keys())
         #self.displayed_mtr_list = data[:]
         self.selector_material.insertItems(0, data)
-        self.get_current_index()  # fill up the form for first node
+        self.get_mtr_for_current_idx()  # fill up the form for first node
 
-    def get_current_index(self):
+    def get_mtr_for_current_idx(self):
         '''
-        get current selected index
+        get material for current selected index
         '''
         idx = str(self.selector_material.currentText())
         self.get_material_from_dict(idx)
@@ -119,12 +121,15 @@ class MaterialTab(QWidget, Ui_tab_material):
         self.label_hydrcon_2.hide()
 
         for axis in range(int(material['type'][1])):
-            value = material['type_spec'][axis]
-            row_name = 'edit_specific_data_{}'.format(axis)
-            label_name = 'label_hydrcon_{}'.format(axis)
-            getattr(self, row_name).setText(value)
-            getattr(self, row_name).show()
-            getattr(self, label_name).show()
+            try:
+                value = material['type_spec'][axis]
+                row_name = 'edit_specific_data_{}'.format(axis)
+                label_name = 'label_hydrcon_{}'.format(axis)
+                getattr(self, row_name).setText(value)
+                getattr(self, row_name).show()
+                getattr(self, label_name).show()
+            except IndexError:
+                self.window().statusBar.showMessage('ERROR - check your mtr file for syntax errors!')        
 
     def set_material_to_dict(self):
         '''

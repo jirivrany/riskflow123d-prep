@@ -36,7 +36,17 @@ class Ui_Dialog(object):
         self.formLayout = QtGui.QFormLayout(self.frame)
         self.formLayout.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
+        
+        self.label_col1 = QtGui.QLabel(self.frame)
+        self.label_col1.setText('substance')
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_col1)
+        
+        self.label_col2 = QtGui.QLabel(self.frame)
+        self.label_col2.setText('sorption value')
+        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.label_col2)
+        
         for line_in in range(lines):
+            row_index = 1 * (1+line_in)
             namme = 'line_edit_{}'.format(line_in)
             namel = 'label_{}'.format(line_in)
             namme = 'line_edit_{}'.format(line_in)
@@ -44,17 +54,18 @@ class Ui_Dialog(object):
             setattr(self, namme , QtGui.QLineEdit(self.frame))
             new_edit = getattr(self, namme)
             new_edit.setObjectName(_fromUtf8(namme)) 
-            self.formLayout.setWidget(1 * line_in, QtGui.QFormLayout.FieldRole, new_edit)
+            self.formLayout.setWidget(row_index, QtGui.QFormLayout.FieldRole, new_edit)
             setattr(self, namel , QtGui.QLabel(self.frame))
             new_label = getattr(self, namel)
             new_label.setObjectName(_fromUtf8(namel))
-            self.formLayout.setWidget(1 * line_in, QtGui.QFormLayout.LabelRole, new_label)
+            new_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.formLayout.setWidget(row_index, QtGui.QFormLayout.LabelRole, new_label)
         
         self.buttonBox = QtGui.QDialogButtonBox(self.frame)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.buttonBox)
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.buttonBox)
 
         self.retranslateUi(Dialog, labels)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
@@ -71,10 +82,19 @@ class Ui_Dialog(object):
 
 
 class SubstancesDialog(QtGui.QDialog, Ui_Dialog):
-    def __init__(self, lines=1, labels=['Label'], parent=None):
+    def __init__(self, lines=1, values={'1': '0.0'}, parent=None):
         QtGui.QDialog.__init__(self, parent)
+        labels = sorted(values.keys())
         self.setupUi(self, lines, labels)
         self.lines = lines
+        self.set_initial_values(values)
+        
+    def set_initial_values(self, values):
+        
+        for line_nr, line_value in values.iteritems():
+            namme = 'line_edit_{}'.format(line_nr)
+            getattr(self, namme).setText(line_value)
+            
         
     def get_values(self):
         values = {}

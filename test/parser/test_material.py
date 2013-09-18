@@ -44,6 +44,14 @@ def test_specific_values():
     '''it should test one element from loaded file, if it was created in order'''
     assert TEST_MAT[MOCK_KEY] == MOCK_MATERIAL        
 
+def test_mtr_specific_values():
+    '''
+    specific values for material type 22 must be list of 2 strings
+    '''
+    inpt_k = '/home/albert/riskflow_test_data/rf2_test/material/krychle.mtr'
+    matr = material.MaterialDict(inpt_k)
+    assert matr['64']['type_spec'] == ['0.001', '0.005']
+    
         
 def test_create_collections():
     '''it should convert data to list'''

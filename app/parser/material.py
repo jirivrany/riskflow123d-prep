@@ -67,7 +67,7 @@ class MaterialDict(dict):
         
     def get_data_from_source(self):
         '''parses open file line by line'''
-        filtr = re.compile(r'\s{1,}')
+        filtr = re.compile(r'\s+')
         try:
             with open(self.file_name, 'r') as mtr_file:
                 for line in mtr_file:
