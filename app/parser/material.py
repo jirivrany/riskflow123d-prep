@@ -20,7 +20,7 @@ ORDER_OF_MTR = (
  )
 
 FILE_HEAD = '''$MaterialFormat
-1.0  0  8
+1.0\t0\t8
 $EndMaterialFormat
 '''
 
@@ -41,7 +41,7 @@ class Material(dict):
         self['type'] = 0
         self['type_spec'] = 0.0
         self['storativity'] = 0.0
-        self['sorption'] = 0.0
+        self['sorption'] = {}
         self['dualporosity'] = 0.0
         self['sorptionfraction'] = 0.0
         self['geometry_type'] = None
@@ -89,9 +89,9 @@ class MaterialDict(dict):
 
     def parse(self, line, filtr):
         '''
-           search a line for = 
+           search a line for values 
            parses values to collections if succeed
-           interested only for items in listOfInterest 
+           filtr is regular expression filter for string to be replaced by ;
         '''
         line = line.strip()
         if line.count('$') == 1:
@@ -110,14 +110,31 @@ class MaterialDict(dict):
                 self[key]['geometry_type'] = geometry_type
                 self[key]['geometry_spec'] = geometry_spec
                 
+            elif self.attribute_name == 'sorption' and line.count(';'):
+                self.parse_sorption(line)
+                
             else:
                 data = line.split(';')
                 
                 key = data[0]
                 if self.has_key(key) and data[1]:
                     self[key][self.attribute_name] = data[1]
-                    
-        
+    
+    def parse_sorption(self, line):
+        '''
+        parses line for sorption
+        if computing with sorption then the row is 
+        material substance_id isoterm_type isoterm_value
+        otherwise the row is
+        material 0 or not present at all
+        '''
+        try:
+            key, substance, isoterm, sorption_value = line.split(';')    
+            self[key]['sorption'][substance] = sorption_value
+        except ValueError:
+            # nothing to parse, don't using sorption
+            pass
+            
     def parse_material(self, line):
         '''
         parses line for materials
@@ -139,7 +156,7 @@ class MaterialDict(dict):
         Converts values to several lists of attributes
         Those lists can be easily written as output in flow.mtr format
         '''
-        simple_keys = ('storativity', 'sorption', 'dualporosity', 'sorptionfraction', 'reactions')
+        simple_keys = ('storativity', 'dualporosity', 'sorptionfraction', 'reactions')
         
         result_data = {
                        'materials' : [],
@@ -153,19 +170,25 @@ class MaterialDict(dict):
         
         for key in sorted(self.keys()):
             wrk_mat = self[key]
-            material_string = '%s\t%s\t%s' % \
+            material_string = '\t%s\t%s\t%s' % \
                 (key, wrk_mat['type'], self.format_type_spec_data(wrk_mat['type_spec']))
-            
+                
             result_data['materials'].append(material_string)
         
             if wrk_mat['geometry_type']:    
-                geometry_string = '%s\t%s\t%s' % \
+                geometry_string = '\t%s\t%s\t%s' % \
                     (key, wrk_mat['geometry_type'], wrk_mat['geometry_spec'])    
                 result_data['geometry'].append(geometry_string)
+                
+            if wrk_mat['sorption']:
+                for substance, substance_value in wrk_mat['sorption'].iteritems():
+                    sorption_string = '\t{}\t{}\t1\t{}'.format(key, substance, substance_value)
+                    result_data['sorption'].append(sorption_string)
+                    
             
             for material_property in simple_keys:
                 if wrk_mat[material_property] is not None:
-                    temp_string = '{}\t{}'.format(key, wrk_mat[material_property])
+                    temp_string = '\t{}\t{}'.format(key, wrk_mat[material_property])
                     result_data[material_property].append(temp_string)
  
         return result_data
@@ -185,7 +208,8 @@ class MaterialDict(dict):
             output_file.write('${}\n'.format(material_property))
             key = material_property.lower()
             if material_property == 'Materials':
-                output_file.write(str(len(data_to_save['materials'])) + '\n')
+                number_of_mtr_str = '\t{}\n'.format(len(data_to_save['materials']))
+                output_file.write(number_of_mtr_str)
         
             for line in data_to_save[key]:
                 output_file.write(line)
@@ -193,7 +217,15 @@ class MaterialDict(dict):
             
             output_file.write('$End{}\n'.format(material_property))
             
+    def format_sorption_string(self, key, sorption_dict):
+        '''
+        sorption dict is {'substance name':'sorption value',}
+        '''
+        for substance, substance_value in sorption_dict.iteritems():
+            
+            result_data['sorption'].append(sorption_string)
         
+            
             
     def format_type_spec_data(self, type_spec_list):
         '''
@@ -313,13 +345,20 @@ class MaterialDict(dict):
         return (new_cond, new_poro, new_stora)
     
 if __name__ == '__main__':
+    '''
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mtr_v5_10_2.mtr'
-    #ff = open(inpt)
     TEST_MAT = MaterialDict(inpt)
     print TEST_MAT.values() 
+    '''
     
     inpt2 = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
-    #ff = open(inpt)
     TEST_MAT2 = MaterialDict(inpt2)
-    print TEST_MAT2.values()   
-        
+    output2 = '/home/albert/riskflow_test_data/rf2_test/material/mm-output-direct.mtr'
+    TEST_MAT2.save_changes(output2)  
+    
+    
+    inpt3 = '/home/albert/riskflow_test_data/rf2_test/material/krychle.mtr'
+    TEST_MAT3 = MaterialDict(inpt3)
+    output3 = '/home/albert/riskflow_test_data/rf2_test/material/krychle-output-direct.mtr'
+    TEST_MAT3.save_changes(output3)   
+    

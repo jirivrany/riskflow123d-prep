@@ -15,7 +15,7 @@ MOCK_MATERIAL = {
                  }
 
 MOCK_MATERIAL['storativity'] = '0.01'
-MOCK_MATERIAL['sorption'] = '0.00'
+MOCK_MATERIAL['sorption'] = {}
 MOCK_MATERIAL['dualporosity'] = '0.05'
 MOCK_MATERIAL['sorptionfraction'] = '0.00'
 MOCK_MATERIAL['geometry_type'] = None
@@ -23,11 +23,11 @@ MOCK_MATERIAL['geometry_spec'] = None
 MOCK_MATERIAL['reactions'] = None
 
 MOCK_COLLECTION = {
-                   'materials' : ['9500\t31\t0.0056306766'],
-                   'storativity' : ['9500\t0.01',],
-                   'sorption' : ['9500\t0.00',],
-                   'dualporosity' : ['9500\t0.05'],
-                   'sorptionfraction' : ['9500\t0.00',],
+                   'materials' : ['\t9500\t31\t0.0056306766'],
+                   'storativity' : ['\t9500\t0.01',],
+                   'sorption' : [],
+                   'dualporosity' : ['\t9500\t0.05'],
+                   'sorptionfraction' : ['\t9500\t0.00',],
                    'geometry' : [],
                    'reactions' : [],
                }
@@ -40,8 +40,8 @@ def test_file_load():
     '''it should load the file and compare keys with mock test_keys'''
     assert TEST_KEYS == TEST_MAT.keys()
     
-def test_secific_values():
-    '''it should test one element from loaded file, it it was created in order'''
+def test_specific_values():
+    '''it should test one element from loaded file, if it was created in order'''
     assert TEST_MAT[MOCK_KEY] == MOCK_MATERIAL        
 
         
@@ -53,9 +53,9 @@ def test_create_collections():
     
 def test_write_changes():
     '''it should make a copy of original file, the copy should have identical number of lines'''
-    inpt = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
+    inpt = '/home/albert/riskflow_test_data/rf2_test/material/krychle.mtr'
     tsss = material.MaterialDict(inpt)
-    oooo = '/home/albert/riskflow_test_data/rf2_test/material/mm-output.mtr'            
+    oooo = '/home/albert/riskflow_test_data/rf2_test/material/krychle-output.mtr'            
     tsss.save_changes(oooo)
     original = open(inpt).readlines() 
     newfile = open(oooo).readlines()

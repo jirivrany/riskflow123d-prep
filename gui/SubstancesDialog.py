@@ -23,10 +23,13 @@ except AttributeError:
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, lines=1, labels=["TextLabel"]):
+        width = 200
+        height = lines * 40 + 50
+        
         Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(389, 293)
+        Dialog.resize(width, height)
         self.frame = QtGui.QFrame(Dialog)
-        self.frame.setGeometry(QtCore.QRect(0, 10, 381, 261))
+        self.frame.setGeometry(QtCore.QRect(0, 10, width, height))
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtGui.QFrame.Raised)
         self.frame.setObjectName(_fromUtf8("frame"))
@@ -59,7 +62,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog, labels):
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Sorption Substances", None))
         for line_in, label in enumerate(labels):
             namel = 'label_{}'.format(line_in)
             getattr(self, namel).setText(_translate("Dialog", label, None))
