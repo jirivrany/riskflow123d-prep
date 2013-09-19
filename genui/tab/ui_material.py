@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'material.ui'
 #
-# Created: Fri Sep 13 11:59:50 2013
+# Created: Thu Sep 19 12:00:39 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,22 +31,7 @@ class Ui_tab_material(object):
         self.gridLayout = QtGui.QGridLayout(tab_material)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem, 3, 2, 1, 1)
-        self.box_mtr_control = QtGui.QGroupBox(tab_material)
-        self.box_mtr_control.setTitle(_fromUtf8(""))
-        self.box_mtr_control.setObjectName(_fromUtf8("box_mtr_control"))
-        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.box_mtr_control)
-        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.button_substances = QtGui.QPushButton(self.box_mtr_control)
-        self.button_substances.setObjectName(_fromUtf8("button_substances"))
-        self.horizontalLayout_2.addWidget(self.button_substances)
-        self.button_save_mtr_mem = QtGui.QPushButton(self.box_mtr_control)
-        self.button_save_mtr_mem.setObjectName(_fromUtf8("button_save_mtr_mem"))
-        self.horizontalLayout_2.addWidget(self.button_save_mtr_mem)
-        self.button_cancel_mtr_edit = QtGui.QPushButton(self.box_mtr_control)
-        self.button_cancel_mtr_edit.setObjectName(_fromUtf8("button_cancel_mtr_edit"))
-        self.horizontalLayout_2.addWidget(self.button_cancel_mtr_edit)
-        self.gridLayout.addWidget(self.box_mtr_control, 11, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem, 3, 3, 1, 1)
         self.editl_dual_porosity = QtGui.QLineEdit(tab_material)
         self.editl_dual_porosity.setObjectName(_fromUtf8("editl_dual_porosity"))
         self.gridLayout.addWidget(self.editl_dual_porosity, 10, 1, 1, 1)
@@ -91,7 +76,7 @@ class Ui_tab_material(object):
         self.edit_geometry_coeficient.setObjectName(_fromUtf8("edit_geometry_coeficient"))
         self.gridLayout.addWidget(self.edit_geometry_coeficient, 8, 1, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 12, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem1, 15, 1, 1, 1)
         self.edit_specific_data_1 = QtGui.QLineEdit(tab_material)
         self.edit_specific_data_1.setObjectName(_fromUtf8("edit_specific_data_1"))
         self.gridLayout.addWidget(self.edit_specific_data_1, 5, 1, 1, 1)
@@ -104,14 +89,29 @@ class Ui_tab_material(object):
         self.label_hydrcon_2 = QtGui.QLabel(tab_material)
         self.label_hydrcon_2.setObjectName(_fromUtf8("label_hydrcon_2"))
         self.gridLayout.addWidget(self.label_hydrcon_2, 6, 0, 1, 1)
+        self.button_sorption_substances = QtGui.QPushButton(tab_material)
+        self.button_sorption_substances.setObjectName(_fromUtf8("button_sorption_substances"))
+        self.gridLayout.addWidget(self.button_sorption_substances, 11, 1, 1, 1)
+        self.box_mtr_control = QtGui.QGroupBox(tab_material)
+        self.box_mtr_control.setTitle(_fromUtf8(""))
+        self.box_mtr_control.setObjectName(_fromUtf8("box_mtr_control"))
+        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.box_mtr_control)
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.button_save_mtr_mem = QtGui.QPushButton(self.box_mtr_control)
+        self.button_save_mtr_mem.setObjectName(_fromUtf8("button_save_mtr_mem"))
+        self.horizontalLayout_2.addWidget(self.button_save_mtr_mem)
+        self.button_cancel_mtr_edit = QtGui.QPushButton(self.box_mtr_control)
+        self.button_cancel_mtr_edit.setObjectName(_fromUtf8("button_cancel_mtr_edit"))
+        self.horizontalLayout_2.addWidget(self.button_cancel_mtr_edit)
+        self.gridLayout.addWidget(self.box_mtr_control, 13, 1, 1, 1)
+        self.button_porosity_substances = QtGui.QPushButton(tab_material)
+        self.button_porosity_substances.setObjectName(_fromUtf8("button_porosity_substances"))
+        self.gridLayout.addWidget(self.button_porosity_substances, 12, 1, 1, 1)
 
         self.retranslateUi(tab_material)
         QtCore.QMetaObject.connectSlotsByName(tab_material)
 
     def retranslateUi(self, tab_material):
-        self.button_substances.setText(_translate("tab_material", "substances", None))
-        self.button_save_mtr_mem.setText(_translate("tab_material", "save", None))
-        self.button_cancel_mtr_edit.setText(_translate("tab_material", "cancel", None))
         self.label.setText(_translate("tab_material", "material type", None))
         self.label_storativity.setText(_translate("tab_material", "storativity", None))
         self.label_dual_porosity.setText(_translate("tab_material", "dual porosity", None))
@@ -121,4 +121,8 @@ class Ui_tab_material(object):
         self.label_4.setText(_translate("tab_material", "geometry coeficient", None))
         self.label_hydrcon_1.setText(_translate("tab_material", "hydraulic cond. y", None))
         self.label_hydrcon_2.setText(_translate("tab_material", "hydraulic cond. z", None))
+        self.button_sorption_substances.setText(_translate("tab_material", "sorption for substances", None))
+        self.button_save_mtr_mem.setText(_translate("tab_material", "save", None))
+        self.button_cancel_mtr_edit.setText(_translate("tab_material", "cancel", None))
+        self.button_porosity_substances.setText(_translate("tab_material", "dual porosity for substances", None))
 
