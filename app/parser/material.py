@@ -115,7 +115,6 @@ class MaterialDict(dict):
                 
             else:
                 data = line.split(';')
-                
                 key = data[0]
                 if self.has_key(key) and data[1]:
                     self[key][self.attribute_name] = data[1]
@@ -349,16 +348,17 @@ if __name__ == '__main__':
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mtr_v5_10_2.mtr'
     TEST_MAT = MaterialDict(inpt)
     print TEST_MAT.values() 
-    '''
+   
     
     inpt2 = '/home/albert/riskflow_test_data/rf2_test/material/mm.mtr'
     TEST_MAT2 = MaterialDict(inpt2)
     output2 = '/home/albert/riskflow_test_data/rf2_test/material/mm-output-direct.mtr'
     TEST_MAT2.save_changes(output2)  
+    '''
     
-    
-    inpt3 = '/home/albert/riskflow_test_data/rf2_test/material/krychle.mtr'
+    inpt3 = '/home/albert/riskflow_test_data/rf2_test/material/dual_porosity/krychle.mtr'
     TEST_MAT3 = MaterialDict(inpt3)
-    output3 = '/home/albert/riskflow_test_data/rf2_test/material/krychle-output-direct.mtr'
+    output3 = '/home/albert/riskflow_test_data/rf2_test/material/dual_porosity/krychle-output-direct.mtr'
+    print TEST_MAT3['62']['dualporosity']
     TEST_MAT3.save_changes(output3)   
     
