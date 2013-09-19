@@ -101,7 +101,7 @@ class SubstancesDialog(QtGui.QDialog, Ui_Dialog):
         for line_nr in range(self.lines):
             namme = 'line_edit_{}'.format(line_nr)
             value = getattr(self, namme).text()
-            values[line_nr] = str(value)
+            values[str(line_nr)] = str(value)
         
         return values    
 

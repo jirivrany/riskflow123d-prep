@@ -53,7 +53,11 @@ class MaterialTab(QWidget, Ui_tab_material):
             dlg = SubstancesDialog(len(substances), sorption_dict)
             if dlg.exec_():
                 values = dlg.get_values()
-                print values
+                material[idx]['sorption'] = values
+                self.set_material_to_dict()
+                self.window().statusBar.showMessage(
+                'New value for sorption substances saved to memory', 8000)
+        
             
         else:
             self.window().statusBar.showMessage(
