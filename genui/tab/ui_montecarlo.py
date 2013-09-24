@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'montecarlo.ui'
 #
-# Created: Thu Jan 24 09:57:48 2013
+# Created: Tue Sep 24 12:35:14 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -67,13 +67,16 @@ class Ui_MonteCarlo(object):
         self.horizontalLayout_18.addWidget(self.button_monte_save)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_18.addItem(spacerItem)
-        self.formLayout_4.setWidget(4, QtGui.QFormLayout.SpanningRole, self.groupBox_monte_buttons)
+        self.formLayout_4.setWidget(5, QtGui.QFormLayout.SpanningRole, self.groupBox_monte_buttons)
         self.edit_monte_storativity = QtGui.QLineEdit(self.groupBox_monte_1)
         self.edit_monte_storativity.setObjectName(_fromUtf8("edit_monte_storativity"))
         self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.edit_monte_storativity)
         self.edit_monte_porosity = QtGui.QLineEdit(self.groupBox_monte_1)
         self.edit_monte_porosity.setObjectName(_fromUtf8("edit_monte_porosity"))
         self.formLayout_4.setWidget(3, QtGui.QFormLayout.FieldRole, self.edit_monte_porosity)
+        self.button_sorption_substances = QtGui.QPushButton(self.groupBox_monte_1)
+        self.button_sorption_substances.setObjectName(_fromUtf8("button_sorption_substances"))
+        self.formLayout_4.setWidget(4, QtGui.QFormLayout.FieldRole, self.button_sorption_substances)
         self.horizontalLayout.addWidget(self.groupBox_monte_1)
         self.groupBox_monte_2 = QtGui.QGroupBox(MonteCarlo)
         self.groupBox_monte_2.setObjectName(_fromUtf8("groupBox_monte_2"))
@@ -93,8 +96,9 @@ class Ui_MonteCarlo(object):
         self.label_sens_mult_25.setText(_translate("MonteCarlo", "How many tasks?", None))
         self.label_sens_mult_26.setText(_translate("MonteCarlo", "Hydraulic cond. sigma", None))
         self.label.setText(_translate("MonteCarlo", "Storativity", None))
-        self.label_2.setText(_translate("MonteCarlo", "Dual porosity", None))
+        self.label_2.setText(_translate("MonteCarlo", "Porosity", None))
         self.button_monte_compute.setText(_translate("MonteCarlo", "Compute", None))
         self.button_monte_save.setText(_translate("MonteCarlo", "Generate tasks", None))
+        self.button_sorption_substances.setText(_translate("MonteCarlo", "Sorption for substances", None))
         self.groupBox_monte_2.setTitle(_translate("MonteCarlo", "List of materials", None))
 

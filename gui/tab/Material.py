@@ -29,24 +29,15 @@ class MaterialTab(QWidget, Ui_tab_material):
         self.button_cancel_mtr_edit.clicked.connect(self.get_mtr_for_current_idx)
         self.button_save_mtr_mem.clicked.connect(self.set_material_to_dict)
         self.button_sorption_substances.clicked.connect(self.sorption_substance_dialog)
-        self.button_porosity_substances.clicked.connect(self.dual_porosity_substance_dialog)
         
         #do we use the sorption? If not, hide button.
         if self.window().flow_ini.substances['Sorption'] != 'Yes':
             self.button_sorption_substances.hide()
-            
-        if self.window().flow_ini.substances['Dual_porosity'] != 'Yes':
-            self.button_porosity_substances.hide()    
-
+       
         self.__set_validators()
 
         self.fill_material_form()
         
-    def dual_porosity_substance_dialog(self):
-        '''
-        @TODO dialog for dual porosity 
-        '''    
-        pass
         
     def sorption_substance_dialog(self):
         '''

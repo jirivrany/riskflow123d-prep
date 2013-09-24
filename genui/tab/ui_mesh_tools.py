@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'meshtools.ui'
 #
-# Created: Mon Jul 01 12:56:47 2013
+# Created: Tue Sep 24 12:35:37 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -131,8 +131,8 @@ class Ui_MeshTools(object):
         self.groupBox_2.setTitle(_translate("MeshTools", "Storativity", None))
         self.label_12.setText(_translate("MeshTools", "Set Storativity to:", None))
         self.button_nvalue_storativity.setText(_translate("MeshTools", "OK", None))
-        self.groupBox_3.setTitle(_translate("MeshTools", "Dual Porosity", None))
-        self.label_14.setText(_translate("MeshTools", "Set Dual Porosity to:", None))
+        self.groupBox_3.setTitle(_translate("MeshTools", "Porosity", None))
+        self.label_14.setText(_translate("MeshTools", "Set Porosity to:", None))
         self.button_nvalue_porosity.setText(_translate("MeshTools", "OK", None))
         self.groupBox_11.setTitle(_translate("MeshTools", "Generate unique material for each element", None))
         self.button_gen_mtr_selected.setText(_translate("MeshTools", "in Mesh List (selected)", None))

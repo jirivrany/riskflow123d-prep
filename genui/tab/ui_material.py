@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'material.ui'
 #
-# Created: Thu Sep 19 12:00:39 2013
+# Created: Tue Sep 24 12:35:52 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -76,7 +76,7 @@ class Ui_tab_material(object):
         self.edit_geometry_coeficient.setObjectName(_fromUtf8("edit_geometry_coeficient"))
         self.gridLayout.addWidget(self.edit_geometry_coeficient, 8, 1, 1, 1)
         spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem1, 15, 1, 1, 1)
+        self.gridLayout.addItem(spacerItem1, 14, 1, 1, 1)
         self.edit_specific_data_1 = QtGui.QLineEdit(tab_material)
         self.edit_specific_data_1.setObjectName(_fromUtf8("edit_specific_data_1"))
         self.gridLayout.addWidget(self.edit_specific_data_1, 5, 1, 1, 1)
@@ -103,10 +103,7 @@ class Ui_tab_material(object):
         self.button_cancel_mtr_edit = QtGui.QPushButton(self.box_mtr_control)
         self.button_cancel_mtr_edit.setObjectName(_fromUtf8("button_cancel_mtr_edit"))
         self.horizontalLayout_2.addWidget(self.button_cancel_mtr_edit)
-        self.gridLayout.addWidget(self.box_mtr_control, 13, 1, 1, 1)
-        self.button_porosity_substances = QtGui.QPushButton(tab_material)
-        self.button_porosity_substances.setObjectName(_fromUtf8("button_porosity_substances"))
-        self.gridLayout.addWidget(self.button_porosity_substances, 12, 1, 1, 1)
+        self.gridLayout.addWidget(self.box_mtr_control, 12, 1, 1, 1)
 
         self.retranslateUi(tab_material)
         QtCore.QMetaObject.connectSlotsByName(tab_material)
@@ -114,7 +111,7 @@ class Ui_tab_material(object):
     def retranslateUi(self, tab_material):
         self.label.setText(_translate("tab_material", "material type", None))
         self.label_storativity.setText(_translate("tab_material", "storativity", None))
-        self.label_dual_porosity.setText(_translate("tab_material", "dual porosity", None))
+        self.label_dual_porosity.setText(_translate("tab_material", "porosity", None))
         self.label_material.setText(_translate("tab_material", "Select material", None))
         self.label_hydrcon_0.setText(_translate("tab_material", "hydraulic conductivity", None))
         self.label_3.setText(_translate("tab_material", "geometry type", None))
@@ -124,5 +121,4 @@ class Ui_tab_material(object):
         self.button_sorption_substances.setText(_translate("tab_material", "sorption for substances", None))
         self.button_save_mtr_mem.setText(_translate("tab_material", "save", None))
         self.button_cancel_mtr_edit.setText(_translate("tab_material", "cancel", None))
-        self.button_porosity_substances.setText(_translate("tab_material", "dual porosity for substances", None))
 
