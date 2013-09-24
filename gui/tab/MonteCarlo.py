@@ -17,6 +17,8 @@ from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import monte_carlo
 
+from gui.SubstancesDialog import SubstancesDialog
+
 import copy
 
 class MonteCarloTab(QWidget, Ui_MonteCarlo):
@@ -42,6 +44,11 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.computed_storativity_values = {}
         self.computed_porosity_values = {}
         
+        #do we use the sorption? If not, hide button.
+        if self.window().flow_ini.substances['Sorption'] != 'Yes':
+            self.button_sorption_substances.hide()
+        else:
+            self.button_sorption_substances.clicked.connect(self.sorption_substance_dialog)
         
         #shortening aliases
         self.messenger = self.window().statusBar.showMessage
@@ -51,7 +58,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
         
-    
+
     def __set_validators(self):
         '''
         set validators for edit fields
@@ -66,6 +73,33 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.edit_monte_storativity.setValidator(validator_zero_one)
         
         self.edit_monte_tasks.setValidator(QIntValidator())
+        
+    def sorption_substance_dialog(self):
+        '''
+        dialog for sorption substances
+        '''
+        subst = self.window().flow_ini.substances
+        if subst['Sorption'] == 'Yes':
+            label = 'Sorption Substances'
+            datalist = []
+            
+            substances = subst['Substances'].split()
+            sorption_dict = {}
+            for row, subst in enumerate(substances):
+                sorption_dict[str(row)] = '0.0'
+            
+            
+            dlg = SubstancesDialog(len(substances), sorption_dict)
+            if dlg.exec_():
+                values = dlg.get_values()
+                print values
+                
+            
+        else:
+            self.window().statusBar.showMessage(
+                'No sorption substances', 8000)
+        
+        
     
     def fill_solver_mtr_list(self, data):
         '''
