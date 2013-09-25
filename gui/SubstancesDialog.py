@@ -6,6 +6,7 @@ Created on 13. 9. 2013
 @author: albert
 '''
 from PyQt4 import QtCore, QtGui
+from gui.MyDoubleValidator import MyDoubleValidator
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -44,7 +45,9 @@ class Ui_Dialog(object):
         self.label_col2 = QtGui.QLabel(self.frame)
         self.label_col2.setText('sorption value')
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.label_col2)
-        
+
+        validator_positive_double = MyDoubleValidator(True, self)
+
         for line_in in range(lines):
             row_index = 1 * (1+line_in)
             namme = 'line_edit_{}'.format(line_in)
@@ -53,7 +56,8 @@ class Ui_Dialog(object):
             namel = 'label_{}'.format(line_in)
             setattr(self, namme , QtGui.QLineEdit(self.frame))
             new_edit = getattr(self, namme)
-            new_edit.setObjectName(_fromUtf8(namme)) 
+            new_edit.setObjectName(_fromUtf8(namme))
+            new_edit.setValidator(validator_positive_double) 
             self.formLayout.setWidget(row_index, QtGui.QFormLayout.FieldRole, new_edit)
             setattr(self, namel , QtGui.QLabel(self.frame))
             new_label = getattr(self, namel)
@@ -66,6 +70,8 @@ class Ui_Dialog(object):
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.buttonBox)
+        
+        
 
         self.retranslateUi(Dialog, labels)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)

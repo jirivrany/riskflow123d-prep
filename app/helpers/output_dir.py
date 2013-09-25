@@ -59,8 +59,11 @@ def delete_content(output_dir):
     delete content of output dir
     '''    
     import shutil
-    shutil.rmtree(output_dir)
-    create(output_dir)     
+    try:
+        shutil.rmtree(output_dir)
+        create(output_dir)
+    except WindowsError:
+        print "Can not delete the {} dir - it's used by another process".format(output_dir)         
 
 def to_int(value):
     try:

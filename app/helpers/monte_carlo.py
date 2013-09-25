@@ -24,15 +24,28 @@ def compute_conductivity(material_type_spec, sigma, pocet):
         
     return result
     
-def compute_storativity_porosity(coeficient, values, pocet):
+def compute_storativity_porosity(coeficient, sigma, pocet):
     '''
-    computes new storativity value
+    computes new storativity or porosity value
     using log normal distribution
     '''
     f_coeficient = float(coeficient)
-    values = lognormal(log(f_coeficient), values, pocet)
+    values = lognormal(log(f_coeficient), sigma, pocet)
     result = []
     for val in values:
         result.append(solver_utils.normalize_result_stora_poro(val))
     
+    return result
+
+def compute_sorption(sorption_dict, sorption_values, pocet):
+    '''
+    computes new sorption values for substances stored in sorption dict
+    '''
+    result = {}
+    for subst_nr, subst_sorption in sorption_dict.iteritems():
+        f_subst_sorption = float(subst_sorption)
+        sigma = sorption_values[subst_nr]
+        values = lognormal(log(f_subst_sorption), sigma, pocet)
+        result[subst_nr] = values
+        
     return result

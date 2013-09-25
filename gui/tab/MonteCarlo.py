@@ -156,15 +156,19 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
                     workcopy[mat]['type_spec'].append(direction_value[loop_nr])   
                 
             
-            for mat in self.computed_storativity_values.keys():
+            for mat in self.computed_storativity_values.iterkeys():
                 self.monte_logger.log_message(\
                       loop_nr, mat, workcopy[mat]['storativity'], self.computed_storativity_values[mat][loop_nr])
                 workcopy[mat]['storativity'] = self.computed_storativity_values[mat][loop_nr]   
             
-            for mat in self.computed_porosity_values.keys():
+            for mat in self.computed_porosity_values.iterkeys():
                 self.monte_logger.log_message(\
                       loop_nr, mat, workcopy[mat]['dualporosity'], self.computed_porosity_values[mat][loop_nr])
-                workcopy[mat]['dualporosity'] = self.computed_porosity_values[mat][loop_nr]      
+                workcopy[mat]['dualporosity'] = self.computed_porosity_values[mat][loop_nr]
+                
+            for mat in self.computed_sorption_values.iterkeys():
+                for subst_nr in workcopy[mat]['sorption'].iterkeys():
+                    workcopy[mat]['sorption'][subst_nr] = self.computed_sorption_values[mat][subst_nr][loop_nr]
             
             fdir = '{num:0{width}}'.format(num=loop_nr, width=poc+1)
             fname = self.window().output_dir + fdir + SEPARATOR +  self.window().flow_ini.dict_files['Material']
@@ -234,8 +238,8 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             if self.sorption_values:
                 sorption_dict = self.material[mat]['sorption']
                 val = monte_carlo.compute_sorption(sorption_dict, self.sorption_values, pocet)
-                self.computed_sorption_values = val
-            
+                self.computed_sorption_values[mat] = val
+                 
         self.message_after_computation(pocet)
         
                 
