@@ -45,8 +45,6 @@ class MaterialTab(QWidget, Ui_tab_material):
         '''    
         subst = self.window().flow_ini.substances
         if subst['Sorption'] == 'Yes':
-            label = 'Sorption Substances'
-            datalist = []
             
             idx = str(self.selector_material.currentText())
             

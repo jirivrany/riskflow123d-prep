@@ -43,6 +43,8 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.computed_conductivity_values = {} 
         self.computed_storativity_values = {}
         self.computed_porosity_values = {}
+        self.computed_sorption_values = {}
+        self.sorption_values = None #values from sorption dialog
         
         #do we use the sorption? If not, hide button.
         if self.window().flow_ini.substances['Sorption'] != 'Yes':
@@ -80,8 +82,6 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         '''
         subst = self.window().flow_ini.substances
         if subst['Sorption'] == 'Yes':
-            label = 'Sorption Substances'
-            datalist = []
             
             substances = subst['Substances'].split()
             sorption_dict = {}
@@ -91,10 +91,10 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             
             dlg = SubstancesDialog(len(substances), sorption_dict)
             if dlg.exec_():
-                values = dlg.get_values()
-                print values
+                self.sorption_values = dlg.get_values()
+                self.window().statusBar.showMessage(
+                'Sorption coefficients are ready for computing.', 8000)
                 
-            
         else:
             self.window().statusBar.showMessage(
                 'No sorption substances', 8000)
@@ -229,7 +229,12 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             if poros:
                 porosity = float(self.material[mat]['dualporosity'])
                 val = monte_carlo.compute_storativity_porosity(porosity, poros, pocet)
-                self.computed_porosity_values[mat] = val    
+                self.computed_porosity_values[mat] = val 
+                
+            if self.sorption_values:
+                sorption_dict = self.material[mat]['sorption']
+                val = monte_carlo.compute_sorption(sorption_dict, self.sorption_values, pocet)
+                self.computed_sorption_values = val
             
         self.message_after_computation(pocet)
         
@@ -271,6 +276,6 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         except ValueError:
             porosity = None
         else:
-            porosity = solver_utils.round_to_positive_zero(porosity)        
+            porosity = solver_utils.round_to_positive_zero(porosity)
          
         return pocet, conduct, storat, porosity

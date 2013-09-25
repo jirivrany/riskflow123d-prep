@@ -36,16 +36,3 @@ def compute_storativity_porosity(coeficient, values, pocet):
         result.append(solver_utils.normalize_result_stora_poro(val))
     
     return result
-
-def compute_porosity(porosity, poros, pocet):
-    '''
-    computes new dual porosity value
-    using log normal distribution
-    '''
-    porosity = float(porosity)
-    values = lognormal(log(porosity), poros, pocet)
-    result = []
-    for val in values:
-        result.append(solver_utils.round_storativity_porosity(val))
-    
-    return result
