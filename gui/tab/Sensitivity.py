@@ -161,24 +161,13 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         field_values = self.get_editor_values()
         
-        print field_values
-        print self.sorption_values
-        
         for material_id in selection:
             for row_nr in xrange(1, 9): 
                 key = str(row_nr)
-                try:
-                    values_row = field_values[key]
-                except KeyError:
-                    values_row = None
                 
-                try:
-                    sorption_values = self.sorption_values[key]
-                except KeyError:
-                    sorption_values = None    
-                    
+                values_row, sorption_values = self.__get_values_for_current_material(key, field_values)
+                
                 if values_row or sorption_values:
-                    print key    
                     workcopy = copy.deepcopy(self.material)
                     count += 1
                     fdir = '{num:0{width}}'.format(num=count, width=poc+1)
@@ -204,7 +193,22 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         self.message_after_computation(count)
         
+    def __get_values_for_current_material(self, key, field_values):
+        '''
+        search key in dicts
+        '''
+        try:
+            values_row = field_values[key]
+        except KeyError:
+            values_row = None
         
+        try:
+            sorption_values = self.sorption_values[key]
+        except KeyError:
+            sorption_values = None    
+            
+        return values_row, sorption_values    
+                        
     
     
     def make_sens_multiplication_group(self):
@@ -225,25 +229,27 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         field_values = self.get_editor_values()
         count = self.initial_count
         
-        for values_row in field_values.values():
-            workcopy = copy.deepcopy(self.material)
-            count += 1
-            message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
-            for material_id in selection:
-                changed_values = workcopy.compute_new_material_values(material_id, values_row)
-                message += '{} new values {} \n'.format(material_id, changed_values)
+        for row_nr in xrange(1, 9): 
+            key = str(row_nr)
+            values_row, sorption_values = self.__get_values_for_current_material(key, field_values)
+            if values_row or sorption_values:
+                workcopy = copy.deepcopy(self.material)
+                count += 1
+                message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
+                for material_id in selection:
+                    changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                    message += '{} new values {} \n'.format(material_id, changed_values)
+                    
+                fdir = '{num:0{width}}'.format(num=count, width=pocet+1)
+                fname = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material'] 
                 
-            fdir = '{num:0{width}}'.format(num=count, width=pocet+1)
-            fname = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material'] 
-            
-            workcopy.save_changes(fname)
-            
-            self.create_common_task_files(fdir)
-            
-            self.log_message(message, fdir)
+                workcopy.save_changes(fname)
                 
+                self.create_common_task_files(fdir)
                 
-            workcopy = {}    
+                self.log_message(message, fdir)
+                    
+                workcopy = {}    
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
