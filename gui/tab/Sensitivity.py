@@ -237,8 +237,11 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 count += 1
                 message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
                 for material_id in selection:
-                    changed_values = workcopy.compute_new_material_values(material_id, values_row)
-                    message += '{} new values {} \n'.format(material_id, changed_values)
+                    if values_row:
+                        changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                        message += '{} new values {} \n'.format(material_id, changed_values)
+                    if sorption_values:
+                        workcopy.compute_new_sorption_val(material_id, sorption_values)
                     
                 fdir = '{num:0{width}}'.format(num=count, width=pocet+1)
                 fname = self.window().output_dir + fdir + SEPARATOR + self.window().flow_ini.dict_files['Material'] 
