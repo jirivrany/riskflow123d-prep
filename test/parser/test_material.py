@@ -70,6 +70,14 @@ def test_write_changes():
     
     assert len(original) == len(newfile)
     
+def test_multiply_sorption():
+    '''it should make a copy of original file, the copy should have identical number of lines'''
+    inpt = '/home/albert/riskflow_test_data/rf2_test/material/krychle-sorption.mtr'
+    tsss = material.MaterialDict(inpt)
+    sorption_values = {'1': '5', '0': '40'}
+    tsss.compute_new_sorption_val('62', sorption_values)
+    assert tsss['62']['sorption'] == {'1': '0.05' , '0': '0.4' }    
+    
 def test_multiply_type_spec():
     '''
     type_spec for all elements should be multipled

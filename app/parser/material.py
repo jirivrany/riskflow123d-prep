@@ -343,6 +343,19 @@ class MaterialDict(dict):
             
         return (new_cond, new_poro, new_stora)
     
+    def compute_new_sorption_val(self, mtr_id, sorption_values):
+        '''
+        new values of sorption will be computed by multipliaction with
+        coeficient given in @param sorption_values
+        '''
+        for subst_nr, subst_sorption in sorption_values.iteritems():
+            x_val = self[mtr_id]
+            temp = float(x_val['sorption'][subst_nr]) * float(subst_sorption)
+            x_val['sorption'][subst_nr] = str(temp)
+        
+        return x_val['sorption']
+        
+    
 if __name__ == '__main__':
     '''
     inpt = '/home/albert/riskflow_test_data/rf2_test/material/mtr_v5_10_2.mtr'

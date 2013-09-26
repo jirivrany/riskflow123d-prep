@@ -188,7 +188,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                     if values_row:
                         changed_values = workcopy.compute_new_material_values(material_id, values_row)
                     if sorption_values:
-                        print sorption_values
+                        workcopy.compute_new_sorption_val(material_id, sorption_values)
                         
                     workcopy.save_changes(mtr_file)
                     self.create_common_task_files(fdir)
