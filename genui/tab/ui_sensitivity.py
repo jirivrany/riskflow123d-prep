@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'sensitivity.ui'
 #
-# Created: Tue Sep 24 12:35:02 2013
+# Created: Thu Sep 26 08:54:01 2013
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -190,9 +190,9 @@ class Ui_Sensitivity(object):
         self.button_sens_sorption_7 = QtGui.QPushButton(self.groupBox_sens_1)
         self.button_sens_sorption_7.setObjectName(_fromUtf8("button_sens_sorption_7"))
         self.gridLayout.addWidget(self.button_sens_sorption_7, 9, 5, 1, 1)
-        self.button_sens_sorption_9 = QtGui.QPushButton(self.groupBox_sens_1)
-        self.button_sens_sorption_9.setObjectName(_fromUtf8("button_sens_sorption_9"))
-        self.gridLayout.addWidget(self.button_sens_sorption_9, 10, 5, 1, 1)
+        self.button_sens_sorption_8 = QtGui.QPushButton(self.groupBox_sens_1)
+        self.button_sens_sorption_8.setObjectName(_fromUtf8("button_sens_sorption_8"))
+        self.gridLayout.addWidget(self.button_sens_sorption_8, 10, 5, 1, 1)
         self.verticalLayout_2.addWidget(self.groupBox_sens_1)
         self.groupBox_sens_3 = QtGui.QGroupBox(self.frame_2)
         self.groupBox_sens_3.setTitle(_fromUtf8(""))
@@ -243,7 +243,7 @@ class Ui_Sensitivity(object):
         self.button_sens_sorption_5.setText(_translate("Sensitivity", "sorption", None))
         self.button_sens_sorption_6.setText(_translate("Sensitivity", "sorption", None))
         self.button_sens_sorption_7.setText(_translate("Sensitivity", "sorption", None))
-        self.button_sens_sorption_9.setText(_translate("Sensitivity", "sorption", None))
+        self.button_sens_sorption_8.setText(_translate("Sensitivity", "sorption", None))
         self.button_sens_cross.setText(_translate("Sensitivity", "Multiplier x Material ", None))
         self.button_sens_group.setText(_translate("Sensitivity", "Multiplier x Group of materials", None))
         self.groupBox_sens_2.setTitle(_translate("Sensitivity", "List of materials", None))

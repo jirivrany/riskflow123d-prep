@@ -16,6 +16,7 @@ from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
 
+from gui.SubstancesDialog import SubstancesDialog
 
 import copy
 
@@ -28,7 +29,11 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.setupUi(self)
         self.button_sens_cross.clicked.connect(self.make_sens_multiplication)
         self.button_sens_group.clicked.connect(self.make_sens_multiplication_group)
-        
+        #buttons for dialog
+        if self.window().flow_ini.substances['Sorption'] != 'Yes':
+            self.__hide_button_sorption_substances()
+        else:
+            self.__set_action_buttons_sorption()
         #multipleseclect
         self.list_sens_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
         #validator
@@ -36,17 +41,61 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         #alias
         self.messenger = self.window().statusBar.showMessage
         self.material = self.window().material_dict
-        
         #launchers 
         self.local_launcher, self.cluster_launcher = self.window().get_launchers()
-        
         #init count (for append names)
         self.initial_count = 0
-        
         #fill solver list with materials
         self.displayed_solver_mtr_list = [ ]
         data = sorted(self.material.keys())
         self.fill_solver_mtr_list(data)
+        #dict for sorption
+        self.sorption_values = {}
+        
+    def __hide_button_sorption_substances(self):
+        '''
+        UI helper - hides buttons for sorption if dialog is not used
+        '''  
+        for row_number in xrange(1, 9):
+            tmp_name = 'button_sens_sorption_{}'.format(row_number)
+            getattr(self, tmp_name).hide()
+            
+    def __set_action_buttons_sorption(self):        
+        '''
+        UI helper - set clicked for 9 sorption buttons
+        '''
+        for row_number in xrange(1, 9):
+            tmp_name = 'button_sens_sorption_{}'.format(row_number)
+            getattr(self, tmp_name).clicked.connect(self.sorption_substance_dialog)
+            
+    def sorption_substance_dialog(self):
+        '''
+        dialog for sorption substances
+        '''
+        subst = self.window().flow_ini.substances
+        if subst['Sorption'] == 'Yes':
+            
+            substances = subst['Substances'].split()
+            sorption_dict = {}
+            for row, subst in enumerate(substances):
+                sorption_dict[str(row)] = '0.0'
+            
+            
+            dlg = SubstancesDialog(len(substances), sorption_dict)
+            if dlg.exec_():
+                pattern = 'button_sens_sorption_'
+                sender = self.sender().objectName()
+                sender = str(sender[len(pattern):])
+                
+                self.sorption_values[sender] = dlg.get_values()
+                
+                self.window().statusBar.showMessage(
+                'Sorption coefficients for row {} are ready for computing.'.format(sender), 8000)
+                
+        else:
+            self.window().statusBar.showMessage(
+                'No sorption substances', 8000)    
+            
         
     def set_initial_count(self, value):
         '''
@@ -112,24 +161,33 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         field_values = self.get_editor_values()
         
+        
         for material_id in selection:
-            for values_row in field_values: 
-                workcopy = copy.deepcopy(self.material)
-                count += 1
-                fdir = '{num:0{width}}'.format(num=count, width=poc+1)
-                #operation with material
-                mtr_file = self.window().output_dir + fdir +\
-                 SEPARATOR + self.window().flow_ini.dict_files['Material']
+            for row_nr in xrange(1, 9): 
+                key = str(row_nr)
+                try:
+                    values_row = field_values[key]
+                except KeyError:
+                    values_row = None
                 
-                changed_values = workcopy.compute_new_material_values(material_id, values_row)
-                workcopy.save_changes(mtr_file)
-                
-                self.create_common_task_files(fdir)
-                
-                message = '{} computed values {} (None = no change)\n'.format(material_id, changed_values)
-                self.log_message(message, fdir)
-                
-                workcopy = {}    
+                try:
+                    sorption_values = self.sorption_values[key]
+                except KeyError:
+                    sorption_values = None    
+                    
+                if values_row or sorption_values:    
+                    workcopy = copy.deepcopy(self.material)
+                    count += 1
+                    fdir = '{num:0{width}}'.format(num=count, width=poc+1)
+                    #operation with material
+                    mtr_file = self.window().output_dir + fdir +\
+                    SEPARATOR + self.window().flow_ini.dict_files['Material']
+                    changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                    workcopy.save_changes(mtr_file)
+                    self.create_common_task_files(fdir)
+                    message = '{} computed values {} (None = no change)\n'.format(material_id, changed_values)
+                    self.log_message(message, fdir)
+                    workcopy = {}    
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
             batch.create_cluster_batch(self.window().output_dir)
@@ -157,7 +215,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         field_values = self.get_editor_values()
         count = self.initial_count
         
-        for values_row in field_values:
+        for values_row in field_values.values():
             workcopy = copy.deepcopy(self.material)
             count += 1
             message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
@@ -198,7 +256,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''
         check all the editor and return 8 row list of tuples with editor values
         '''
-        result = []
+        result = {}
         
         for row in xrange(8):
             try:
@@ -222,7 +280,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 storativity = solver_utils.round_storativity(storativity)
             
             if storativity or porosity or conductivity:
-                result.append( (conductivity, porosity, storativity) )
+                result[str(row)] = (conductivity, porosity, storativity)
             
         return result 
     
