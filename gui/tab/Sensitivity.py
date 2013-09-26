@@ -161,6 +161,8 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         field_values = self.get_editor_values()
         
+        print field_values
+        print self.sorption_values
         
         for material_id in selection:
             for row_nr in xrange(1, 9): 
@@ -175,18 +177,26 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 except KeyError:
                     sorption_values = None    
                     
-                if values_row or sorption_values:    
+                if values_row or sorption_values:
+                    print key    
                     workcopy = copy.deepcopy(self.material)
                     count += 1
                     fdir = '{num:0{width}}'.format(num=count, width=poc+1)
                     #operation with material
                     mtr_file = self.window().output_dir + fdir +\
                     SEPARATOR + self.window().flow_ini.dict_files['Material']
-                    changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                    if values_row:
+                        changed_values = workcopy.compute_new_material_values(material_id, values_row)
+                    if sorption_values:
+                        print sorption_values
+                        
                     workcopy.save_changes(mtr_file)
                     self.create_common_task_files(fdir)
-                    message = '{} computed values {} (None = no change)\n'.format(material_id, changed_values)
-                    self.log_message(message, fdir)
+                    
+                    if values_row:
+                        message = '{} computed values {} (None = no change)\n'.format(material_id, changed_values)
+                        self.log_message(message, fdir)
+                    
                     workcopy = {}    
         
         if self.window().centralWidget.tab_settings.launcher_check_hydra.isChecked():
@@ -258,14 +268,14 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''
         result = {}
         
-        for row in xrange(8):
+        for row in xrange(1, 9):
             try:
-                conductivity = float(getattr(self, "edit_sens_conduct_{}".format(row + 1)).text())
+                conductivity = float(getattr(self, "edit_sens_conduct_{}".format(row)).text())
             except ValueError:
                 conductivity = None                
             
             try:
-                porosity = float(getattr(self, "edit_sens_porosity_{}".format(row + 1)).text())
+                porosity = float(getattr(self, "edit_sens_porosity_{}".format(row)).text())
             except ValueError:
                 porosity = None
             else:
@@ -273,7 +283,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             
             
             try:            
-                storativity = float(getattr(self, "edit_sens_storativity_{}".format(row + 1)).text())
+                storativity = float(getattr(self, "edit_sens_storativity_{}".format(row)).text())
             except ValueError:
                 storativity = None
             else:
