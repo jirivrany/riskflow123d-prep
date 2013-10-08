@@ -9,6 +9,7 @@ Application Settings Tab
 
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
 from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator
+from gui.MyDoubleValidator import MyDoubleValidator
 
 from app import mesh_utils
 
@@ -63,7 +64,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         integer_validator = QIntValidator()
         self.mesh_element_id_edit.setValidator(integer_validator)
-        self.edit_mesh_crd.setValidator(integer_validator)
+        self.edit_mesh_crd.setValidator(MyDoubleValidator(False, self))
       
     def fill_mesh_mtr_form(self):
         '''
@@ -241,7 +242,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text())
+            val = float(self.edit_mesh_crd.text())
             vals = mesh_utils.find_through(val, self.msh, axis)
             self._mesh_import_list_updater(vals)
         
@@ -250,7 +251,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text())
+            val = float(self.edit_mesh_crd.text())
             vals = mesh_utils.import_axis(val, self.msh, -1, axis)
             self._mesh_import_list_updater(vals)
         
@@ -259,7 +260,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text())
+            val = float(self.edit_mesh_crd.text())
             vals = mesh_utils.import_axis(val, self.msh, 1, axis)
             self._mesh_import_list_updater(vals)
             
@@ -295,7 +296,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text())
+            val = float(self.edit_mesh_crd.text())
             vals = mesh_utils.import_axis(val, self.msh, -1, axis)
             self._mesh_import_list_deleter(vals)               
         
@@ -306,7 +307,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text())
+            val = float(self.edit_mesh_crd.text())
             vals = mesh_utils.import_axis(val, self.msh, 1, axis)
             self._mesh_import_list_deleter(vals)
         
@@ -317,7 +318,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         axis = self._get_mesh_axis()
         if axis:
-            val = int(self.edit_mesh_crd.text()) 
+            val = float(self.edit_mesh_crd.text()) 
             vals = mesh_utils.find_through(val, self.msh, axis)
             self._mesh_import_list_deleter(vals)
             
