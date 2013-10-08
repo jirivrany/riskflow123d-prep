@@ -101,8 +101,16 @@ class MaterialTab(QWidget, Ui_tab_material):
             self.fill_form_material_type_spec(material)
             #geometry
             self.edit_geometry_type.setDisabled(True)
-            self.edit_geometry_type.setText(material['geometry_type'])
-            self.edit_geometry_coeficient.setText(material['geometry_spec'])
+            self.edit_geometry_coeficient.setEnabled(True)
+            try:
+                self.edit_geometry_type.setText(material['geometry_type'])
+            except TypeError:
+                self.edit_geometry_type.setText('')
+            try:        
+                self.edit_geometry_coeficient.setText(material['geometry_spec'])
+            except TypeError:
+                self.edit_geometry_coeficient.setDisabled(True)
+                self.edit_geometry_coeficient.setText('')    
             
             allowed_materials = ('21','22','11')
             if material['type'] in allowed_materials:

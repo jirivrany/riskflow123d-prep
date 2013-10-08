@@ -1,4 +1,4 @@
-# coding: utf-8
+['type_spec']# coding: utf-8
 '''
 Class representing materials in flow .mtr file
 '''
@@ -293,16 +293,37 @@ class MaterialDict(dict):
         this value is stored as list (vector) so it has to be formated separately
         '''
         
+        print new_value
+        
+        
         x_val = self[mtr_id]
         
         if x_val['type'] == '33':
-            x_val['type_spec'] = new_value
+            x_val['type_spec'] = self.__merge_new_old_conductivity(3, new_value, mtr_id)
         elif x_val['type'] == '22':
-            x_val['type_spec'] = new_value[:2]    
+            x_val['type_spec'] = self.__merge_new_old_conductivity(2, new_value[:2], mtr_id)   
         else:
-            x_val['type_spec'] = new_value[:1]
+            x_val['type_spec'] = self.__merge_new_old_conductivity(1, new_value[:1], mtr_id) 
             
-        return x_val['type_spec']             
+        return x_val['type_spec']     
+    
+    def __merge_new_old_conductivity(self, lenght, new_values, mtr_id):
+        '''
+        if the new value list did not contain all required values we
+        will use the old ones to preserve data integrity 
+        '''
+        result = []
+        for idx in range(lenght):
+            try:
+                if new_values[idx]:
+                    result.append(new_values[idx])
+                else:
+                    result.append(self[mtr_id]['type_spec'][idx])    
+            except IndexError:
+                result.append(self[mtr_id]['type_spec'][idx])    
+        
+        return result
+                
             
     def set_property_value(self, property_name, id_list, new_value):
         '''
@@ -375,11 +396,17 @@ if __name__ == '__main__':
     TEST_MAT2 = MaterialDict(inpt2)
     output2 = '/home/albert/riskflow_test_data/rf2_test/material/mm-output-direct.mtr'
     TEST_MAT2.save_changes(output2)  
-    '''
+    
     
     inpt3 = '/home/albert/riskflow_test_data/rf2_test/material/dual_porosity/krychle.mtr'
     TEST_MAT3 = MaterialDict(inpt3)
     output3 = '/home/albert/riskflow_test_data/rf2_test/material/dual_porosity/krychle-output-direct.mtr'
     print TEST_MAT3['62']['dualporosity']
-    TEST_MAT3.save_changes(output3)   
+    TEST_MAT3.save_changes(output3)
+    '''
+    
+    inpt2 = '/home/albert/riskflow_test_data/rf2_test/material/krychle.mtr'
+    TEST_MAT2 = MaterialDict(inpt2)
+    TEST_MAT2.set_hydraulic_conductivity('64', ['20','']) 
+    print TEST_MAT2['64']['type_spec']   
     

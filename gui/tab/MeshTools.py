@@ -138,11 +138,8 @@ class MeshToolsTab(QWidget, Ui_MeshTools):
     def set_hydraulic_conductivity(self):
         '''
         sets the new value of hydraulic conductivity for selected elements
-        @TODO - tady se musi zacit. Je potreba nastavit novou hodnotu do vsech smeru, pokud je to material 33
-        otazka - mame tu k dispozici objekt materialu
-        otazka - type_spec sem patrne zmenil opet na pole / vyzkouset
-        
         '''
+        
         new_value_x = str(self.edit_nvalue_conduct.text())
         new_value_y = str(self.edit_nvalue_conduct_y.text())
         new_value_z = str(self.edit_nvalue_conduct_z.text())
