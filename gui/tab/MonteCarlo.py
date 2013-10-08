@@ -227,12 +227,12 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             
             if storat:
                 storativity = self.material[mat]['storativity']
-                val = monte_carlo.compute_storativity_porosity(storativity, storat, pocet)
+                val = monte_carlo.compute_storativity_porosity('storativity', storativity, storat, pocet)
                 self.computed_storativity_values[mat] = val
                 
             if poros:
                 porosity = float(self.material[mat]['dualporosity'])
-                val = monte_carlo.compute_storativity_porosity(porosity, poros, pocet)
+                val = monte_carlo.compute_storativity_porosity('porosity', porosity, poros, pocet)
                 self.computed_porosity_values[mat] = val 
                 
             if self.sorption_values:

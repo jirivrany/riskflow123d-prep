@@ -271,7 +271,11 @@ class MaterialDict(dict):
         '''
         x_val = self[mtr_id]
         temp = float(x_val[property_name]) * float(multiplicator)
-        x_val[property_name] = solver_utils.normalize_result_stora_poro(temp)
+        if property_name == 'porosity':
+            x_val[property_name] = solver_utils.round_porosity(temp)
+        else:
+            x_val[property_name] = solver_utils.round_storativity(temp)
+        
         return x_val[property_name]
     
     def multiply_hydraulic_conductivity(self, mtr_id, multiplicator): 
@@ -317,7 +321,11 @@ class MaterialDict(dict):
         method is used by mesh tools
         common method for storativity and dual porosity
         '''
-        new_value = solver_utils.normalize_result_stora_poro(new_value)
+        if property_name == 'porosity':
+            new_value = solver_utils.round_porosity(new_value)
+        else:
+            new_value = solver_utils.round_storativity(new_value)
+
         self[mtr_id][property_name] = str(new_value)
         return str(new_value)    
     

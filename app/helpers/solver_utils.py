@@ -14,20 +14,15 @@ PROBLEMS = {
             }
 
 
-def normalize_result_stora_poro(value):
+def __normalize_result_stora_poro(value):
     '''
+    this function should not be called from outside
     the new value for storativity or porosity has to be in <0.00001, 0.99999>
     '''
-    try:
-        value = float(value)
-    except ValueError:
-        value = 0.00001
-
-    result = round_to_positive_zero(value)
-    if result > 1:
+    if value > 1:
         return 0.99999
     else:
-        return result
+        return value
 
 
 def round_porosity(value):
@@ -40,7 +35,8 @@ def round_porosity(value):
     except ValueError:
         value = 0.00001
 
-    value = normalize_result_stora_poro(value)    
+    value = round_to_positive_zero(value)
+    value = __normalize_result_stora_poro(value)    
     return str(value)
 
 def round_storativity(value):
@@ -53,6 +49,7 @@ def round_storativity(value):
     except ValueError:
         value = 0.0
     
+    value = __normalize_result_stora_poro(value) 
     return str(value)
 
 
