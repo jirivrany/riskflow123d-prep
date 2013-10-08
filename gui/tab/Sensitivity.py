@@ -78,7 +78,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             substances = subst['Substances'].split()
             sorption_dict = {}
             for row, subst in enumerate(substances):
-                sorption_dict[str(row)] = '0.0'
+                sorption_dict[str(row)] = '1.0'
             
             
             dlg = SubstancesDialog(len(substances), sorption_dict)

@@ -150,6 +150,9 @@ class MainWindow(QMainWindow):
         self.output_dir = None
         self.mesh = None
         
+        self.toolBar.removeAction(self.action_solve)
+        self.toolBar.removeAction(self.action_solve_2)
+        
         self.centralWidget.remove_solver_tabs()
         self.centralWidget.hide()
         
