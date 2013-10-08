@@ -88,9 +88,15 @@ class Ui_Dialog(object):
 
 
 class SubstancesDialog(QtGui.QDialog, Ui_Dialog):
-    def __init__(self, lines=1, values={'1': '0.0'}, parent=None):
+    def __init__(self, lines=1, values={'1': '0.0'}, parent=None, labels=None):
+        '''
+        lines - number of lines in dialog
+        values - dict with dialog values and labels
+        labels - but labels can be set separately
+        '''
         QtGui.QDialog.__init__(self, parent)
-        labels = sorted(values.keys())
+        if not labels:
+            labels = sorted(values.keys())
         self.setupUi(self, lines, labels)
         self.lines = lines
         self.set_initial_values(values)

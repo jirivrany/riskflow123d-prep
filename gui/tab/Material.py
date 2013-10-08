@@ -54,7 +54,7 @@ class MaterialTab(QWidget, Ui_tab_material):
             sorption_dict = material[idx]['sorption']
             substances = subst['Substances'].split()
             
-            dlg = SubstancesDialog(len(substances), sorption_dict)
+            dlg = SubstancesDialog(len(substances), sorption_dict, self, substances)
             if dlg.exec_():
                 values = dlg.get_values()
                 material[idx]['sorption'] = values

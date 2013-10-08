@@ -81,7 +81,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 sorption_dict[str(row)] = '1.0'
             
             
-            dlg = SubstancesDialog(len(substances), sorption_dict)
+            dlg = SubstancesDialog(len(substances), sorption_dict, self, substances)
             if dlg.exec_():
                 pattern = 'button_sens_sorption_'
                 sender = self.sender().objectName()

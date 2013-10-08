@@ -89,7 +89,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
                 sorption_dict[str(row)] = '0.0'
             
             
-            dlg = SubstancesDialog(len(substances), sorption_dict)
+            dlg = SubstancesDialog(len(substances), sorption_dict, self, substances)
             if dlg.exec_():
                 self.sorption_values = dlg.get_values()
                 self.window().statusBar.showMessage(
