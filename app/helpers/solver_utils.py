@@ -52,8 +52,7 @@ def round_storativity(value):
         value = float(value)
     except ValueError:
         value = 0.0
-        
-    value = normalize_result_stora_poro(value)    
+    
     return str(value)
 
 
