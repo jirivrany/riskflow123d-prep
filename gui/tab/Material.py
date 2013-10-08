@@ -33,6 +33,8 @@ class MaterialTab(QWidget, Ui_tab_material):
         #do we use the sorption? If not, hide button.
         if self.window().flow_ini.substances['Sorption'] != 'Yes':
             self.button_sorption_substances.hide()
+            
+        self.edit_type.setDisabled(True)    
        
         self.__set_validators()
 
