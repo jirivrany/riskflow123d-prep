@@ -76,7 +76,6 @@ class MaterialTab(QWidget, Ui_tab_material):
         material = self.window().material_dict
 
         data = sorted(material.keys())
-        #self.displayed_mtr_list = data[:]
         self.selector_material.insertItems(0, data)
         self.get_mtr_for_current_idx()  # fill up the form for first node
 
@@ -100,11 +99,12 @@ class MaterialTab(QWidget, Ui_tab_material):
             self.fill_form_material_type_spec(material)
             #geometry
             self.edit_geometry_type.setDisabled(True)
+            self.edit_geometry_type.setText(material['geometry_type'])
+            self.edit_geometry_coeficient.setText(material['geometry_spec'])
+            
             allowed_materials = ('21','22','11')
             if material['type'] in allowed_materials:
                 self.edit_geometry_coeficient.setEnabled(True)
-                self.edit_geometry_type.setText(material['geometry_type'])
-                self.edit_geometry_coeficient.setText(material['geometry_spec'])
             else:
                 self.edit_geometry_coeficient.setDisabled(True)
             #storativity
