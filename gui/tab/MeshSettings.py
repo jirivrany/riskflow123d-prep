@@ -14,6 +14,7 @@ from gui.MyDoubleValidator import MyDoubleValidator
 from app import mesh_utils
 
 import sys
+from ctypes.test.test_array_in_pointer import Value
 
 #constants
 AXIS_TRANS = {'x':0, 'y':1, 'z':2}
@@ -283,13 +284,17 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         Remove elemet with id given in form  
         and update displayed list
         '''
-        elmid = int(self.mesh_element_id_edit.text())
         try:
-            vals = {elmid : self.msh.elements[elmid]}
-            self._mesh_import_list_deleter(vals)
-        except KeyError:
-            self.messenger('ERROR: no such element', 8000)                
-        
+            elmid = int(self.mesh_element_id_edit.text())
+        except ValueError:
+            self.messenger('ERROR: need id of element for remove', 8000)
+        else:
+            try:
+                vals = {elmid : self.msh.elements[elmid]}
+                self._mesh_import_list_deleter(vals)
+            except KeyError:
+                self.messenger('ERROR: no such element', 8000)                
+            
     def _mesh_remove_over(self):
         '''removes elements where all nodes has coordinate in axis
          over value of mesh spinbox
