@@ -8,13 +8,14 @@ Application Settings Tab
 
 
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
-from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator
+from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator, QKeySequence
+from PyQt4.QtCore import QEvent
 from gui.MyDoubleValidator import MyDoubleValidator
 
 from app import mesh_utils
 
 import sys
-from ctypes.test.test_array_in_pointer import Value
+
 
 #constants
 AXIS_TRANS = {'x':0, 'y':1, 'z':2}
@@ -36,6 +37,19 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         self.__setup_mesh_control()
         self.fill_mesh_mtr_form()
+        
+        self.mesh_list.installEventFilter(self)
+    
+    def eventFilter(self, watched, event):
+        '''
+        Event filter for the mesh list - if user press delete then delete the item
+        '''
+        if event.type() == QEvent.KeyPress and event.matches(QKeySequence.Delete):
+            elmid = self.mesh_list.currentRow() + 1 #delete item selected in list if not given id
+            self._delete_item_from_list(elmid)
+            return True
+        else:
+            return False
         
         
     def __setup_mesh_control(self):
@@ -284,16 +298,28 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         Remove elemet with id given in form  
         and update displayed list
         '''
+        
+        
         try:
             elmid = int(self.mesh_element_id_edit.text())
         except ValueError:
-            self.messenger('ERROR: need id of element for remove', 8000)
+            if self.mesh_list.currentRow() > -1:
+                elmid = self.mesh_list.currentRow() + 1 #delete item selected in list if not given id
+            else:    
+                self.messenger('ERROR: need id of element for remove', 8000)
         else:
-            try:
-                vals = {elmid : self.msh.elements[elmid]}
-                self._mesh_import_list_deleter(vals)
-            except KeyError:
-                self.messenger('ERROR: no such element', 8000)                
+            self._delete_item_from_list(elmid)
+    
+    def _delete_item_from_list(self, elmid):
+        '''
+        deletes item from displayed list 
+        '''
+        try:
+            vals = {elmid : self.msh.elements[elmid]}
+            self._mesh_import_list_deleter(vals)
+        except KeyError:
+            self.messenger('ERROR: no such element', 8000)
+                                    
             
     def _mesh_remove_over(self):
         '''removes elements where all nodes has coordinate in axis
