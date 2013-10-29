@@ -56,10 +56,6 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         setup for mesh control block
         '''
-        #mesh control
-        #self.button_mesh_imp_surface.clicked.connect(self._mesh_import_surface)
-        #self.button_mesh_imp_nonzero.clicked.connect(self._mesh_import_nonzero)
-        #self.button_mesh_remove_zero.clicked.connect(self._mesh_remove_zero)
         self.button_mesh_import_all.clicked.connect(self._mesh_import_all)
         self.button_mesh_remove_all.clicked.connect(self._mesh_remove_all)
         self.button_mesh_import_mtr.clicked.connect(self._mesh_import_mtr)
@@ -97,7 +93,7 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         @PARAM vals {mesh elements}
         @PARAM todisp number of elements for message
         '''
-        if vals is not None and len(vals) > 0 : 
+        if vals and len(vals) > 0 : 
             self.displayed_mesh_list.update(vals)
             todisp = len(vals)
             msg = 'Loading %s elements to the list. It may take a while...' % str(todisp)
@@ -217,39 +213,6 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         else:
             self.messenger('Choose axis first!', 8000)
             return False             
-        
-        
-    def _mesh_remove_zero(self):
-        '''
-        removes elemtns with no (zero values) concentration in time from mesh list
-        '''
-        if not self.result_elements:
-            self.read_concentrations()
-        
-        for key in self.displayed_mesh_list.keys():
-            if str(key) not in self.result_elements:
-                del(self.displayed_mesh_list[key])
-        
-        msg = 'Refreshing the list'
-        self.messenger(msg)
-        self.mesh_list_refresh()
-        self.messenger('Refreshing finished', 8000)                     
-    
-    def _mesh_import_nonzero(self):
-        '''
-        imports elements with nonzero concentration in time to mesh list
-        '''
-        if not self.result_elements:
-            self.read_concentrations()
-            
-        vals = {}
-        for elid in self.result_elements:
-            elid = int(elid)
-            if self.msh.elements.has_key(elid):
-                vals[elid] = self.msh.elements[elid]
-            
-        self._mesh_import_list_updater(vals)       
-        
     
     def _mesh_import_through(self):
         '''import elements where one node has Z over value of mesh spinbox
