@@ -220,27 +220,42 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = float(self.edit_mesh_crd.text())
-            vals = mesh_utils.find_through(val, self.msh, axis)
-            self._mesh_import_list_updater(vals)
+            val = self.__get_mesh_crd_val()
+            if val:      
+                vals = mesh_utils.find_through(val, self.msh, axis)
+                self._mesh_import_list_updater(vals)
         
     def _mesh_import_over(self):
         '''import elements where all nodes has Z over value of mesh spinbox
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = float(self.edit_mesh_crd.text())
-            vals = mesh_utils.import_axis(val, self.msh, -1, axis)
-            self._mesh_import_list_updater(vals)
+            val = self.__get_mesh_crd_val()
+            if val:
+                vals = mesh_utils.import_axis(val, self.msh, -1, axis)
+                self._mesh_import_list_updater(vals)
         
     def _mesh_import_bellow(self):
         '''import elements where all nodes has Z bellow value of mesh spinbox
         '''
         axis = self._get_mesh_axis()
         if axis:
+            val = self.__get_mesh_crd_val()
+            if val:
+                vals = mesh_utils.import_axis(val, self.msh, 1, axis)
+                self._mesh_import_list_updater(vals)
+   
+    def __get_mesh_crd_val(self):
+        '''
+        get value from form or return False
+        '''
+        try:
             val = float(self.edit_mesh_crd.text())
-            vals = mesh_utils.import_axis(val, self.msh, 1, axis)
-            self._mesh_import_list_updater(vals)
+        except ValueError:
+            self.messenger('Choose some value first!', 8000)
+            return False
+        else:
+            return val   
             
     def _mesh_import_id(self):
         '''
@@ -290,9 +305,10 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = float(self.edit_mesh_crd.text())
-            vals = mesh_utils.import_axis(val, self.msh, -1, axis)
-            self._mesh_import_list_deleter(vals)               
+            val = self.__get_mesh_crd_val()
+            if val:
+                vals = mesh_utils.import_axis(val, self.msh, -1, axis)
+                self._mesh_import_list_deleter(vals)               
         
     def _mesh_remove_bellow(self):
         '''
@@ -301,9 +317,10 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         '''
         axis = self._get_mesh_axis()
         if axis:
-            val = float(self.edit_mesh_crd.text())
-            vals = mesh_utils.import_axis(val, self.msh, 1, axis)
-            self._mesh_import_list_deleter(vals)
+            val = self.__get_mesh_crd_val()
+            if val:
+                vals = mesh_utils.import_axis(val, self.msh, 1, axis)
+                self._mesh_import_list_deleter(vals)
         
     def _mesh_remove_through(self):
         '''
@@ -312,9 +329,10 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         
         axis = self._get_mesh_axis()
         if axis:
-            val = float(self.edit_mesh_crd.text()) 
-            vals = mesh_utils.find_through(val, self.msh, axis)
-            self._mesh_import_list_deleter(vals)
+            val = self.__get_mesh_crd_val()
+            if val:
+                vals = mesh_utils.find_through(val, self.msh, axis)
+                self._mesh_import_list_deleter(vals)
             
     def _mesh_element_explorer_control(self):
         '''
