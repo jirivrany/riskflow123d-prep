@@ -123,8 +123,9 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
                 else:
                     self.mtr_index_disp_lst[mtr] = [key]    
            
-            #update the default index
-            self.msh.mtr_index.update(self.mtr_index_disp_lst)                     
+            #update the default index why?
+            #self.msh.mtr_index.update(self.mtr_index_disp_lst)                     
+            
             self.mesh_list.repaint()
             msg = "{0} elements in the list".format(len(self.displayed_mesh_list))
             self.groupBox_2.setTitle(msg)
@@ -175,8 +176,9 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         delete all nodes with material selected in the selec_mtr_mesh
         '''
         idx = int(self.select_mesh_mtr.currentText())
-        for i in self.msh.mtr_index[idx]:
-            del self.displayed_mesh_list[i] 
+        
+        for i in self.mtr_index_disp_lst[idx]:
+            del(self.displayed_mesh_list[i]) 
         
         msg = 'Deleting %s elements from the list. It may take a while...' % str(len(self.msh.mtr_index[idx]))
         self.messenger(msg)
@@ -188,11 +190,16 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         deletes given values from displayed mesh list
         @param vals: {} of values to be deleted 
         '''
+        print vals
+        print self.displayed_mesh_list
+        
         for key in vals.keys():
             try:
                 del(self.displayed_mesh_list[key])
             except KeyError:
                 pass
+         
+        print self.displayed_mesh_list
                   
         msg = 'Refreshing the list'
         self.messenger(msg)
@@ -276,8 +283,6 @@ class MeshSettingsTab(QWidget, Ui_MeshSettings):
         Remove elemet with id given in form  
         and update displayed list
         '''
-        
-        
         try:
             elmid = int(self.mesh_element_id_edit.text())
         except ValueError:
