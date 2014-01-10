@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on 9.10.2012
 
@@ -5,7 +6,6 @@ Created on 9.10.2012
 '''
 import os
 import sys
-
 SEPARATOR = '/'
 
 SUBMIT_ALL = 'submit_all.sh'
@@ -41,13 +41,12 @@ def create_cluster_launcher(inifile, launcher = None):
     
     adr, inifname  = os.path.split(inifile)
     file_name = adr + SEPARATOR + CLUSTER
-    launcher_file = open(file_name, 'w')
-    print >> launcher_file, '#!/bin/bash'
-    print >> launcher_file, '#$ -cwd'
-    print >> launcher_file, '#$ -j y'
-    print >> launcher_file, '#$ -S /bin/bash'
-    print >> launcher_file, '{} -S {}'.format(launcher, inifname)
-    launcher_file.close()
+    with open(file_name, 'w') as oufile:
+        oufile.write('#!/bin/bash\n')
+        oufile.write('#$ -cwd\n')
+        oufile.write('#$ -j y\n')
+        oufile.write('#$ -S /bin/bash\n')
+        oufile.write('{} -S {}\n'.format(launcher, inifname))
 
 def create_local_launcher(inifile, flow_exec):
     '''creates a batch file for windows
@@ -59,68 +58,48 @@ def create_local_launcher(inifile, flow_exec):
     else:
         file_name = adr + SEPARATOR + 'run.sh' 
      
-    launcher_file = open(file_name, 'w')
-    print >> launcher_file, '{} -S {}'.format(flow_exec, inifname)
-    launcher_file.close()
+    with open(file_name, 'w') as oufile:
+        oufile.write('{} -S {}\n'.format(flow_exec, inifname))
 
 def create_cluster_submit_all(adr):
     '''creates submit all batch'''
     file_name = adr + SEPARATOR + SUBMIT_ALL
-    batch_file = open(file_name, 'w')
-    print >> batch_file, cluster_launcher_batch('cluster.sh')
-    batch_file.close()    
+    with open(file_name, 'w') as oufile:
+        oufile.write(cluster_launcher_batch('cluster.sh'))
         
 def create_cluster_compress(adr):
     '''
     creates compress shell file
     '''
     file_name = adr + SEPARATOR + COMPRESS
-    compress_file = open(file_name, 'w')
-    print >> compress_file, cluster_compress()
-    compress_file.close()
+    with open(file_name, 'w') as oufile:
+        oufile.write(cluster_compress())
     
 def create_cluster_clean(adr):
     '''
     creates cleanup shell file
     '''
     file_name = adr + SEPARATOR + CLEAN_LOGS
-    cluster_clean = open(file_name, 'w')
-    print >> cluster_clean, cluster_cleanup()
-    cluster_clean.close()     
-
+    with open(file_name, 'w') as oufile:
+        oufile.write(cluster_cleanup())
+    
 
 def cluster_launcher_batch(fname):
     '''
     creates launcher batch for Cluster
     '''
-    text = '''#!/bin/bash
-#
-# search for batchfile name
-'''
-    text += 'BF={}'.format(fname)
-    text += '''
-# QSUB
-# -j y
-# -cwd
-# -b y
-# -S /bin/bash
-
-for file in *; do
-    if [ -d "$file" ]; then
-
-        echo "Submit: $file/$BF"
-        # uloz si aktualni pracovni adresar
-        wd=`pwd`
-        
-        
-        cd $file
-        qsub -j y -cwd -S /bin/bash $BF
-        
-        #vrat se zpet
-        cd $wd
-      fi
-done
-'''
+    text = '#!/bin/bash\n#\n# search for batchfile name\n'
+    text += 'BF={}\n'.format(fname)
+    text += '# QSUB\n# -j y\n# -cwd\n# -b y\n# -S /bin/bash\n'
+    text += 'for file in *; do\n'
+    text += '   if [ -d "$file" ];\n'then\n\n'
+    text += '       echo "Submit: $file/$BF"\n'
+    text += '       wd=`pwd`\n'
+    text += '       cd $file\n'
+    text += '       qsub -j y -cwd -S /bin/bash $BF\n'
+    text += '       cd $wd\n'
+    text += '   fi\n'
+    text += 'done\n'
     return text
 
 
@@ -128,18 +107,14 @@ def cluster_cleanup():
     '''
     creates launcher for cleanup of data on Cluster
     '''
-    text = '''#!/bin/bash
-#clean flow logs
-/share/apps/tools/clean_flow_logs/clean_logs.py -d $PWD'''
+    text = '#!/bin/bash\n#clean flow logs\n/share/apps/tools/clean_flow_logs/clean_logs.py -d $PWD'
     return text
 
 def cluster_compress():
     '''
     creates launcher for compress  of data on Cluster
     '''
-    text = '''#!/bin/bash
-#submit compress script to qsub
-qsub -j y -cwd -S /bin/bash /share/apps/tools/transport/compress.qsub'''
+    text = '#!/bin/bash\n#submit compress script to qsub\nqsub -j y -cwd -S /bin/bash /share/apps/tools/transport/compress.qsub'
     return text
 
 if __name__ == '__main__':
