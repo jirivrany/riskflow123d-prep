@@ -92,7 +92,7 @@ def cluster_launcher_batch(fname):
     text += 'BF={}\n'.format(fname)
     text += '# QSUB\n# -j y\n# -cwd\n# -b y\n# -S /bin/bash\n'
     text += 'for file in *; do\n'
-    text += '   if [ -d "$file" ];\n'then\n\n'
+    text += '   if [ -d "$file" ]; then\n\n'
     text += '       echo "Submit: $file/$BF"\n'
     text += '       wd=`pwd`\n'
     text += '       cd $file\n'
