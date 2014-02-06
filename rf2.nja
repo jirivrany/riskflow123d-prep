@@ -1,0 +1,29 @@
+{
+  "mainFile": "C:/development/python/RF2/rf123d.py", 
+  "use-tabs": false, 
+  "venv": "", 
+  "relatedProjects": [], 
+  "name": "RF2", 
+  "license": "MIT License", 
+  "url": "", 
+  "pythonPath": "python", 
+  "preExecScript": "", 
+  "additional_builtins": [], 
+  "programParams": "", 
+  "indentation": 4, 
+  "PYTHONPATH": "C:/development/python/RF2/\nRF2/\n", 
+  "supported-extensions": [
+    ".py", 
+    ".html", 
+    ".jpg", 
+    ".png", 
+    ".ui", 
+    ".css", 
+    ".json", 
+    ".js", 
+    ".ini"
+  ], 
+  "project-type": "Import from sources", 
+  "postExecScript": "", 
+  "description": ""
+}
