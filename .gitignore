@@ -38,5 +38,6 @@ nosetests.xml
 .nja
 .sublime-project
 .sublime-workspace
+.settings/*
 
 
