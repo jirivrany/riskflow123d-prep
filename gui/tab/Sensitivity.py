@@ -10,8 +10,7 @@ Tab widget for Mesh Tools
 from genui.tab.ui_sensitivity import Ui_Sensitivity
 from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
-from gui.MyDoubleValidator import MyDoubleValidator
-from gui.MyZeroOneValidator import MyZeroOneValidator
+from gui.validators import MyDoubleValidator, MyZeroOneValidator
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils

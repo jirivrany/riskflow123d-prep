@@ -16,3 +16,17 @@ class MyDoubleValidator(QRegExpValidator):
             regex = QRegExp("-{0,1}\d+\.{0,1}\d{0,}")
 
         super(MyDoubleValidator, self).__init__(regex, parent)
+        
+
+class MyZeroOneValidator(QRegExpValidator):
+
+    '''
+    Fix for strange behavior of default QDoubleValidator
+    '''
+
+    def __init__(self, parent=None):
+
+        regex = QRegExp("0{0,}\.{0,1}\d+")
+
+        super(MyZeroOneValidator, self).__init__(regex, parent)
+        

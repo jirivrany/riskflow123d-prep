@@ -7,7 +7,7 @@ Dialog for Sensitivity Task values
 @author: albert
 '''
 from PyQt4 import QtCore, QtGui
-from gui.MyDoubleValidator import MyDoubleValidator
+from gui.validators import MyDoubleValidator
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8

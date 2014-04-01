@@ -10,8 +10,7 @@ Application Settings Tab
 from genui.tab.ui_material import Ui_tab_material
 from PyQt4.QtGui import QWidget, QIntValidator
 
-from gui.MyDoubleValidator import MyDoubleValidator
-from gui.MyZeroOneValidator import MyZeroOneValidator
+from gui.validators import MyDoubleValidator, MyZeroOneValidator
 from gui.dialogs.SubstancesDialog import SubstancesDialog
 
 from app.helpers import solver_utils

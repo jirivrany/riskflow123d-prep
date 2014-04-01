@@ -10,7 +10,7 @@ Application Settings Tab
 from genui.tab.ui_mesh_settings import Ui_MeshSettings
 from PyQt4.QtGui import QWidget, QListWidgetItem, QIntValidator, QKeySequence
 from PyQt4.QtCore import QEvent
-from gui.MyDoubleValidator import MyDoubleValidator
+from gui.validators import MyDoubleValidator
 
 from app import mesh_utils
 

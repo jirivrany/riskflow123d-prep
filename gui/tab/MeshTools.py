@@ -11,8 +11,7 @@ from genui.tab.ui_mesh_tools import Ui_MeshTools
 from PyQt4.QtGui import QWidget
 
 
-from gui.MyDoubleValidator import MyDoubleValidator
-from gui.MyZeroOneValidator import MyZeroOneValidator
+from gui.validators import MyDoubleValidator, MyZeroOneValidator
 
 from app.helpers import solver_utils
 
