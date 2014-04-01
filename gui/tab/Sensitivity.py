@@ -16,7 +16,7 @@ from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
 
-from gui.SubstancesDialog import SubstancesDialog
+from gui.dialogs.SubstancesDialog import SubstancesDialog
 
 import copy
 

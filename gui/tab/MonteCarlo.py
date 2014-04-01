@@ -17,7 +17,7 @@ from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import monte_carlo
 
-from gui.SubstancesDialog import SubstancesDialog
+from gui.dialogs.SubstancesDialog import SubstancesDialog
 
 import copy
 
