@@ -6,8 +6,9 @@ Created on 13. 9. 2013
 @author: albert
 '''
 from PyQt4 import QtCore, QtGui
-from gui.validators import MyDoubleValidator
+from gui.validators import MyDoubleValidator,  MyZeroOneValidator
 from gui.dialogs.SubstancesDialog import SubstancesDialog
+from app.helpers import solver_utils
 
 import sys
 
@@ -59,13 +60,17 @@ class Ui_Dialog(object):
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
 
+        #validators
+        validator_positive_double = MyDoubleValidator(parent = self)
+        validator_zero_one = MyZeroOneValidator(self)
+
         for row_nr in range(lines):
             row_index = 1 * (1+row_nr)
             #row_number
             name_row = 'label_row_{}'.format(row_nr)
             setattr(self, name_row, QtGui.QLabel(self.frame))
             label = getattr(self, name_row)
-            label.setObjectName(_fromUtf8("label_4"))
+            label.setObjectName(_fromUtf8(name_row))
             label.setText("<html><body><center>{}</center></body></html>".format(row_index)) 
             self.gridLayout.addWidget(label, row_index, 1, 1, 1)
             
@@ -74,28 +79,34 @@ class Ui_Dialog(object):
             setattr(self, name_porosity, QtGui.QLineEdit(self.frame))
             poro = getattr(self, name_porosity) 
             poro.setMaximumSize(QtCore.QSize(80, 16777215))
-            poro.setObjectName(_fromUtf8("edit_sens_porosity_1"))
+            poro.setObjectName(_fromUtf8(name_porosity))
+            poro.setValidator(validator_zero_one)
             self.gridLayout.addWidget(poro, row_index, 3, 1, 1)
+            
             #conductivity
             name_conductivity = 'edit_sens_conduct_{}'.format(row_nr)
             setattr(self, name_conductivity, QtGui.QLineEdit(self.frame))
-            sens = getattr(self, name_conductivity)
-            sens.setMaximumSize(QtCore.QSize(80, 16777215))
-            sens.setObjectName(_fromUtf8("edit_sens_conduct_1"))
-            self.gridLayout.addWidget(sens, row_index, 2, 1, 1)
+            cond = getattr(self, name_conductivity)
+            cond.setMaximumSize(QtCore.QSize(80, 16777215))
+            cond.setObjectName(_fromUtf8(name_conductivity))
+            cond.setValidator(validator_positive_double)
+            self.gridLayout.addWidget(cond, row_index, 2, 1, 1)
+            
             #storativity
             name_storativity = 'edit_sens_storativity_{}'.format(row_nr)
             setattr(self, name_storativity, QtGui.QLineEdit(self.frame))
             storativity = getattr(self, name_storativity)
             storativity.setMaximumSize(QtCore.QSize(80, 16777215))
-            storativity.setObjectName(_fromUtf8("edit_sens_storativity_1"))
+            storativity.setObjectName(_fromUtf8(name_storativity))
+            storativity.setValidator(validator_zero_one)
             self.gridLayout.addWidget(storativity, row_index, 4, 1, 1)
+            
             #sorption substances
             if substances:
                 name_sorption = 'button_sens_sorption_{}'.format(row_nr)
                 setattr(self, name_sorption, QtGui.QPushButton(self.frame))
                 sorption = getattr(self, name_sorption)
-                sorption.setObjectName(_fromUtf8("button_sens_sorption_1"))
+                sorption.setObjectName(_fromUtf8(name_sorption))
                 sorption.setText(_translate("Dialog", "sorption", None))
                 self.gridLayout.addWidget(sorption, row_index, 5, 1, 1)
                 
@@ -125,50 +136,84 @@ class SensitivityDialog(QtGui.QDialog, Ui_Dialog):
             labels = sorted(values.keys())
         self.setupUi(self, lines, labels, substances)
         self.lines = lines
-        if substances:
-            self.connect_substance_buttons(lines)
+        self.sorption_values = {}
         
+        if substances:
+            if substances['Sorption'] == 'Yes':
+                self.sorption_dict = {}
+                self.substance_names = []
+                self.connect_substance_buttons(lines)
+                self.prepare_substances_data(substances)
+                
+   
+    def prepare_substances_data(self, substances):
+        '''
+        subdialog for substances needs sorption_dict with default values and 
+        list of substance names
+        '''
+        self.substance_names = substances['Substances'].split()
+        for row in range(len(self.substance_names)):
+            self.sorption_dict[str(row)] = '1.0'
+                
         
     def connect_substance_buttons(self, lines):
+        '''
+        connect buttons signal
+        '''
         for line_nr in range(lines):
             name = 'button_sens_sorption_{}'.format(line_nr)
             getattr(self, name).clicked.connect(self.sorption_substance_subdialog)    
         
-    def set_initial_values(self, values):
-        
-        for line_nr, line_value in values.iteritems():
-            namme = 'line_edit_{}'.format(line_nr)
-            getattr(self, namme).setText(line_value)
-            
-            
     def sorption_substance_subdialog(self):
         '''
         dialog for sorption substances
         '''
             
-        dlg = SubstancesDialog(lines=2)
+        dlg = SubstancesDialog(len(self.substance_names), self.sorption_dict, self, self.substance_names)
         if dlg.exec_():
             pattern = 'button_sens_sorption_'
             sender = self.sender().objectName()
             sender = str(sender[len(pattern):])
             
-            print dlg.get_values()
+            self.sorption_values[sender] = dlg.get_values()
             
-                
         
     def get_values(self):
-        values = {}
-        for line_nr in range(self.lines):
-            namme = 'line_edit_{}'.format(line_nr)
-            value = getattr(self, namme).text()
-            if not value:
-                value = 0.0
-            values[str(line_nr)] = str(value)
+        '''
+        check all the editor and return 8 row list of tuples with editor values
+        '''
+        result = {}
         
-        return values
+        for row in range(self.lines):
+            try:
+                conductivity = float(getattr(self, "edit_sens_conduct_{}".format(row)).text())
+            except ValueError:
+                conductivity = None                
+            
+            try:
+                porosity = float(getattr(self, "edit_sens_porosity_{}".format(row)).text())
+            except ValueError:
+                porosity = None
+            else:
+                porosity = solver_utils.round_to_positive_zero(porosity)
+            
+            
+            try:            
+                storativity = float(getattr(self, "edit_sens_storativity_{}".format(row)).text())
+            except ValueError:
+                storativity = None
+            else:
+                storativity = solver_utils.round_storativity(storativity)
+            
+            if storativity or porosity or conductivity:
+                result[str(row)] = (conductivity, porosity, storativity)
+            
+        return result 
     
 if __name__ == "__main__":
+    mock_substances = {'N_substances': '2', 'Dual_porosity': 'No', 'Sorption': 'Yes', 'Substances': 'A   B'}
     app = QtGui.QApplication(sys.argv)
-    form = SensitivityDialog(lines=15, substances=True)
-    form.exec_()        
+    form = SensitivityDialog(lines=5, substances=mock_substances)
+    form.exec_()
+    print form.get_values()        
 

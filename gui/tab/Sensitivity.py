@@ -70,6 +70,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
     def sorption_substance_dialog(self):
         '''
         dialog for sorption substances
+        @deprecated: smazat po zavedeni dialogu - akorat se musej nacist spravne hodnoty sorpce
         '''
         subst = self.window().flow_ini.substances
         if subst['Sorption'] == 'Yes':
@@ -87,6 +88,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
                 sender = str(sender[len(pattern):])
                 
                 self.sorption_values[sender] = dlg.get_values()
+                
                 
                 self.window().statusBar.showMessage(
                 'Sorption coefficients for row {} are ready for computing.'.format(sender), 8000)
@@ -112,6 +114,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
     def __set_validators(self):
         '''
         set validators for edit fields
+        @deprecated: smazat po zavedeni dialogu
         '''    
         
         validator_positive_double = MyDoubleValidator(parent = self)
