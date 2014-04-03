@@ -117,7 +117,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Multipliers for Sensitivty task", None))
         self.label.setText(_translate("Dialog", "Conductivity", None))
         self.label_2.setText(_translate("Dialog", "Storativity", None))
         self.label_3.setText(_translate("Dialog", "Porosity", None))
@@ -181,6 +181,7 @@ class SensitivityDialog(QtGui.QDialog, Ui_Dialog):
         check all the editor and return 8 row list of tuples with editor values
         '''
         result = {}
+        
         
         for row in range(self.lines):
             try:

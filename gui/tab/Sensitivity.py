@@ -55,13 +55,25 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         '''
         dialog for multipliers
         '''
-        lines = int(self.edit_sens_num_lines.text())
-        if lines > 1:
-            self.number_of_multipliers = lines
+        self.check_number_of_multipliers()
             
         dlg = SensitivityDialog(self.number_of_multipliers, self, self.substances)
         if dlg.exec_():
             self.editor_values = dlg.get_values()
+            if self.substances:
+                self.sorption_values = dlg.sorption_values
+                
+    def check_number_of_multipliers(self):
+        '''
+        check how many multipliers we will be using
+        '''
+        try:
+            lines = int(self.edit_sens_num_lines.text())
+        except ValueError:
+            lines = 1
+                
+        if lines > 1:
+            self.number_of_multipliers = lines            
             
     def check_substances(self):
         '''
@@ -119,13 +131,11 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         
         count = self.initial_count
         
-        field_values = self.get_editor_values()
-        
         for material_id in selection:
-            for row_nr in xrange(1, 9): 
+            for row_nr in range(self.number_of_multipliers): 
                 key = str(row_nr)
                 
-                values_row, sorption_values = self.__get_values_for_current_material(key, field_values)
+                values_row, sorption_values = self.__get_values_for_current_material(key, self.editor_values)
                 
                 if values_row or sorption_values:
                     workcopy = copy.deepcopy(self.material)
@@ -186,12 +196,12 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             self.messenger(msg)
             return
         
-        field_values = self.get_editor_values()
+        #field_values = self.get_editor_values()
         count = self.initial_count
         
-        for row_nr in xrange(1, 9): 
+        for row_nr in range(self.number_of_multipliers): 
             key = str(row_nr)
-            values_row, sorption_values = self.__get_values_for_current_material(key, field_values)
+            values_row, sorption_values = self.__get_values_for_current_material(key, self.editor_values)
             if values_row or sorption_values:
                 workcopy = copy.deepcopy(self.material)
                 count += 1
