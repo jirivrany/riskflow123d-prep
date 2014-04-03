@@ -15,28 +15,26 @@ from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
 
-from gui.dialogs.SubstancesDialog import SubstancesDialog
-
+from gui.dialogs.SensitivityDialog import SensitivityDialog
 import copy
 
 class SensitivityTab(QWidget, Ui_Sensitivity):
     '''
     Tab widget for Mesh Tools
+    @todo validatr for number of lines
     '''
     def __init__(self, parent = None):
         super(SensitivityTab, self).__init__(parent)
         self.setupUi(self)
         self.button_sens_cross.clicked.connect(self.make_sens_multiplication)
         self.button_sens_group.clicked.connect(self.make_sens_multiplication_group)
-        #buttons for dialog
-        if self.window().flow_ini.substances['Sorption'] != 'Yes':
-            self.__hide_button_sorption_substances()
-        else:
-            self.__set_action_buttons_sorption()
+        self.button_sens_lines_dialog.clicked.connect(self.sensitivity_dialog)
+        #substances
+        self.substances = False
+        self.check_substances()
+        
         #multipleseclect
         self.list_sens_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
-        #validator
-        self.__set_validators()        
         #alias
         self.messenger = self.window().statusBar.showMessage
         self.material = self.window().material_dict
@@ -50,53 +48,29 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.fill_solver_mtr_list(data)
         #dict for sorption
         self.sorption_values = {}
+        self.editor_values = {}
+        self.number_of_multipliers = 1
         
-    def __hide_button_sorption_substances(self):
+    def sensitivity_dialog(self):
         '''
-        UI helper - hides buttons for sorption if dialog is not used
-        '''  
-        for row_number in xrange(1, 9):
-            tmp_name = 'button_sens_sorption_{}'.format(row_number)
-            getattr(self, tmp_name).hide()
-            
-    def __set_action_buttons_sorption(self):        
+        dialog for multipliers
         '''
-        UI helper - set clicked for 9 sorption buttons
+        lines = int(self.edit_sens_num_lines.text())
+        if lines > 1:
+            self.number_of_multipliers = lines
+            
+        dlg = SensitivityDialog(self.number_of_multipliers, self, self.substances)
+        if dlg.exec_():
+            self.editor_values = dlg.get_values()
+            
+    def check_substances(self):
         '''
-        for row_number in xrange(1, 9):
-            tmp_name = 'button_sens_sorption_{}'.format(row_number)
-            getattr(self, tmp_name).clicked.connect(self.sorption_substance_dialog)
-            
-    def sorption_substance_dialog(self):
+        check if substances are present 
         '''
-        dialog for sorption substances
-        @deprecated: smazat po zavedeni dialogu - akorat se musej nacist spravne hodnoty sorpce
-        '''
-        subst = self.window().flow_ini.substances
-        if subst['Sorption'] == 'Yes':
-            
-            substances = subst['Substances'].split()
-            sorption_dict = {}
-            for row, subst in enumerate(substances):
-                sorption_dict[str(row)] = '1.0'
-            
-            
-            dlg = SubstancesDialog(len(substances), sorption_dict, self, substances)
-            if dlg.exec_():
-                pattern = 'button_sens_sorption_'
-                sender = self.sender().objectName()
-                sender = str(sender[len(pattern):])
-                
-                self.sorption_values[sender] = dlg.get_values()
-                
-                
-                self.window().statusBar.showMessage(
-                'Sorption coefficients for row {} are ready for computing.'.format(sender), 8000)
-                
-        else:
-            self.window().statusBar.showMessage(
-                'No sorption substances', 8000)    
-            
+        #buttons for dialog
+        if self.window().flow_ini.substances['Sorption'] == 'Yes':
+            self.substances = self.window().flow_ini.substances 
+                    
         
     def set_initial_count(self, value):
         '''
@@ -111,22 +85,6 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             self.initial_count = 0
         
         
-    def __set_validators(self):
-        '''
-        set validators for edit fields
-        @deprecated: smazat po zavedeni dialogu
-        '''    
-        
-        validator_positive_double = MyDoubleValidator(parent = self)
-        validator_zero_one = MyZeroOneValidator(self)
-        
-        for row_number in xrange(1, 9):
-            tmp_name = 'edit_sens_conduct_{}'.format(row_number)
-            getattr(self, tmp_name).setValidator(validator_positive_double)
-            tmp_name = 'edit_sens_storativity_{}'.format(row_number)
-            getattr(self, tmp_name).setValidator(validator_zero_one)
-            tmp_name = 'edit_sens_porosity_{}'.format(row_number)
-            getattr(self, tmp_name).setValidator(validator_zero_one)
         
     def fill_solver_mtr_list(self, data):
         '''
@@ -273,37 +231,6 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         self.messenger(msg)   
             
         
-    def get_editor_values(self):
-        '''
-        check all the editor and return 8 row list of tuples with editor values
-        '''
-        result = {}
-        
-        for row in xrange(1, 9):
-            try:
-                conductivity = float(getattr(self, "edit_sens_conduct_{}".format(row)).text())
-            except ValueError:
-                conductivity = None                
-            
-            try:
-                porosity = float(getattr(self, "edit_sens_porosity_{}".format(row)).text())
-            except ValueError:
-                porosity = None
-            else:
-                porosity = solver_utils.round_to_positive_zero(porosity)
-            
-            
-            try:            
-                storativity = float(getattr(self, "edit_sens_storativity_{}".format(row)).text())
-            except ValueError:
-                storativity = None
-            else:
-                storativity = solver_utils.round_storativity(storativity)
-            
-            if storativity or porosity or conductivity:
-                result[str(row)] = (conductivity, porosity, storativity)
-            
-        return result 
     
     def get_selected_items(self):
         '''

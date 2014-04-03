@@ -28,7 +28,7 @@ except AttributeError:
     
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog, lines=1, labels=["TextLabel"], substances=False):
+    def setupUi(self, Dialog, lines=1, substances=False):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(537, 150)
         self.verticalLayout = QtGui.QVBoxLayout(Dialog)
@@ -125,16 +125,14 @@ class Ui_Dialog(object):
            
 
 class SensitivityDialog(QtGui.QDialog, Ui_Dialog):
-    def __init__(self, lines=1, values={'1': '0.0'}, parent=None, labels=None, substances=False):
+    def __init__(self, lines=1, parent=None, substances=False):
         '''
         lines - number of lines in dialog
         values - dict with dialog values and labels
         labels - but labels can be set separately
         '''
         QtGui.QDialog.__init__(self, parent)
-        if not labels:
-            labels = sorted(values.keys())
-        self.setupUi(self, lines, labels, substances)
+        self.setupUi(self, lines, substances)
         self.lines = lines
         self.sorption_values = {}
         
