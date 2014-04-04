@@ -355,9 +355,11 @@ class MaterialDict(dict):
         values row is tuple created in sensitivity task or monte carlo
         (conductivity, porosity, storativity)
         '''
+        
         new_cond = None
         new_poro = None
         new_stora = None
+        new_geom = None
         
         
         #conductivity
@@ -369,8 +371,15 @@ class MaterialDict(dict):
         #storativity
         if values_row[2]:
             new_stora = self.multiply_single_property(mtr_id, 'storativity', values_row[2])
+        
+        #geometry type - only for 2D elements
+        x_val = self[mtr_id]
+        if values_row[3]:
+            if x_val['type'] in ('11', '21', '22'):
+                new_geom = self.multiply_single_property(mtr_id, 'geometry_spec', values_row[3])
+                    
             
-        return (new_cond, new_poro, new_stora)
+        return (new_cond, new_poro, new_stora, new_geom)
     
     def compute_new_sorption_val(self, mtr_id, sorption_values):
         '''

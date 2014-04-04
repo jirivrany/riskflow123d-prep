@@ -10,7 +10,7 @@ Tab widget for Mesh Tools
 from genui.tab.ui_sensitivity import Ui_Sensitivity
 from PyQt4.QtGui import QWidget, QListWidgetItem, QAbstractItemView
 
-from gui.validators import MyDoubleValidator, MyZeroOneValidator
+from gui.validators import MyDoubleValidator
 from app.helpers.constants import SEPARATOR
 from app.helpers import batch
 from app.helpers import solver_utils
@@ -32,6 +32,9 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
         #substances
         self.substances = False
         self.check_substances()
+        #lines editor
+        self.edit_sens_num_lines.setValidator(MyDoubleValidator())
+        
         
         #multipleseclect
         self.list_sens_mtr.setSelectionMode(QAbstractItemView.MultiSelection)
@@ -205,7 +208,7 @@ class SensitivityTab(QWidget, Ui_Sensitivity):
             if values_row or sorption_values:
                 workcopy = copy.deepcopy(self.material)
                 count += 1
-                message = 'Log for sensitivity changes (conductvity, prorosity, storativity). (None = no change)\n'
+                message = 'Log for sensitivity changes (conductvity, prorosity, storativity, geometry). (None = no change)\n'
                 for material_id in selection:
                     if values_row:
                         changed_values = workcopy.compute_new_material_values(material_id, values_row)

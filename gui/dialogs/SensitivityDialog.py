@@ -48,6 +48,9 @@ class Ui_Dialog(object):
         self.label_3 = QtGui.QLabel(self.frame)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.gridLayout.addWidget(self.label_3, 0, 3, 1, 1)
+        self.label_5 = QtGui.QLabel(self.frame)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.gridLayout.addWidget(self.label_5, 0, 5, 1, 1)
         self.label_sens_mult_1 = QtGui.QLabel(self.frame)
         self.label_sens_mult_1.setObjectName(_fromUtf8("label_sens_mult_1"))
         self.gridLayout.addWidget(self.label_sens_mult_1, 0, 1, 1, 1)
@@ -101,6 +104,15 @@ class Ui_Dialog(object):
             storativity.setValidator(validator_zero_one)
             self.gridLayout.addWidget(storativity, row_index, 4, 1, 1)
             
+            #geometry coeficent
+            name_geometry = 'edit_sens_geometry_{}'.format(row_nr)
+            setattr(self, name_geometry, QtGui.QLineEdit(self.frame))
+            geometry = getattr(self, name_geometry)
+            geometry.setMaximumSize(QtCore.QSize(80, 16777215))
+            geometry.setObjectName(_fromUtf8(name_geometry))
+            geometry.setValidator(validator_zero_one)
+            self.gridLayout.addWidget(geometry, row_index, 5, 1, 1)
+            
             #sorption substances
             if substances:
                 name_sorption = 'button_sens_sorption_{}'.format(row_nr)
@@ -108,7 +120,7 @@ class Ui_Dialog(object):
                 sorption = getattr(self, name_sorption)
                 sorption.setObjectName(_fromUtf8(name_sorption))
                 sorption.setText(_translate("Dialog", "sorption", None))
-                self.gridLayout.addWidget(sorption, row_index, 5, 1, 1)
+                self.gridLayout.addWidget(sorption, row_index, 6, 1, 1)
                 
         
         self.retranslateUi(Dialog)
@@ -121,6 +133,7 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Conductivity", None))
         self.label_2.setText(_translate("Dialog", "Storativity", None))
         self.label_3.setText(_translate("Dialog", "Porosity", None))
+        self.label_5.setText(_translate("Dialog", "Geometry c.", None))
         self.label_sens_mult_1.setText(_translate("Dialog", "Multiplier for", None))
            
 
@@ -203,9 +216,16 @@ class SensitivityDialog(QtGui.QDialog, Ui_Dialog):
                 storativity = None
             else:
                 storativity = solver_utils.round_storativity(storativity)
+                
+            try:            
+                geometry = float(getattr(self, "edit_sens_geometry_{}".format(row)).text())
+            except ValueError:
+                geometry = None
+            else:
+                geometry = solver_utils.round_to_positive_zero(geometry)    
             
-            if storativity or porosity or conductivity:
-                result[str(row)] = (conductivity, porosity, storativity)
+            if storativity or porosity or conductivity or geometry:
+                result[str(row)] = (conductivity, porosity, storativity, geometry)
             
         return result 
     
