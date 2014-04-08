@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'montecarlo.ui'
 #
-# Created: Tue Sep 24 12:35:14 2013
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Fri Apr  4 13:30:04 2014
+#      by: PyQt4 UI code generator 4.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -67,7 +67,7 @@ class Ui_MonteCarlo(object):
         self.horizontalLayout_18.addWidget(self.button_monte_save)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_18.addItem(spacerItem)
-        self.formLayout_4.setWidget(5, QtGui.QFormLayout.SpanningRole, self.groupBox_monte_buttons)
+        self.formLayout_4.setWidget(6, QtGui.QFormLayout.SpanningRole, self.groupBox_monte_buttons)
         self.edit_monte_storativity = QtGui.QLineEdit(self.groupBox_monte_1)
         self.edit_monte_storativity.setObjectName(_fromUtf8("edit_monte_storativity"))
         self.formLayout_4.setWidget(2, QtGui.QFormLayout.FieldRole, self.edit_monte_storativity)
@@ -76,7 +76,13 @@ class Ui_MonteCarlo(object):
         self.formLayout_4.setWidget(3, QtGui.QFormLayout.FieldRole, self.edit_monte_porosity)
         self.button_sorption_substances = QtGui.QPushButton(self.groupBox_monte_1)
         self.button_sorption_substances.setObjectName(_fromUtf8("button_sorption_substances"))
-        self.formLayout_4.setWidget(4, QtGui.QFormLayout.FieldRole, self.button_sorption_substances)
+        self.formLayout_4.setWidget(5, QtGui.QFormLayout.FieldRole, self.button_sorption_substances)
+        self.edit_monte_geomcoef = QtGui.QLineEdit(self.groupBox_monte_1)
+        self.edit_monte_geomcoef.setObjectName(_fromUtf8("edit_monte_geomcoef"))
+        self.formLayout_4.setWidget(4, QtGui.QFormLayout.FieldRole, self.edit_monte_geomcoef)
+        self.label_3 = QtGui.QLabel(self.groupBox_monte_1)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.formLayout_4.setWidget(4, QtGui.QFormLayout.LabelRole, self.label_3)
         self.horizontalLayout.addWidget(self.groupBox_monte_1)
         self.groupBox_monte_2 = QtGui.QGroupBox(MonteCarlo)
         self.groupBox_monte_2.setObjectName(_fromUtf8("groupBox_monte_2"))
@@ -100,5 +106,7 @@ class Ui_MonteCarlo(object):
         self.button_monte_compute.setText(_translate("MonteCarlo", "Compute", None))
         self.button_monte_save.setText(_translate("MonteCarlo", "Generate tasks", None))
         self.button_sorption_substances.setText(_translate("MonteCarlo", "Sorption for substances", None))
+        self.edit_monte_geomcoef.setToolTip(_translate("MonteCarlo", "<html><head/><body><p>Sigma for geometry coeficient. Applicable only for 2D elements (type 11, 21, 22).</p></body></html>", None))
+        self.label_3.setText(_translate("MonteCarlo", "Geometry coeficient", None))
         self.groupBox_monte_2.setTitle(_translate("MonteCarlo", "List of materials", None))
 

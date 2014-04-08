@@ -273,6 +273,8 @@ class MaterialDict(dict):
         temp = float(x_val[property_name]) * float(multiplicator)
         if property_name == 'porosity':
             x_val[property_name] = solver_utils.round_porosity(temp)
+        elif property_name == 'geometry_spec':
+            x_val[property_name] = solver_utils.round_to_positive_zero(temp) 
         else:
             x_val[property_name] = solver_utils.round_storativity(temp)
         
