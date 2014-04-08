@@ -24,14 +24,15 @@ def compute_conductivity(material_type_spec, sigma, pocet):
         
     return result
     
-def compute_storativity_porosity(method, coeficient, sigma, pocet):
+def compute_single_property(method, coeficient, sigma, pocet):
     '''
-    computes new storativity or porosity value
+    computes new property value - for storativty, porosity or geometry_spec
     using log normal distribution
     '''
     met_dic = {
                'storativity': solver_utils.round_storativity,
                'porosity': solver_utils.round_porosity,
+               'geometry_spec' : solver_utils.round_to_positive_zero,
                }
     f_coeficient = float(coeficient)
     values = lognormal(log(f_coeficient), sigma, pocet)

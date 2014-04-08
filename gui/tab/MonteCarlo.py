@@ -43,6 +43,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         self.computed_storativity_values = {}
         self.computed_porosity_values = {}
         self.computed_sorption_values = {}
+        self.computed_geometry_values = {}
         self.sorption_values = None #values from sorption dialog
         
         #do we use the sorption? If not, hide button.
@@ -158,7 +159,12 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             for mat in self.computed_storativity_values.iterkeys():
                 self.monte_logger.log_message(\
                       loop_nr, mat, workcopy[mat]['storativity'], self.computed_storativity_values[mat][loop_nr])
-                workcopy[mat]['storativity'] = self.computed_storativity_values[mat][loop_nr]   
+                workcopy[mat]['storativity'] = self.computed_storativity_values[mat][loop_nr]  
+                
+            for mat in self.computed_geometry_values.iterkeys():
+                self.monte_logger.log_message(\
+                      loop_nr, mat, workcopy[mat]['geometry_spec'], self.computed_geometry_values[mat][loop_nr])
+                workcopy[mat]['geometry_spec'] = self.computed_geometry_values[mat][loop_nr]      
             
             for mat in self.computed_porosity_values.iterkeys():
                 self.monte_logger.log_message(\
@@ -215,7 +221,7 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
         user_set = self.get_sigma_values()
         
         if user_set:
-            pocet, sigma, storat, poros = user_set
+            pocet, sigma, storat, poros, geocoef = user_set
         else:
             return    
         
@@ -226,13 +232,20 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             
             if storat:
                 storativity = self.material[mat]['storativity']
-                val = monte_carlo.compute_storativity_porosity('storativity', storativity, storat, pocet)
+                val = monte_carlo.compute_single_property('storativity', storativity, storat, pocet)
                 self.computed_storativity_values[mat] = val
                 
             if poros:
                 porosity = float(self.material[mat]['dualporosity'])
-                val = monte_carlo.compute_storativity_porosity('porosity', porosity, poros, pocet)
-                self.computed_porosity_values[mat] = val 
+                val = monte_carlo.compute_single_property('porosity', porosity, poros, pocet)
+                self.computed_porosity_values[mat] = val
+                
+            if geocoef:
+                if self.material[mat]['type'] in ('11', '21', '22'):
+                    geometry = float(self.material[mat]['geometry_spec'])
+                    val = monte_carlo.compute_single_property('geometry_spec', geometry, geocoef, pocet)
+                    self.computed_geometry_values[mat] = val
+                     
                 
             if self.sorption_values:
                 sorption_dict = self.material[mat]['sorption']
@@ -280,5 +293,12 @@ class MonteCarloTab(QWidget, Ui_MonteCarlo):
             porosity = None
         else:
             porosity = solver_utils.round_to_positive_zero(porosity)
+            
+        try:
+            geometry = float(self.edit_monte_geomcoef.text())
+        except ValueError:
+            geometry = None
+        else:
+            geometry = solver_utils.round_to_positive_zero(porosity)        
          
-        return pocet, conduct, storat, porosity
+        return pocet, conduct, storat, porosity, geometry
